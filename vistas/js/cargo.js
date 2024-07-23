@@ -1,3 +1,63 @@
+$(document).ready(function () {
+	// Configuración de Toastr
+	toastr.options = {
+		"closeButton": true,
+		"debug": false,
+		"newestOnTop": false,
+		"progressBar": true,
+		"positionClass": "toast-top-right",
+		"preventDuplicates": false,
+		"onclick": null,
+		"showDuration": "300",
+		"hideDuration": "1000",
+		"timeOut": "5000",
+		"extendedTimeOut": "1000",
+		"showEasing": "swing",
+		"hideEasing": "linear",
+		"showMethod": "fadeIn",
+		"hideMethod": "fadeOut"
+	}
+
+	// Verificar si el indicador está en sessionStorage
+	if (sessionStorage.getItem("cargoRegistrado") === "true") {
+		// Mostrar la notificación Toastr
+		toastr["success"]("Datos registrados correctamente.", "Exito!");
+
+		// Eliminar el indicador de sessionStorage
+		sessionStorage.removeItem("cargoRegistrado");
+	}
+});
+
+$(document).ready(function () {
+	// Configuración de Toastr
+	toastr.options = {
+		"closeButton": true,
+		"debug": false,
+		"newestOnTop": false,
+		"progressBar": true,
+		"positionClass": "toast-top-right",
+		"preventDuplicates": false,
+		"onclick": null,
+		"showDuration": "300",
+		"hideDuration": "1000",
+		"timeOut": "5000",
+		"extendedTimeOut": "1000",
+		"showEasing": "swing",
+		"hideEasing": "linear",
+		"showMethod": "fadeIn",
+		"hideMethod": "fadeOut"
+	}
+
+	// Verificar si el indicador está en sessionStorage
+	if (sessionStorage.getItem("cargoError") === "true") {
+		// Mostrar la notificación Toastr
+		toastr["error"]("Datos en formato incorrecto.", "Error!");
+
+		// Eliminar el indicador de sessionStorage
+		sessionStorage.removeItem("cargoError");
+	}
+});
+
 /*=============================================
 EDITAR CARGO
 =============================================*/
@@ -67,9 +127,9 @@ $(".nuevoNombre").change(function () {
 ELIMINAR CARGO	
 =============================================*/
 $(".tablaCargo").on("click", ".btnEliminarCargo", function () {
-	
+
 	var id = $(this).attr("id");
-	
+
 	Swal.fire({
 		type: 'warning',
 		title: "¿Está seguro de borrar el cargo?",
@@ -91,14 +151,14 @@ $(".tablaCargo").on("click", ".btnEliminarCargo", function () {
 CARGAR LA TABLA DINAMICA DE CARGO
 =============================================*/
 $.ajax({
-	url:"ajax/datatable-cargo.ajax.php",
-	success:function(respuesta){
+	url: "ajax/datatable-cargo.ajax.php",
+	success: function (respuesta) {
 		//console.log(respuesta);
 	}
 });
 
-$('.tablaCargo').DataTable( {
-    "ajax": "ajax/datatable-cargo.ajax.php",
+$('.tablaCargo').DataTable({
+	"ajax": "ajax/datatable-cargo.ajax.php",
 	"language": {
 
 		"sProcessing": "Procesando...",

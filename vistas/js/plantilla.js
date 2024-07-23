@@ -100,6 +100,13 @@ $(".tablaPlanilla").DataTable({
     }
 });
 
+$(document).ready(function() {
+	// Inicializar Select2
+	$('.select2-multiple').select2({
+            width: '100%'
+	});
+});
+
 
 
 

@@ -63,12 +63,12 @@
                 <div class="card">
                     <div class="card-body">
 
-                    <!-- VER REGISTROS DE EMPLEADO -->
+                        <!-- VER REGISTROS DE EMPLEADO -->
 
                         <form role="form" method="post" id="listarEmpleado">
                             <h5>Ver registros de empleado</h5>
                             <div class="row">
-                                <div class="col-xl-3 col-lg-3">
+                                <div class="col-xl-4 col-lg-4">
                                     <!-- Entrada del Fecha Inicio -->
                                     <div class="form-group">
                                         <label for="fechaInicio">Fecha Inicio</label>
@@ -76,14 +76,14 @@
                                             required>
                                     </div>
                                 </div>
-                                <div class="col-xl-3 col-lg-3">
+                                <div class="col-xl-4 col-lg-4">
                                     <!-- Entrada del Fecha Fin -->
                                     <div class="form-group">
                                         <label for="fechaFin">Fecha Fin</label>
                                         <input type="date" id="fechaFin" name="fechaFin" class="form-control" required>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-lg-3">
+                                <div class="col-xl-4 col-lg-4">
                                     <!-- Entrada del Empleado -->
                                     <div class="form-group">
                                         <label for="idEmpleado">Empleado</label>
@@ -103,22 +103,22 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-xl-1 col-lg-2 d-flex align-items-end">
-                                    <!-- Boton -->
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary waves-effect waves-light">
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-3"></div>
+                                <div class="col-xl-2 col-lg-2 col-md-3">
+                                    <!-- Boton -->                                   
+                                        <button type="submit" class="btn btn-primary btn-block waves-effect waves-light">
                                             <i class="feather-search mr-1"></i> Mostrar
-                                        </button>
-                                    </div>
+                                        </button>                                   
                                 </div>
-                                <div class="col-xl-1 col-lg-2 d-flex align-items-end">
-                                    <!-- Boton -->
-                                    <div class="form-group">
-                                        <button class="btn btn-primary waves-effect waves-light" id="exportarEmpleado">
+                                <div class="col-xl-2 col-lg-2 col-md-3">
+                                    <!-- Boton -->                                   
+                                        <button class="btn btn-primary btn-block waves-effect waves-light" id="exportarEmpleado">
                                             <i class="feather-file mr-1"></i> Exportar
-                                        </button>
-                                    </div>
+                                        </button>                                  
                                 </div>
+                                <div class="col-xl-4 col-lg-4 col-md-3"></div>
                             </div>
                         </form>
 

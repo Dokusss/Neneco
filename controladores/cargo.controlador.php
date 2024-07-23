@@ -5,8 +5,8 @@ class ControladorCargo
 
 
 	/*=============================================
-	MOSTRAR CARGO
-	=============================================*/
+	   MOSTRAR CARGO
+	   =============================================*/
 
 	static public function ctrMostrarCargo($item, $valor)
 	{
@@ -19,15 +19,15 @@ class ControladorCargo
 	}
 
 	/*=============================================
-	CREAR CARGO     
-	=============================================*/
+	   CREAR CARGO     
+	   =============================================*/
 
 	static public function ctrCrearCargo()
 	{
 
 		if (isset($_POST["nuevoCargo"])) {
 
-			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoCargo"])) {
+			if (preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoCargo"])) {
 
 				$tabla = "cargo";
 
@@ -39,47 +39,30 @@ class ControladorCargo
 				$respuesta = ModeloCargo::mdlIngresarCargo($tabla, $datos);
 
 				if ($respuesta == "ok") {
-
 					echo '<script>
-
-					Swal.fire({
-						type: "success",
-						title: "El cargo ha sido registrado correctamente",
-						showConfirmButton: true,
-						confirmButtonColor: "#627d72",
-						confirmButtonText: "Cerrar"
-					}).then(function(result) {
-						if (result.value) {
-							window.location = "cargo";
-						}
-					});
-					  
-						</script>';
+						// Guardar un indicador en sessionStorage
+						sessionStorage.setItem("cargoRegistrado", "true");
+				
+						// Redirigir a la página "cargo"
+						window.location = "cargo";
+					</script>';
 				}
 			} else {
 
 				echo '<script>
-
-				Swal.fire({
-					type: "error",
-					title: "¡El cargo no puede ir vacío o llevar caracteres especiales!",
-					showConfirmButton: true,
-					confirmButtonColor: "#627d72",
-					confirmButtonText: "Cerrar"
-				}).then(function(result) {
-					if (result.value) {
+						// Guardar un indicador en sessionStorage
+						sessionStorage.setItem("cargoError", "true");
+				
+						// Redirigir a la página "cargo"
 						window.location = "cargo";
-					}
-				});
-				  
-					  </script>';
+					</script>';
 			}
 		}
 	}
 
 	/*=============================================
-	EDITAR CARGO
-	=============================================*/
+	   EDITAR CARGO
+	   =============================================*/
 
 	static public function ctrEditarCargo()
 	{
@@ -138,8 +121,8 @@ class ControladorCargo
 	}
 
 	/*=============================================
-	BORRAR CARGO
-	=============================================*/
+	   BORRAR CARGO
+	   =============================================*/
 
 	static public function ctrBorrarCargo()
 	{

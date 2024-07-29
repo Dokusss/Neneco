@@ -67,11 +67,11 @@ $(".tablas").on("click", ".btnEditarEmpleado", function () {
 
 			$("#editarCi").val(respuesta["ci"]);
 			$("#editarNombre").val(respuesta["nombre"]);
-			$("#editarAp1").val(respuesta["apellido1"]);
-			$("#editarAp2").val(respuesta["apellido2"]);
+			$("#editarAp1").val(respuesta["apellidop"]);
+			$("#editarAp2").val(respuesta["apellidom"]);
 			$("#editarDir").val(respuesta["direccion"]);
-			$("#editarSex").val(respuesta["sexo"]);
-			$("#editarSex").html(respuesta["sexo"]);
+			$("#editarGenero").val(respuesta["genero"]);
+			$("#editarGenero").html(respuesta["genero"]);
 			$("#editarTelefono").val(respuesta["telefono"]);
 			$("#editarFechaNac").val(respuesta["fechanac"]);
 			$("#id").val(respuesta["id"]);

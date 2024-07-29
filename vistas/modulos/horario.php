@@ -105,32 +105,39 @@
                 </div>
                 <div class="modal-body">
 
-                    <h5>Mañana</h5>
+                    <!-- Entrada del Nombre -->
+                    <div class="form-group">
+                        <label for="nuevoNombre">Nombre del Horario</label>
+                        <input type="text" name="nuevoNombre" id="nuevoNombre" class="form-control"
+                            placeholder="Ingrese el nuevo nombre" required>
+                    </div>
+
+                    <h6>Primer turno</h6>
                     <!-- Entrada Mañana -->
                     <div class="form-group">
                         <label for="simpleinput">Entrada</label>
-                        <input type="text" name="nuevoEntradaM" class="form-control" data-toggle="input-mask"
+                        <input type="text" name="nuevoEntrada1" class="form-control" data-toggle="input-mask"
                             data-mask-format="00:00:00" maxlength="8" placeholder="HH:MM:SS" required>
                     </div>
                     <!-- Salida Mañana -->
                     <div class="form-group">
                         <label for="simpleinput">Salida</label>
-                        <input type="text" name="nuevoSalidaM" class="form-control" data-toggle="input-mask"
+                        <input type="text" name="nuevoSalida1" class="form-control" data-toggle="input-mask"
                             data-mask-format="00:00:00" maxlength="8" placeholder="HH:MM:SS" required>
                     </div>
 
-                    <h5>Tarde</h5>
+                    <h6>Segundo turno</h6>
                     <!-- Entrada Mañana -->
                     <div class="form-group">
                         <label for="simpleinput">Entrada</label>
-                        <input type="text" name="nuevoEntradaT" class="form-control" data-toggle="input-mask"
-                            data-mask-format="00:00:00" maxlength="8" placeholder="HH:MM:SS" required>
+                        <input type="text" name="nuevoEntrada2" class="form-control" data-toggle="input-mask"
+                            data-mask-format="00:00:00" maxlength="8" placeholder="HH:MM:SS">
                     </div>
                     <!-- Salida Mañana -->
                     <div class="form-group">
                         <label for="simpleinput">Salida</label>
-                        <input type="text" name="nuevoSalidaT" class="form-control" data-toggle="input-mask"
-                            data-mask-format="00:00:00" maxlength="8" placeholder="HH:MM:SS" required>
+                        <input type="text" name="nuevoSalida2" class="form-control" data-toggle="input-mask"
+                            data-mask-format="00:00:00" maxlength="8" placeholder="HH:MM:SS">
                     </div>
 
                 </div>
@@ -163,32 +170,38 @@
                 </div>
                 <div class="modal-body">
 
-                    <h5>Mañana</h5>
+                    <!-- Entrada del Nombre -->
+                    <div class="form-group">
+                        <label for="editarNombre">Nombre del Horario</label>
+                        <input type="text" name="editarNombre" id="editarNombre" class="form-control" required>
+                    </div>
+
+                    <h5>Primer turno</h5>
                     <!-- Entrada Mañana -->
                     <div class="form-group">
                         <label for="simpleinput">Entrada</label>
-                        <input type="text" name="editarEntradaM" id="editarEntradaM" class="form-control"
+                        <input type="text" name="editarEntrada1" id="editarEntrada1" class="form-control"
                             data-toggle="input-mask" data-mask-format="00:00:00" maxlength="8" required>
                         <input type="hidden" id="id" name="id">
                     </div>
                     <!-- Salida Mañana -->
                     <div class="form-group">
                         <label for="simpleinput">Salida</label>
-                        <input type="text" name="editarSalidaM" id="editarSalidaM" class="form-control"
+                        <input type="text" name="editarSalida1" id="editarSalida1" class="form-control"
                             data-toggle="input-mask" data-mask-format="00:00:00" maxlength="8" required>
                     </div>
 
-                    <h5>Tarde</h5>
+                    <h5>Segundo turno</h5>
                     <!-- Entrada Mañana -->
                     <div class="form-group">
                         <label for="simpleinput">Entrada</label>
-                        <input type="text" name="editarEntradaT" id="editarEntradaT" class="form-control"
+                        <input type="text" name="editarEntrada2" id="editarEntrada2" class="form-control"
                             data-toggle="input-mask" data-mask-format="00:00:00" maxlength="8" required>
                     </div>
                     <!-- Salida Mañana -->
                     <div class="form-group">
                         <label for="simpleinput">Salida</label>
-                        <input type="text" name="editarSalidaT" id="editarSalidaT" class="form-control"
+                        <input type="text" name="editarSalida2" id="editarSalida2" class="form-control"
                             data-toggle="input-mask" data-mask-format="00:00:00" maxlength="8" required>
                     </div>
 

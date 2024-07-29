@@ -45,8 +45,9 @@ class ControladorEmpleado
 			$fechaFormato = $fechaActual->format('Y-m-d'); // Formateando para SQL
 
 			if (
+				preg_match('/^[0-9]+$/', $_POST["nuevoCodigo"]) &&
 				preg_match('/^[a-zA-Z0-9 ]+$/', $_POST["nuevoCi"]) &&
-				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
+				preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
 				preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoAp1"]) &&
 				preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/', $_POST["nuevoAp2"]) &&
 				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ #,.\\-]+$/', $_POST["nuevoDir"])
@@ -74,10 +75,10 @@ class ControladorEmpleado
 							"idhorario" => $_POST["nuevoHorario"],
 							"ci" => $_POST["nuevoCi"],
 							"nombre" => $_POST["nuevoNombre"],
-							"apellido1" => $_POST["nuevoAp1"],
-							"apellido2" => $_POST["nuevoAp2"],
+							"apellidop" => $_POST["nuevoAp1"],
+							"apellidom" => $_POST["nuevoAp2"],
 							"direccion" => $_POST["nuevoDir"],
-							"sexo" => $_POST["nuevoSex"],
+							"genero" => $_POST["nuevoGenero"],
 							"telefono" => $_POST["nuevoTelefono"],
 							"fechanac" => $fecha_input,
 							"fechareg" => $fechaActual->format('Y-m-d'), // Asegúrate de que este campo esté correctamente asignado
@@ -168,7 +169,7 @@ class ControladorEmpleado
 
 			if (
 				preg_match('/^[a-zA-Z0-9 ]+$/', $_POST["editarCi"]) &&
-				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"]) &&
+				preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"]) &&
 				preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarAp1"]) &&
 				preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/', $_POST["editarAp2"]) &&
 				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ #,.\\-]+$/', $_POST["editarDir"]) &&
@@ -197,10 +198,10 @@ class ControladorEmpleado
 							"idhorario" => $_POST["editarHorario"],
 							"ci" => $_POST["editarCi"],
 							"nombre" => $_POST["editarNombre"],
-							"apellido1" => $_POST["editarAp1"],
-							"apellido2" => $_POST["editarAp2"],
+							"apellidop" => $_POST["editarAp1"],
+							"apellidom" => $_POST["editarAp2"],
 							"direccion" => $_POST["editarDir"],
-							"sexo" => $_POST["editarSex"],
+							"genero" => $_POST["editarGenero"],
 							"telefono" => $_POST["editarTelefono"],
 							"fechanac" => $fecha_input,
 							"fechareg" => $fechaActual->format('Y-m-d'), // Asegúrate de que este campo esté correctamente asignado
@@ -281,38 +282,38 @@ class ControladorEmpleado
 	BORRAR USUARIO
 	=============================================*/
 
-	static public function ctrBorrarEmpleado()
-	{
+	// static public function ctrBorrarEmpleado()
+	// {
 
-		if (isset($_GET["id"])) {
+	// 	if (isset($_GET["id"])) {
 
-			$tabla = "empleado";
-			$datos = array(
-				"id" => $_GET["id"],
-				"estado" => 0
-			);
+	// 		$tabla = "empleado";
+	// 		$datos = array(
+	// 			"id" => $_GET["id"],
+	// 			"estado" => 0
+	// 		);
 
-			$respuesta = ModeloEmpleado::mdlBorrarEmpleado($tabla, $datos);
+	// 		$respuesta = ModeloEmpleado::mdlBorrarEmpleado($tabla, $datos);
 
-			if ($respuesta == "ok") {
+	// 		if ($respuesta == "ok") {
 
-				echo '<script>
+	// 			echo '<script>
 
-				Swal.fire({
-					type: "success",
-					title: "El empleado ha sido borrado correctamente",
-					showConfirmButton: true,
-					confirmButtonColor: "#627d72",
-					confirmButtonText: "Cerrar"
-				}).then(function(result) {
-					if (result.value) {
-						window.location = "empleado";
-					}
-				});
+	// 			Swal.fire({
+	// 				type: "success",
+	// 				title: "El empleado ha sido borrado correctamente",
+	// 				showConfirmButton: true,
+	// 				confirmButtonColor: "#627d72",
+	// 				confirmButtonText: "Cerrar"
+	// 			}).then(function(result) {
+	// 				if (result.value) {
+	// 					window.location = "empleado";
+	// 				}
+	// 			});
 			
 
-				</script>';
-			}
-		}
-	}
+	// 			</script>';
+	// 		}
+	// 	}
+	// }
 }

@@ -113,7 +113,7 @@
                     <!-- Entrada del Nombre -->
                     <div class="form-group">
                         <label for="nuevoNombre">Nombre del Usuario</label>
-                        <input type="text" name="nuevoNombre" id="nuevoNombre" class="form-control" placeholder="Ingrese elnuevo nombre" required>
+                        <input type="text" name="nuevoNombre" id="nuevoNombre" class="form-control" placeholder="Ingrese el nuevo nombre" required>
                     </div>
 
                     <!-- Entrada del Usuario -->
@@ -131,7 +131,7 @@
                     <!-- Entrada de la Foto -->
                     <div class="form-group">
                         <label for="nuevaFoto">Foto</label>
-                        <input type="file" name="nuevaFoto" id="nuevaFoto" class="dropify nuevaFoto" data-default-file="vistas/images/users/default.png" data-max-file-size="2M" />
+                        <input type="file" name="nuevaFoto" id="nuevaFoto" class="dropify nuevaFoto" data-default-file="vistas/images/users/default.png" data-max-file-size="2M" required/>
                     </div>
 
                 </div>

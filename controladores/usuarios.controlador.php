@@ -53,6 +53,7 @@ class ControladorUsuarios
 				} else {
 
 					echo '
+					<br>
 					<div class="alert alert-danger" role="alert">
 					Error! el usuario o contraceña es incorrecto.
 					</div>
@@ -71,7 +72,7 @@ class ControladorUsuarios
 		if (isset($_POST["nuevoUsuario"])) {
 			if (
 				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
-				preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoUsuario"]) &&
+				preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoUsuario"]) && 
 				preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoPassword"])
 			) {
 

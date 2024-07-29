@@ -68,15 +68,15 @@ class ModeloEmpleado
 	static public function mdlCrearEmpleado($tabla, $datos)
 	{
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(idcargo, idhorario, ci, nombre, apellido1, apellido2, sexo, direccion, telefono, fechanac, fechareg, estado ) VALUES (:idcargo, :idhorario, :ci, :nombre, :apellido1, :apellido2, :sexo, :direccion, :telefono, :fechanac, :fechareg, :estado)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(idcargo, idhorario, ci, nombre, apellidop, apellidom, genero, direccion, telefono, fechanac, fechareg, estado ) VALUES (:idcargo, :idhorario, :ci, :nombre, :apellidop, :apellidom, :genero, :direccion, :telefono, :fechanac, :fechareg, :estado)");
 
 		$stmt->bindParam(":idcargo", $datos["idcargo"], PDO::PARAM_INT);
 		$stmt->bindParam(":idhorario", $datos["idhorario"], PDO::PARAM_INT);
 		$stmt->bindParam(":ci", $datos["ci"], PDO::PARAM_STR);
 		$stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
-		$stmt->bindParam(":apellido1", $datos["apellido1"], PDO::PARAM_STR);
-		$stmt->bindParam(":apellido2", $datos["apellido2"], PDO::PARAM_STR);
-		$stmt->bindParam(":sexo", $datos["sexo"], PDO::PARAM_STR);
+		$stmt->bindParam(":apellidop", $datos["apellidop"], PDO::PARAM_STR);
+		$stmt->bindParam(":apellidom", $datos["apellidom"], PDO::PARAM_STR);
+		$stmt->bindParam(":genero", $datos["genero"], PDO::PARAM_STR);
 		$stmt->bindParam(":direccion", $datos["direccion"], PDO::PARAM_STR);
 		$stmt->bindParam(":telefono", $datos["telefono"], PDO::PARAM_STR);
 		$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
@@ -102,15 +102,15 @@ class ModeloEmpleado
 	static public function mdlEditarEmpleado($tabla, $datos)
 	{
 
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET idcargo = :idcargo, idhorario = :idhorario, ci = :ci, nombre = :nombre, apellido1 = :apellido1, apellido2 = :apellido2, sexo = :sexo, direccion = :direccion, telefono = :telefono, fechanac = :fechanac WHERE id = :id");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET idcargo = :idcargo, idhorario = :idhorario, ci = :ci, nombre = :nombre, apellidop = :apellidop, apellidom = :apellidom, genero = :genero, direccion = :direccion, telefono = :telefono, fechanac = :fechanac WHERE id = :id");
 
 		$stmt->bindParam(":idcargo", $datos["idcargo"], PDO::PARAM_INT);
 		$stmt->bindParam(":idhorario", $datos["idhorario"], PDO::PARAM_INT);
 		$stmt->bindParam(":ci", $datos["ci"], PDO::PARAM_STR);
 		$stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
-		$stmt->bindParam(":apellido1", $datos["apellido1"], PDO::PARAM_STR);
-		$stmt->bindParam(":apellido2", $datos["apellido2"], PDO::PARAM_STR);
-		$stmt->bindParam(":sexo", $datos["sexo"], PDO::PARAM_STR);
+		$stmt->bindParam(":apellidop", $datos["apellidop"], PDO::PARAM_STR);
+		$stmt->bindParam(":apellidom", $datos["apellidom"], PDO::PARAM_STR);
+		$stmt->bindParam(":genero", $datos["genero"], PDO::PARAM_STR);
 		$stmt->bindParam(":direccion", $datos["direccion"], PDO::PARAM_STR);
 		$stmt->bindParam(":telefono", $datos["telefono"], PDO::PARAM_STR);
 		$stmt->bindParam(":fechanac", $datos["fechanac"], PDO::PARAM_STR);

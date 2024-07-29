@@ -136,6 +136,14 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6">
+                            <!-- Entrada Codigo -->
+                            <div class="form-group">
+                                <label for="simpleinput">Codigo</label>
+                                <input type="text" name="nuevoCodigo" id="nuevoCodigo" class="form-control"
+                                    placeholder="Ingrese el codigo del empleado" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
                             <!-- Entrada Ci. -->
                             <div class="form-group">
                                 <label for="simpleinput">Cedula de Identidad</label>
@@ -143,6 +151,8 @@
                                     placeholder="Ingrese la cedula de identidad" required>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada del Nombre -->
                             <div class="form-group">
@@ -151,9 +161,6 @@
                                     placeholder="Ingrese el nombre" required>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada del Apellido Paterno -->
                             <div class="form-group">
@@ -161,9 +168,10 @@
                                 <input type="text" name="nuevoAp1" class="form-control"
                                     placeholder="Ingrese el apellido paterno" required>
                             </div>
-
                         </div>
+                    </div>
 
+                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada del Apellido Materno. -->
                             <div class="form-group">
@@ -172,9 +180,6 @@
                                     placeholder="Ingrese el apellido materno">
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada Direccion. -->
                             <div class="form-group">
@@ -183,21 +188,19 @@
                                     placeholder="Ingrese la direccion" required>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6">
-
                             <!-- Entrada del Genero -->
                             <div class="form-group">
                                 <label for="simpleinput">Genero</label>
-                                <select class="form-control" name="nuevoSex" id="simpleinput" required>
+                                <select class="form-control" name="nuevoGenero" id="simpleinput" required>
                                     <option value="">Seleccione el genero</option>
                                     <option value="Masculino">Masculino</option>
                                     <option value="Femenino">Femenino</option>
                                 </select>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada de Numero de Telefono -->
                             <div class="form-group">
@@ -208,6 +211,9 @@
                                 <!-- <input type="text" name="nuevoTelefono" class="form-control" data-toggle="input-mask" data-mask-format="00000000" maxlength="9" placeholder="Ingrese el numero de telefono"> -->
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada de Fecha de Nacimiento -->
                             <div class="form-group">
@@ -216,11 +222,7 @@
                                     required>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-6">
-
                             <!-- Entrada del Horario -->
                             <div class="form-group">
                                 <label for="simpleinput">Horario</label>
@@ -235,14 +237,16 @@
 
                                     foreach ($horario as $key => $value) {
 
-                                        echo '<option value="' . $value["id"] . ' ">' . $value["horainiciom"] . " - " . $value["horasalidam"] . " / " . $value["horainiciot"] . " - " . $value["horasalidat"] . '</option>';
+                                        echo '<option value="' . $value["id"] . ' ">' . $value["nombre"] . '</option>';
                                     }
 
                                     ?>
                                 </select>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada del Cargo -->
                             <div class="form-group">
@@ -265,22 +269,12 @@
                                 </select>
                             </div>
                         </div>
-
-                    </div>
-
-                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada del Sueldo -->
                             <div class="form-group">
                                 <label for="simpleinput">Sueldo</label>
                                 <input type="text" class="form-control mostrarSueldo" readonly>
                             </div>
-
-                        </div>
-
-                        <div class="col-6">
-
-
                         </div>
                     </div>
                 </div>
@@ -314,13 +308,23 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6">
+                            <!-- Entrada Id. -->
+                            <div class="form-group">
+                                <label for="simpleinput">Codigo</label>
+                                <input type="text" name="editarCodigo" id="editarCodigo" class="form-control" required>
+                                <input type="hidden" name="id" id="id" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
                             <!-- Entrada Ci. -->
                             <div class="form-group">
                                 <label for="simpleinput">Cedula de Identidad</label>
                                 <input type="text" name="editarCi" id="editarCi" class="form-control" required>
-                                <input type="hidden" name="id" id="id" required>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada del Nombre -->
                             <div class="form-group">
@@ -328,18 +332,17 @@
                                 <input type="text" name="editarNombre" id="editarNombre" class="form-control" required>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada del Apellido Paterno -->
                             <div class="form-group">
                                 <label for="simpleinput">Apellido Paterno</label>
                                 <input type="text" name="editarAp1" id="editarAp1" class="form-control" required>
                             </div>
-
                         </div>
+                    </div>
 
+                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada del Apellido Materno. -->
                             <div class="form-group">
@@ -348,9 +351,6 @@
                                     placeholder="Ingrese el apellido materno">
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada Direccion. -->
                             <div class="form-group">
@@ -358,21 +358,20 @@
                                 <input type="text" name="editarDir" id="editarDir" class="form-control" required>
                             </div>
                         </div>
-                        <div class="col-6">
+                    </div>
 
+                    <div class="row">
+                        <div class="col-6">
                             <!-- Entrada del Genero -->
                             <div class="form-group">
                                 <label for="simpleinput">Genero</label>
-                                <select class="form-control" name="editarSex" id="simpleinput" required>
-                                    <option value="" id="editarSex">Seleccione el genero</option>
+                                <select class="form-control" name="editarGenero" id="simpleinput" required>
+                                    <option value="" id="editarGenero">Seleccione el genero</option>
                                     <option value="Masculino">Masculino</option>
                                     <option value="Femenino">Femenino</option>
                                 </select>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada de Numero de Telefono -->
                             <div class="form-group">
@@ -383,6 +382,9 @@
                                 <!-- <input type="text" name="nuevoTelefono" class="form-control" data-toggle="input-mask" data-mask-format="00000000" maxlength="9" placeholder="Ingrese el numero de telefono"> -->
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada de Fecha de Nacimiento -->
                             <div class="form-group">
@@ -391,11 +393,8 @@
                                     required>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
                         <div class="col-6">
-
                             <!-- Entrada del Horario -->
                             <div class="form-group">
                                 <label for="simpleinput">Horario</label>
@@ -410,7 +409,7 @@
 
                                     foreach ($horario as $key => $value) {
 
-                                        echo '<option value="' . $value["id"] . ' ">' . $value["horainiciom"] . " - " . $value["horasalidam"] . " / " . $value["horainiciot"] . " - " . $value["horasalidat"] . '</option>';
+                                        echo '<option value="' . $value["id"] . ' ">' . $value["nombre"] . '</option>';
                                     }
 
                                     ?>
@@ -418,6 +417,9 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada del Cargo -->
                             <div class="form-group">
@@ -440,21 +442,12 @@
                                 </select>
                             </div>
                         </div>
-
-                    </div>
-
-                    <div class="row">
                         <div class="col-6">
                             <!-- Entrada del Sueldo -->
                             <div class="form-group">
                                 <label for="simpleinput">Sueldo</label>
                                 <input type="text" class="form-control mostrarSueldo" readonly>
                             </div>
-
-                        </div>
-
-                        <div class="col-6">
-
 
                         </div>
                     </div>
@@ -474,6 +467,6 @@
 </div>
 
 <?php
-$borrarEmpleado = new ControladorEmpleado();
-$borrarEmpleado->ctrBorrarEmpleado();
+// $borrarEmpleado = new ControladorEmpleado();
+// $borrarEmpleado->ctrBorrarEmpleado();
 ?>

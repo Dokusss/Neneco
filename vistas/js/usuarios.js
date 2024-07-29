@@ -194,8 +194,8 @@ $(".tablas").on("click", ".btnEliminarUsuario", function () {
 		title: "¿Está seguro de borrar el usuario?",
 		text: "¡Si no lo está puede cancelar la acción!",
 		showCancelButton: true,
-		confirmButtonColor: "#3085d6",
-		cancelButtonColor: "#d33",
+		confirmButtonColor: "#627d72",
+		cancelButtonColor: "#f85359",
 		cancelButtonText: "Cancelar",
 		confirmButtonText: "Sí, borrar usuario!"
 	}).then(function (result) {

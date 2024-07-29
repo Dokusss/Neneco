@@ -15,27 +15,27 @@
         </div>
 
         <div class="d-flex align-items-center">
-            <!-- <button type="button" class="btn btn-sm mr-2 font-size-16 d-lg-none header-item waves-effect waves-light" data-toggle="collapse" data-target="#topnav-menu-content">
+            <button type="button" class="btn btn-sm mr-2 font-size-16 d-lg-none header-item waves-effect waves-light" data-toggle="collapse" data-target="#topnav-menu-content">
                 <i class="fa fa-fw fa-bars"></i>
-            </button> -->
+            </button>
             <div class="dropdown d-inline-block ml-2">
                 <button type="button" class="btn header-item waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                     <?php
 
-                    // if ($_SESSION["foto"] != "") {
+                    if ($_SESSION["foto"] != "") {
 
-                    //     echo '<img src="' . $_SESSION["foto"] . '" class="rounded-circle header-profile-user" alt="Header Avatar">';
-                    // } else {
+                        echo '<img src="' . $_SESSION["foto"] . '" class="rounded-circle header-profile-user" alt="Header Avatar">';
+                    } else {
 
 
-                    //     echo '<img src="vistas/images/users/default.png" class="rounded-circle header-profile-user" alt="Header Avatar">';
-                    // }
+                        echo '<img src="vistas/images/users/default.png" class="rounded-circle header-profile-user" alt="Header Avatar">';
+                    }
 
 
                     ?>
 
-                    <h6 class="d-none d-sm-inline-block ml-1" style="color: #efecf0;"><?php //echo $_SESSION["nombre"]; ?></h6>
+                    <h6 class="d-none d-sm-inline-block ml-1" style="color: #efecf0;"><?php echo $_SESSION["nombre"]; ?></h6>
 
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">

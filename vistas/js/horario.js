@@ -19,10 +19,11 @@ $(".tablas").on("click", ".btnEditarHorario", function () {
     success: function (respuesta) {
 
       $("#id").val(respuesta["id"]);
-      $("#editarEntradaM").val(respuesta["horainiciom"]);
-      $("#editarSalidaM").val(respuesta["horasalidam"]);
-      $("#editarEntradaT").val(respuesta["horainiciot"]);
-      $("#editarSalidaT").val(respuesta["horasalidat"]);
+      $("#editarNombre").val(respuesta["nombre"]);
+      $("#editarEntrada1").val(respuesta["entrada1"]);
+      $("#editarSalida1").val(respuesta["salida1"]);
+      $("#editarEntrada2").val(respuesta["entrada2"]);
+      $("#editarSalida2").val(respuesta["salida2"]);
 
     }
 

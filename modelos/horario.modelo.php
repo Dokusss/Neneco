@@ -42,13 +42,13 @@ class ModeloHorario
 	static public function mdlIngresarHorario($tabla, $datos)
 	{
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(horainiciom, horasalidam, horainiciot, horasalidat, estado) VALUES (:horainiciom, :horasalidam, :horainiciot, :horasalidat, :estado)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(entrada1, salida1, entrada2, salida2, nombre) VALUES (:entrada1, :salida1, :entrada2, :salida2, :nombre)");
 
-		$stmt->bindParam(":horainiciom", $datos["horainiciom"], PDO::PARAM_STR);
-		$stmt->bindParam(":horasalidam", $datos["horasalidam"], PDO::PARAM_STR);
-		$stmt->bindParam(":horainiciot", $datos["horainiciot"], PDO::PARAM_STR);
-		$stmt->bindParam(":horasalidat", $datos["horasalidat"], PDO::PARAM_STR);
-		$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
+		$stmt->bindParam(":entrada1", $datos["entrada1"], PDO::PARAM_STR);
+		$stmt->bindParam(":salida1", $datos["salida1"], PDO::PARAM_STR);
+		$stmt->bindParam(":entrada2", $datos["entrada2"], PDO::PARAM_STR);
+		$stmt->bindParam(":salida2", $datos["salida2"], PDO::PARAM_STR);
+		$stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
 
 		if ($stmt->execute()) {
 
@@ -69,13 +69,14 @@ class ModeloHorario
 	static public function mdlEditarHorario($tabla, $datos)
 	{
 
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET horainiciom = :horainiciom, horasalidam = :horasalidam, horainiciot = :horainiciot, horasalidat = :horasalidat WHERE id = :id");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET entrada1 = :entrada1, salida1 = :salida1, entrada2 = :entrada2, salida2 = :salida2, nombre = :nombre WHERE id = :id");
 
 		$stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
-		$stmt->bindParam(":horainiciom", $datos["horainiciom"], PDO::PARAM_STR);
-		$stmt->bindParam(":horasalidam", $datos["horasalidam"], PDO::PARAM_STR);
-		$stmt->bindParam(":horainiciot", $datos["horainiciot"], PDO::PARAM_STR);
-		$stmt->bindParam(":horasalidat", $datos["horasalidat"], PDO::PARAM_STR);
+		$stmt->bindParam(":entrada1", $datos["entrada1"], PDO::PARAM_STR);
+		$stmt->bindParam(":salida1", $datos["salida1"], PDO::PARAM_STR);
+		$stmt->bindParam(":entrada2", $datos["entrada2"], PDO::PARAM_STR);
+		$stmt->bindParam(":salida2", $datos["salida2"], PDO::PARAM_STR);
+		$stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
 
 		if ($stmt->execute()) {
 

@@ -26,16 +26,16 @@ session_start();
   <link href="vistas/plugins/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
   <link href="vistas/plugins/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
   <link href="vistas/plugins/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
-  
+
   <!-- Dropify css -->
   <link href="vistas/plugins/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
-  
+
   <!-- App css -->
   <link href="vistas/css/bootstrap.css" rel="stylesheet" type="text/css" />
   <link href="vistas/css/icons.min.css" rel="stylesheet" type="text/css" />
   <link href="vistas/css/theme.css" rel="stylesheet" type="text/css" />
   <link href="vistas/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
-  
+
   <!-- jQuery  -->
   <script src="vistas/js/jquery.min.js"></script>
   <script src="vistas/js/bootstrap.bundle.min.js"></script>
@@ -54,50 +54,50 @@ session_start();
 
   <?php
 
-  // if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
-  
-  echo '<div id="layout-wrapper">';
-  echo '<div class="main-content">';
+  if (isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok") {
 
-  include "modulos/header.php";
+    echo '<div id="layout-wrapper">';
+    echo '<div class="main-content">';
 
-  include "modulos/nav.php";
+    include "modulos/header.php";
 
-  if (isset($_GET["rutas"])) {
+    include "modulos/nav.php";
 
-    if (
-      $_GET["rutas"] == "inicio" ||
-      $_GET["rutas"] == "cargo" ||
-      $_GET["rutas"] == "empleado" ||
-      $_GET["rutas"] == "horario" ||
-      $_GET["rutas"] == "asistencia" ||
-      $_GET["rutas"] == "usuario" ||
-      $_GET["rutas"] == "permisos" ||
-      $_GET["rutas"] == "horasextras" ||
-      $_GET["rutas"] == "anticipos" ||
-      $_GET["rutas"] == "planilla" ||
-      $_GET["rutas"] == "salir"
-    ) {
+    if (isset($_GET["rutas"])) {
 
-      include "modulos/" . $_GET["rutas"] . ".php";
+      if (
+        $_GET["rutas"] == "inicio" ||
+        $_GET["rutas"] == "cargo" ||
+        $_GET["rutas"] == "empleado" ||
+        $_GET["rutas"] == "horario" ||
+        $_GET["rutas"] == "asistencia" ||
+        $_GET["rutas"] == "usuario" ||
+        $_GET["rutas"] == "permisos" ||
+        $_GET["rutas"] == "horasextras" ||
+        $_GET["rutas"] == "anticipos" ||
+        $_GET["rutas"] == "planilla" ||
+        $_GET["rutas"] == "salir"
+      ) {
+
+        include "modulos/" . $_GET["rutas"] . ".php";
+      } else {
+
+        include "modulos/404.php";
+      }
     } else {
 
-      include "modulos/404.php";
+      include "modulos/inicio.php";
     }
+
+    include "modulos/footer.php";
+
+    echo '</div>';
+    echo '</div>';
   } else {
 
-    include "modulos/inicio.php";
+    include "modulos/login.php";
   }
 
-  include "modulos/footer.php";
-
-  echo '</div>';
-  echo '</div>';
-  // } else {
-  
-  //   include "modulos/login.php";
-  // }
-  
   ?>
 
   <!-- third party js -->
@@ -134,10 +134,10 @@ session_start();
   <!-- Select2-->
   <script src="vistas/plugins/select2/select2.min.js"></script>
 
-  
+
   <!-- App js -->
   <script src="vistas/js/theme.js"></script>
-  
+
   <script src="vistas/js/plantilla.js"></script>
   <script src="vistas/js/cargo.js"></script>
   <script src="vistas/js/horario.js"></script>
@@ -146,7 +146,7 @@ session_start();
   <script src="vistas/js/asistencia.js"></script>
   <script src="vistas/js/permisos.js"></script>
   <script src="vistas/js/horasextras.js"></script>
-  
+
   <!-- Toastr-->
   <script src="vistas/plugins/toastr/toastr.min.js"></script>
 </body>

@@ -5,8 +5,8 @@ class ControladorHorario
 
 
 	/*=============================================
-	   MOSTRAR EMPLEADO
-	   =============================================*/
+				MOSTRAR EMPLEADO
+				=============================================*/
 
 	static public function ctrMostrarHorario($item, $valor)
 	{
@@ -19,29 +19,32 @@ class ControladorHorario
 	}
 
 	/*=============================================
-	CREAR HORARIO
-	=============================================*/
+			 CREAR HORARIO
+			 =============================================*/
 
 	static public function ctrCrearHorario()
 	{
 
-		if (isset($_POST["nuevoEntradaM"])) {
+		if (isset($_POST["nuevoNombre"])) {
 
-			$tabla = "horario";
+			if (
+				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"])
+			) {
+				$tabla = "horario";
 
-			$datos = array(
-				"horainiciom" => $_POST["nuevoEntradaM"],
-				"horasalidam" => $_POST["nuevoSalidaM"],
-				"horainiciot" => $_POST["nuevoEntradaT"],
-				"horasalidat" => $_POST["nuevoSalidaT"],
-				"estado" => 1
-			);
+				$datos = array(
+					"nombre" => $_POST["nuevoNombre"],
+					"entrada1" => $_POST["nuevoEntrada1"],
+					"salida1" => $_POST["nuevoSalida1"],
+					"entrada2" => $_POST["nuevoEntrada2"],
+					"salida2" => $_POST["nuevoSalida2"]
+				);
 
-			$respuesta = ModeloHorario::mdlIngresarHorario($tabla, $datos);
+				$respuesta = ModeloHorario::mdlIngresarHorario($tabla, $datos);
 
-			if ($respuesta == "ok") {
+				if ($respuesta == "ok") {
 
-				echo '<script>
+					echo '<script>
 
 					Swal.fire({
 						type: "success",
@@ -56,9 +59,9 @@ class ControladorHorario
 					});
 					  
 						</script>';
-			} else {
+				} else {
 
-				echo '<script>
+					echo '<script>
 
 				Swal.fire({
 					type: "error",
@@ -73,34 +76,50 @@ class ControladorHorario
 				});
 				  
 					  </script>';
+				}
+			} else {
+				echo '<script>
+			Swal.fire({
+				type: "error",
+				title: "¡El usuario no puede ir vacío o llevar caracteres especiales!",
+				showConfirmButton: true,
+				confirmButtonText: "Cerrar"
+			}).then(function(result) {
+				if (result.value) {
+					window.location = "horario";
+				}
+			});
+		</script>';
 			}
 		}
 	}
 
 	/*=============================================
-	EDITAR HORARIO
-	=============================================*/
+			 EDITAR HORARIO
+			 =============================================*/
 
 	static public function ctrEditarHorario()
 	{
 
-		if (isset($_POST["editarEntradaM"])) {
+		if (isset($_POST["editarNombre"])) {
+			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"])) {
 
-			$tabla = "horario";
+				$tabla = "horario";
 
-			$datos = array(
-				"id" => $_POST["id"],
-				"horainiciom" => $_POST["editarEntradaM"],
-				"horasalidam" => $_POST["editarSalidaM"],
-				"horainiciot" => $_POST["editarEntradaT"],
-				"horasalidat" => $_POST["editarSalidaT"]
-			);
+				$datos = array(
+					"id" => $_POST["id"],
+					"nombre" => $_POST["editarNombre"],
+					"entrada1" => $_POST["editarEntrada1"],
+					"salida1" => $_POST["editarSalida1"],
+					"entrada2" => $_POST["editarEntrada2"],
+					"salida2" => $_POST["editarSalida2"]
+				);
 
-			$respuesta = ModeloHorario::mdlEditarHorario($tabla, $datos);
+				$respuesta = ModeloHorario::mdlEditarHorario($tabla, $datos);
 
-			if ($respuesta == "ok") {
+				if ($respuesta == "ok") {
 
-				echo '<script>
+					echo '<script>
 
 					Swal.fire({
 						type: "success",
@@ -115,9 +134,9 @@ class ControladorHorario
 					});
 					  
 						</script>';
-			} else {
+				} else {
 
-				echo '<script>
+					echo '<script>
 
 				Swal.fire({
 					type: "error",
@@ -132,13 +151,30 @@ class ControladorHorario
 				});
 				  
 					  </script>';
+				}
+			} else {
+
+				echo '<script>
+
+			Swal.fire({
+				type: "error",
+				title: "¡El usuario no puede ir vacío o llevar caracteres especiales!",
+				showConfirmButton: true,
+				confirmButtonText: "Cerrar"
+			}).then(function(result) {
+				if (result.value) {
+					window.location = "usuario";
+				}
+			});
+
+			  </script>';
 			}
 		}
 	}
 
 	/*=============================================
-	ELIMINAR CLIENTE
-	=============================================*/
+			 ELIMINAR CLIENTE
+			 =============================================*/
 
 	static public function ctrEliminarHorario()
 	{

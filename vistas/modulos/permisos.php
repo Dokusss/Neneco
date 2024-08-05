@@ -71,14 +71,8 @@
                                         case "enfermedad":
                                             echo '<td> Permiso por enfermedad </td>';
                                             break;
-                                        case "ocasional":
-                                            echo '<td> Permiso ocasional </td>';
-                                            break;
                                         case "maternidad":
                                             echo '<td> Permiso de maternidad </td>';
-                                            break;
-                                        case "compasivo":
-                                            echo '<td> Permiso compasivo </td>';
                                             break;
                                         case "especial":
                                             echo '<td> Permiso especial </td>';
@@ -142,9 +136,7 @@
                         <select class="form-control" name="nuevoCategoria" id="nuevoCategoria" required>
                             <option value="">Seleccione el categoria</option>
                             <option value="enfermedad">Permiso por enfermedad</option>
-                            <option value="ocasional">Permiso ocasional</option>
                             <option value="maternidad">Permiso de maternidad</option>
-                            <option value="compasivo">Permiso compasivo</option>
                             <option value="especial">Permiso especial</option>
                             <option value="vacaciones">Vacaciones</option>
                         </select>
@@ -170,7 +162,7 @@
 
                             foreach ($empleado as $key => $value) {
 
-                                echo '<option value="' . $value["id"] . ' ">' . $value["nombre"] . " " . $value["apellido1"] . " " . $value["apellido2"] . '</option>';
+                                echo '<option value="' . $value["id"] . ' ">' . $value["nombre"] . " " . $value["apellidop"] . " " . $value["apellidom"] . '</option>';
                             }
 
                             ?>

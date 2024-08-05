@@ -65,6 +65,7 @@ $(".tablas").on("click", ".btnEditarEmpleado", function () {
 
 			})
 
+			$("#editarCodigo").val(respuesta["id"]);
 			$("#editarCi").val(respuesta["ci"]);
 			$("#editarNombre").val(respuesta["nombre"]);
 			$("#editarAp1").val(respuesta["apellidop"]);

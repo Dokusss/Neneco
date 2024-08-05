@@ -311,7 +311,7 @@
                             <!-- Entrada Id. -->
                             <div class="form-group">
                                 <label for="simpleinput">Codigo</label>
-                                <input type="text" name="editarCodigo" id="editarCodigo" class="form-control" required>
+                                <input type="text" name="editarCodigo" id="editarCodigo" class="form-control"readonly>
                                 <input type="hidden" name="id" id="id" required>
                             </div>
                         </div>

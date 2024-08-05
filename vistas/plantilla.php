@@ -146,6 +146,7 @@ session_start();
   <script src="vistas/js/asistencia.js"></script>
   <script src="vistas/js/permisos.js"></script>
   <script src="vistas/js/horasextras.js"></script>
+  <script src="vistas/js/anticipos.js"></script>
 
   <!-- Toastr-->
   <script src="vistas/plugins/toastr/toastr.min.js"></script>

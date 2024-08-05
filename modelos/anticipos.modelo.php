@@ -6,8 +6,8 @@ class ModeloAnticipos
 {
 
 	/*=============================================
-	MOSTRAR CARGO
-	=============================================*/
+	   MOSTRAR CARGO
+	   =============================================*/
 
 	static public function MdlMostrarAnticipos($tabla, $item, $valor)
 	{
@@ -34,5 +34,31 @@ class ModeloAnticipos
 
 		$stmt = null;
 	}
+
+	/*=============================================
+	   CREAR PERMISO
+	   =============================================*/
+
+	static public function mdlCrearAnticipos($tabla, $datos)
+	{
+
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(idempleado, fecha, monto) VALUES (:idempleado, :fecha, :monto)");
+
+		$stmt->bindParam(":idempleado", $datos["idempleado"], PDO::PARAM_INT);
+		$stmt->bindParam(":fecha", $datos["fecha"], PDO::PARAM_STR);
+		$stmt->bindParam(":monto", $datos["monto"], PDO::PARAM_STR);
+
+		if ($stmt->execute()) {
+
+			return "ok";
+		} else {
+
+			return "error";
+		}
+
+		$stmt->close();
+		$stmt = null;
+	}
+
 
 }

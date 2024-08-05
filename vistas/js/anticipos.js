@@ -1,13 +1,13 @@
 /*=============================================
-EDITAR CARGO
+EDITAR ANTICIPOS
 =============================================*/
-$(".tablas").on("click", ".btnEditarHoras", function () {
+$(".tablas").on("click", ".btnEditarAnticipos", function () {
 	var id = $(this).attr("id");
 	var datos = new FormData();
 	datos.append("id", id);
 
 	$.ajax({
-		url: "ajax/horas.ajax.php",
+		url: "ajax/anticipos.ajax.php",
 		method: "POST",
 		data: datos,
 		cache: false,
@@ -15,10 +15,9 @@ $(".tablas").on("click", ".btnEditarHoras", function () {
 		processData: false,
 		dataType: "json",
 		success: function (respuesta) {
-			//console.log(respuesta);
 
 			$("#editarFecha").val(respuesta["fecha"]);
-			$("#editarTipo").val(respuesta["tipo"]);
+			$("#editarMonto").val(respuesta["monto"]);
 			$("#id").val(respuesta["id"]);
 
 		}

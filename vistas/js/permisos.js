@@ -35,8 +35,8 @@ $(".tablas").on("click", ".btnEditarPermisos", function () {
                 success: function (respuesta) {
 
                     var nombre = respuesta["nombre"];
-                    var apellido1 = respuesta["apellido1"];
-                    var apellido2 = respuesta["apellido2"];
+                    var apellido1 = respuesta["apellidop"];
+                    var apellido2 = respuesta["apellidom"];
 
                     $("#mostrarEmpleado").val(nombre + " " + apellido1 + " " + apellido2);
 

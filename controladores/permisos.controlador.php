@@ -54,8 +54,7 @@ class ControladorPermisos
 							"fechainicio" => $nuevoFechaInicio,
 							"fechafin" => $nuevoFechaFin,
 							"categoria" => $_POST["nuevoCategoria"],
-							"motivo" => $_POST["nuevoMotivo"],
-							"estado" => 1
+							"motivo" => $_POST["nuevoMotivo"]
 						);
 
 						$respuesta = ModeloPermisos::mdlCrearPermiso($tabla, $datos);

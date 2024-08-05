@@ -16,6 +16,13 @@ CREATE TABLE usuario(
 PRIMARY KEY(id)
 );
 
+CREATE TABLE feriados(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	nombre varchar(50) NOT NULL,
+	fecha date NOT NULL,
+PRIMARY KEY(id)
+);
+
 CREATE TABLE cargo(
 	id int(11) NOT NULL AUTO_INCREMENT,
 	nombre varchar(30) NOT NULL,
@@ -129,6 +136,11 @@ CREATE TABLE planilla(
 PRIMARY KEY(id),
 FOREIGN KEY(idempleado) REFERENCES empleado(id)
 );
+
+INSERT INTO feriados (nombre, fecha)
+VALUES
+('Aniversario', '2024-05-29');
+
 
 INSERT INTO cargo (nombre, sueldo)
 VALUES
@@ -529,12 +541,6 @@ VALUES
 INSERT INTO permisos (fechainicio, fechafin, categoria, motivo, idempleado)
 VALUES
 ('2024-02-05', '2024-02-09', 'enfermedad', 'le dio dengue', '102'),
-('2024-02-07', '2024-02-08', 'ocacional', 'teniar que tramitar su licencia', '109'),
 ('2024-02-14', '2024-05-07', 'maternidad', 'dio a luz', '101'),
-('2024-03-01', '2024-03-09', 'compasivo', 'se murio su padre', '102'),
-('2024-03-01', '2024-03-02', 'ocasional', 'problemas con el hijo en el colegio', '113'),
 ('2024-04-04', '2024-04-10', 'enfermedad', 'salmonela', '108'),
-('2024-04-12', '2024-04-17', 'especial', 'permiso especial', '110'),
-('2024-04-15', '2024-04-17', 'ocacional', 'tramitar documentos', '104'),
-('2024-04-16', '2024-04-18', 'ocacional', 'tramitar documentos', '107'),
-('2024-05-02', '2024-05-02', 'ocacional', 'tramitar documentos', '106');
+('2024-04-12', '2024-04-17', 'especial', 'permiso especial', '110');

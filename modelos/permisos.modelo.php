@@ -42,14 +42,13 @@ class ModeloPermisos
 	static public function mdlCrearPermiso($tabla, $datos)
 	{
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(idempleado, fechainicio, fechafin, categoria, motivo, estado) VALUES (:idempleado, :fechainicio, :fechafin, :categoria, :motivo, :estado)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(idempleado, fechainicio, fechafin, categoria, motivo) VALUES (:idempleado, :fechainicio, :fechafin, :categoria, :motivo)");
 
 		$stmt->bindParam(":idempleado", $datos["idempleado"], PDO::PARAM_INT);
 		$stmt->bindParam(":fechainicio", $datos["fechainicio"], PDO::PARAM_STR);
 		$stmt->bindParam(":fechafin", $datos["fechafin"], PDO::PARAM_STR);
 		$stmt->bindParam(":categoria", $datos["categoria"], PDO::PARAM_STR);
 		$stmt->bindParam(":motivo", $datos["motivo"], PDO::PARAM_STR);
-		$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
 
 		if ($stmt->execute()) {
 

@@ -68,10 +68,11 @@ class ModeloEmpleado
 	static public function mdlCrearEmpleado($tabla, $datos)
 	{
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(idcargo, idhorario, ci, nombre, apellidop, apellidom, genero, direccion, telefono, fechanac, fechareg, estado ) VALUES (:idcargo, :idhorario, :ci, :nombre, :apellidop, :apellidom, :genero, :direccion, :telefono, :fechanac, :fechareg, :estado)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(idcargo, idhorario, id, ci, nombre, apellidop, apellidom, genero, direccion, telefono, fechanac, fechareg, estado ) VALUES (:idcargo, :idhorario, :id, :ci, :nombre, :apellidop, :apellidom, :genero, :direccion, :telefono, :fechanac, :fechareg, :estado)");
 
 		$stmt->bindParam(":idcargo", $datos["idcargo"], PDO::PARAM_INT);
 		$stmt->bindParam(":idhorario", $datos["idhorario"], PDO::PARAM_INT);
+		$stmt->bindParam(":id", $datos["id"], PDO::PARAM_STR);
 		$stmt->bindParam(":ci", $datos["ci"], PDO::PARAM_STR);
 		$stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
 		$stmt->bindParam(":apellidop", $datos["apellidop"], PDO::PARAM_STR);

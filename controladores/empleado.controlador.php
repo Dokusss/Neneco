@@ -73,6 +73,7 @@ class ControladorEmpleado
 						$datos = array(
 							"idcargo" => $_POST["nuevoCargo"],
 							"idhorario" => $_POST["nuevoHorario"],
+							"id" => $_POST["nuevoCodigo"],
 							"ci" => $_POST["nuevoCi"],
 							"nombre" => $_POST["nuevoNombre"],
 							"apellidop" => $_POST["nuevoAp1"],

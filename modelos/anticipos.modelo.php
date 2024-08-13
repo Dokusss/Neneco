@@ -6,8 +6,8 @@ class ModeloAnticipos
 {
 
 	/*=============================================
-	   MOSTRAR CARGO
-	   =============================================*/
+		  MOSTRAR CARGO
+		  =============================================*/
 
 	static public function MdlMostrarAnticipos($tabla, $item, $valor)
 	{
@@ -36,8 +36,8 @@ class ModeloAnticipos
 	}
 
 	/*=============================================
-	   CREAR PERMISO
-	   =============================================*/
+		  CREAR PERMISO
+		  =============================================*/
 
 	static public function mdlCrearAnticipos($tabla, $datos)
 	{
@@ -60,5 +60,28 @@ class ModeloAnticipos
 		$stmt = null;
 	}
 
+	public static function mdlCalcularAnticipos($idEmpleado, $fechaInicio, $fechaFin)
+	{
+		$stmt = Conexion::conectar()->prepare("
+            SELECT SUM(monto) as totalAnticipos
+            FROM anticipos 
+            WHERE idempleado = :idEmpleado 
+            AND fecha BETWEEN :fechaInicio AND :fechaFin
+        ");
+
+		$stmt->bindParam(":idEmpleado", $idEmpleado, PDO::PARAM_INT);
+		$stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+		$stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+
+		$stmt->execute();
+
+		$resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if ($resultado && $resultado['totalAnticipos']) {
+			return $resultado['totalAnticipos'];
+		} else {
+			return 0; // Si no hay anticipos
+		}
+	}
 
 }

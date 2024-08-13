@@ -26,6 +26,7 @@
                             <a href="anticipos" class="dropdown-item">Anticipos</a>
                             <a href="permisos" class="dropdown-item">Permisos y Vacaciones</a>
                             <a href="horasextras" class="dropdown-item">Horas Extras</a>
+                            <a href="feriados" class="dropdown-item">Feriados</a>
 
                         </div>
                     </li>

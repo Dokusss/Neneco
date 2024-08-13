@@ -6,8 +6,28 @@ class ModeloEmpleado
 {
 
 	/*=============================================
-				MOSTRAR TODOS LOS EMPLEADOS
-				=============================================*/
+			 MOSTRAR EMPLEADOS ACTIVOS
+			 =============================================*/
+	public static function mdlMostrarEmpleadosActivos()
+	{
+		$stmt = Conexion::conectar()->prepare(
+			"SELECT e.*, c.sueldo 
+				   FROM empleado e
+				   JOIN cargo c ON e.idcargo = c.id
+				   WHERE e.estado = 1"
+		);
+
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$stmt->close();
+		$stmt = null;
+	}
+
+
+	/*=============================================
+						 MOSTRAR TODOS LOS EMPLEADOS
+						 =============================================*/
 
 	static public function mdlMostrarEmpleado($tabla, $item, $valor)
 	{
@@ -36,8 +56,8 @@ class ModeloEmpleado
 	}
 
 	/*=============================================
-				MOSTRAR EMPLEADOS ORDENADOS Y CON ESTADO EN 1
-				=============================================*/
+						 MOSTRAR EMPLEADOS ORDENADOS Y CON ESTADO EN 1
+						 =============================================*/
 
 	static public function mdlMostrarEmpleadoOrdenado($tabla, $item = null, $valor = null)
 	{
@@ -63,8 +83,8 @@ class ModeloEmpleado
 
 
 	/*=============================================
-				REGISTRAR EMPLEADO
-				=============================================*/
+						 REGISTRAR EMPLEADO
+						 =============================================*/
 	static public function mdlCrearEmpleado($tabla, $datos)
 	{
 
@@ -97,8 +117,8 @@ class ModeloEmpleado
 	}
 
 	/*=============================================
-				EDITAR EMPLEADO
-				=============================================*/
+						 EDITAR EMPLEADO
+						 =============================================*/
 
 	static public function mdlEditarEmpleado($tabla, $datos)
 	{
@@ -130,8 +150,8 @@ class ModeloEmpleado
 	}
 
 	/*=============================================
-			 ELIMINAR EMPLEADO
-			 =============================================*/
+					  ELIMINAR EMPLEADO
+					  =============================================*/
 
 	static public function mdlBorrarEmpleado($tabla, $datos)
 	{
@@ -155,8 +175,8 @@ class ModeloEmpleado
 	}
 
 	/*=============================================
-				ACTUALIZAR EMPLEADO
-				=============================================*/
+						 ACTUALIZAR EMPLEADO
+						 =============================================*/
 
 	static public function mdlActualizarEmpleado($tabla, $item1, $valor1, $item2, $valor2)
 	{
@@ -180,6 +200,19 @@ class ModeloEmpleado
 
 		$stmt = null;
 
+	}
+
+	public static function mdlMostrarEmpleadosConSueldo()
+	{
+		$stmt = Conexion::conectar()->prepare("
+        SELECT e.id, e.nombre, e.apellidop, e.apellidom, c.sueldo
+        FROM empleado e
+        JOIN cargo c ON e.idcargo = c.id
+        WHERE e.estado = 1
+    ");
+
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 }

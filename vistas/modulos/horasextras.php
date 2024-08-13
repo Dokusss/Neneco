@@ -132,7 +132,6 @@
                         <label for="nuevoTipo">Tipo de pago</label>
                         <select class="form-control" name="nuevoTipo" id="nuevoTipo" required>
                             <option value="">Seleccione el tipo</option>
-                            <option value="1">x1</option>
                             <option value="2">x2</option>
                             <option value="3">x3</option>
                         </select>

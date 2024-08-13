@@ -126,16 +126,24 @@ FOREIGN KEY (idempleado) REFERENCES empleado(id)
 CREATE TABLE planilla(
 	id int(11) NOT NULL AUTO_INCREMENT,
 	fecha date NOT NULL,
-	horastrabajadas varchar(10) NOT NULL,
-	diastrabajados varchar(10) NOT NULL,
-	extras decimal(17,2) NULL,
-	totalganado decimal(17,2) NOT NULL,
-	descuentos decimal(17,2) NULL,
-	totalfinal decimal(17,2) NOT NULL,
-	idempleado int NOT NULL,
-PRIMARY KEY(id),
-FOREIGN KEY(idempleado) REFERENCES empleado(id)
+PRIMARY KEY(id)
 );
+
+CREATE TABLE detalleplanillaempleado(
+    idempleado int NOT NULL,
+    idplanilla int NOT NULL,
+    diastrabajados int(11) NOT NULL,
+    haberbasico decimal(10, 2) NOT NULL,
+    horasextras decimal(10, 2) NOT NULL,
+    afp decimal(10, 2) NULL,
+    faltas int(11) NOT NULL,
+    anticipos decimal(10, 2) NOT NULL,
+    totaldescuentos decimal(10, 2) NOT NULL,
+    liquidopagable decimal(10, 2) NOT NULL,
+PRIMARY KEY (idempleado, idplanilla),
+FOREIGN KEY (idempleado) REFERENCES empleado(id),
+FOREIGN KEY (idplanilla) REFERENCES planilla(id)
+    );
 
 INSERT INTO feriados (nombre, fecha)
 VALUES

@@ -92,7 +92,7 @@
                                             <?php
                                             $item = null;
                                             $valor = null;
-                                            $horario = ControladorEmpleado::ctrMostrarEmpleado($item, $valor);
+                                            $horario = ModeloEmpleado::mdlMostrarEmpleadosActivos();
                                             foreach ($horario as $key => $value) {
                                                 $nomMayus = mb_strtoupper($value["nombre"], 'UTF-8');
                                                 $ap1Mayus = mb_strtoupper($value["apellidop"], 'UTF-8');
@@ -228,7 +228,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade bd-example-modal-xl" id="resultModal" tabindex="-1" role="dialog"
+<!-- <div class="modal fade bd-example-modal-xl" id="resultModal" tabindex="-1" role="dialog"
     aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -240,9 +240,8 @@
             </div>
             <div class="modal-body">
                 <div id="resultados">
-                    <!-- Aquí se mostrarán los resultados -->
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div> -->

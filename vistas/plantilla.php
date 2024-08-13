@@ -76,6 +76,7 @@ session_start();
         $_GET["rutas"] == "horasextras" ||
         $_GET["rutas"] == "anticipos" ||
         $_GET["rutas"] == "planilla" ||
+        $_GET["rutas"] == "feriados" ||
         $_GET["rutas"] == "salir"
       ) {
 
@@ -147,6 +148,7 @@ session_start();
   <script src="vistas/js/permisos.js"></script>
   <script src="vistas/js/horasextras.js"></script>
   <script src="vistas/js/anticipos.js"></script>
+  <script src="vistas/js/planilla.js"></script>
 
   <!-- Toastr-->
   <script src="vistas/plugins/toastr/toastr.min.js"></script>

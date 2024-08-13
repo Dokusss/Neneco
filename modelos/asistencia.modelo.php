@@ -197,9 +197,14 @@ class ModeloAsistencia
                 }
             }
 
-            // Calcular las horas extras (cualquier tiempo trabajado más allá de 8 horas)
+            // Calcular las horas extras solo si exceden los 59 minutos (3540 segundos)
             if ($horasTrabajadas > 8 * 3600) {
                 $horasExtras = $horasTrabajadas - 8 * 3600;
+
+                // Verificar si las horas extras exceden los 59 minutos
+                if ($horasExtras <= 3540) {
+                    $horasExtras = 0; // Si no es superior a 59 minutos, no se considera como hora extra
+                }
             } else {
                 $horasExtras = 0;
             }
@@ -233,14 +238,50 @@ class ModeloAsistencia
     }
 
 
-    // static public function MdlBuscarIdEmpleado($empleado)
-    // {
-    //     $stmt = Conexion::conectar()->prepare("SELECT id FROM  empleado WHERE  ci = :empleado");
+    /*=============================================
+    CALCULAR DÍAS TRABAJADOS Y FALTAS
+    =============================================*/
+    public static function mdlCalcularDiasTrabajadosYFaltas($idEmpleado, $fechaInicio, $fechaFin)
+    {
+        // Obtener los días trabajados en el rango de fechas
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT COUNT(*) AS diasTrabajados
+         FROM asistencia
+         WHERE idempleado = :idempleado
+         AND fecha BETWEEN :fechaInicio AND :fechaFin"
+        );
 
-    //     $stmt->bindParam(":empleado", $empleado, PDO::PARAM_STR);
+        $stmt->bindParam(":idempleado", $idEmpleado, PDO::PARAM_INT);
+        $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
 
-    //     $stmt->execute();
+        $stmt->execute();
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        $diasTrabajados = $resultado['diasTrabajados'];
 
-    //     return $stmt->fetch();
-    // }
+        // Calcular los días hábiles en el rango de fechas
+        $diasTotales = (new DateTime($fechaInicio))->diff(new DateTime($fechaFin))->days + 1;
+
+        // Incluir sábados en los días hábiles (lunes a sábado)
+        $diasHabiles = 0;
+        $currentDate = new DateTime($fechaInicio);
+        for ($i = 0; $i < $diasTotales; $i++) {
+            if ($currentDate->format('N') < 7) { // 1-6 es lunes a sábado
+                $diasHabiles++;
+            }
+            $currentDate->modify('+1 day');
+        }
+
+        // Obtener los días feriados en el rango de fechas
+        $diasFeriados = ModeloFeriados::mdlContarFeriados($fechaInicio, $fechaFin);
+
+        // Calcular las faltas (días hábiles menos los días trabajados y restando los días feriados)
+        $faltas = max(0, ($diasHabiles - $diasFeriados) - $diasTrabajados);
+
+        $stmt = null;
+
+        return [$diasTrabajados, $faltas];
+    }
+
+
 }

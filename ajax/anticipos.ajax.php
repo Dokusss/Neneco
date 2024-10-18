@@ -9,12 +9,12 @@ class AjaxAnticipos{
 	EDITAR ANTICIPO
 	=============================================*/	
 
-	public $id;
+	public $idAnticipos;
 
 	public function ajaxEditarAnticipos(){
 
 		$item = "id";
-		$valor = $this->id;
+		$valor = $this->idAnticipos;
 
 		$respuesta = ControladorAnticipos::ctrMostrarAnticipos($item, $valor);
 
@@ -27,10 +27,10 @@ class AjaxAnticipos{
 /*=============================================
 EDITAR ANTICIPOS
 =============================================*/	
-if(isset($_POST["id"])){
+if(isset($_POST["idAnticipos"])){
 
 	$anticipos = new AjaxAnticipos();
-	$anticipos -> id = $_POST["id"];
+	$anticipos -> idAnticipos = $_POST["idAnticipos"];
 	$anticipos -> ajaxEditarAnticipos();
 }
 

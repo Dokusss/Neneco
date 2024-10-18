@@ -6,85 +6,45 @@ class ModeloEmpleado
 {
 
 	/*=============================================
-			 MOSTRAR EMPLEADOS ACTIVOS
-			 =============================================*/
+				MOSTRAR EMPLEADOS ACTIVOS
+				=============================================*/
 	public static function mdlMostrarEmpleadosActivos()
 	{
 		$stmt = Conexion::conectar()->prepare(
-			"SELECT e.*, c.sueldo 
-				   FROM empleado e
-				   JOIN cargo c ON e.idcargo = c.id
-				   WHERE e.estado = 1"
+			"SELECT *
+				   FROM empleados
+				   WHERE estado = 1
+				   ORDER BY nombre ASC"
 		);
-
 		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 		$stmt->close();
 		$stmt = null;
 	}
 
 
 	/*=============================================
-						 MOSTRAR TODOS LOS EMPLEADOS
-						 =============================================*/
-
+							MOSTRAR TODOS LOS EMPLEADOS
+							=============================================*/
 	static public function mdlMostrarEmpleado($tabla, $item, $valor)
 	{
-
 		if ($item != null) {
-			//SELECT * FROM usuarios WHERE usuario='admin';
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
-
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item ORDER BY estado DESC, nombre ASC");
 			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
-
 			$stmt->execute();
-
 			return $stmt->fetch();
 		} else {
-
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
-
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY estado DESC, nombre ASC");
 			$stmt->execute();
-
 			return $stmt->fetchAll();
 		}
-
 		$stmt->close();
-
 		$stmt = null;
 	}
 
 	/*=============================================
-						 MOSTRAR EMPLEADOS ORDENADOS Y CON ESTADO EN 1
-						 =============================================*/
-
-	static public function mdlMostrarEmpleadoOrdenado($tabla, $item = null, $valor = null)
-	{
-		if ($item !== null) {
-			// Si se proporciona un ítem y un valor, se agrega una condición WHERE a la consulta SQL
-			$sql = "SELECT * FROM $tabla WHERE $item = :$item ORDER BY estado DESC, nombre ASC";
-			$stmt = Conexion::conectar()->prepare($sql);
-			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
-		} else {
-			// Si no se proporciona un ítem y un valor, se seleccionan todos los registros y se ordenan por estado y nombre
-			$sql = "SELECT * FROM $tabla ORDER BY estado DESC, nombre ASC";
-			$stmt = Conexion::conectar()->prepare($sql);
-		}
-
-		$stmt->execute();
-
-		$result = $stmt->fetchAll();
-
-		$stmt->closeCursor(); // Close cursor instead of stmt
-
-		return $result;
-	}
-
-
-	/*=============================================
-						 REGISTRAR EMPLEADO
-						 =============================================*/
+							REGISTRAR EMPLEADO
+							=============================================*/
 	static public function mdlCrearEmpleado($tabla, $datos)
 	{
 
@@ -117,8 +77,8 @@ class ModeloEmpleado
 	}
 
 	/*=============================================
-						 EDITAR EMPLEADO
-						 =============================================*/
+							EDITAR EMPLEADO
+							=============================================*/
 
 	static public function mdlEditarEmpleado($tabla, $datos)
 	{
@@ -150,8 +110,8 @@ class ModeloEmpleado
 	}
 
 	/*=============================================
-					  ELIMINAR EMPLEADO
-					  =============================================*/
+						 ELIMINAR EMPLEADO
+						 =============================================*/
 
 	static public function mdlBorrarEmpleado($tabla, $datos)
 	{
@@ -175,31 +135,21 @@ class ModeloEmpleado
 	}
 
 	/*=============================================
-						 ACTUALIZAR EMPLEADO
-						 =============================================*/
+							ACTUALIZAR EMPLEADO
+							=============================================*/
 
 	static public function mdlActualizarEmpleado($tabla, $item1, $valor1, $item2, $valor2)
 	{
-
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $item1 = :$item1 WHERE $item2 = :$item2");
-
 		$stmt->bindParam(":" . $item1, $valor1, PDO::PARAM_STR);
 		$stmt->bindParam(":" . $item2, $valor2, PDO::PARAM_STR);
-
 		if ($stmt->execute()) {
-
 			return "ok";
-
 		} else {
-
 			return "error";
-
 		}
-
 		$stmt->close();
-
 		$stmt = null;
-
 	}
 
 	public static function mdlMostrarEmpleadosConSueldo()

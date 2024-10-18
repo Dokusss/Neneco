@@ -7,35 +7,16 @@ class ControladorEmpleado
 	/*=============================================
 	   MOSTRAR EMPLEADO
 	=============================================*/
-
 	static public function ctrMostrarEmpleado($item, $valor)
 	{
-
-		$tabla = "empleado";
-
+		$tabla = "empleados";
 		$respuesta = ModeloEmpleado::MdlMostrarEmpleado($tabla, $item, $valor);
-
-		return $respuesta;
-	}
-
-	/*=============================================
-	   MOSTRAR EMPLEADO ORDENADO
-	=============================================*/
-
-	static public function ctrMostrarEmpleadoOdenado($item, $valor)
-	{
-
-		$tabla = "empleado";
-
-		$respuesta = ModeloEmpleado::mdlMostrarEmpleadoOrdenado($tabla, $item, $valor);
-
 		return $respuesta;
 	}
 
 	/*=============================================
 	   REGISTRAR EMPLEADO
 	=============================================*/
-
 	static public function ctrCrearEmpleado()
 	{
 

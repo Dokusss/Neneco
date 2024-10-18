@@ -1,0 +1,430 @@
+DROP DATABASE dbsistemanenecof;
+DROP DATABASE IF EXISTS  dbsistemanenecof;
+
+CREATE DATABASE dbsistemanenecof;
+USE dbsistemanenecof;
+
+CREATE TABLE cargos(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	nombre varchar(30) NOT NULL,
+PRIMARY KEY(id)
+);
+
+CREATE TABLE feriados(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	nombre varchar(50) NOT NULL,
+	fecha date NOT NULL,
+PRIMARY KEY(id)	
+);
+
+CREATE TABLE empleados(
+	id int(11) NOT NULL,
+	ci varchar(20) NOT NULL,
+	nombre varchar(50) NOT NULL,
+	apellidop varchar(50) NOT NULL,
+	apellidom varchar(50) NULL,
+	genero varchar(20) NOT NULL,
+	direccion varchar(255) NOT NULL,
+	telefono varchar(10) NULL,
+	fechanac date NOT NULL,
+	fechareg date NOT NULL,
+	estado tinyint(1) NOT NULL,
+	entrada1 time NOT NULL,
+	salida1 time NOT NULL,
+	entrada2 time NOT NULL,
+	salida2 time NOT NULL,
+	sueldo decimal(10, 2),
+	idcargo int NOT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY (idcargo) REFERENCES cargos(id)
+);
+
+CREATE TABLE usuarios(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	nombre varchar(20) NOT NULL,
+	usuario varchar(20) NOT NULL,
+	password varchar(255) NOT NULL,
+	perfil varchar(30) NOT NULL,
+	foto text NULL,
+	ultimologin timestamp NOT NULL,
+	estado tinyint(1) NOT NULL,
+	idempleado int NOT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY (idempleado) REFERENCES empleados(id)
+);
+
+CREATE TABLE horasextras(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	fecha date NOT NULL,
+	entrada time NOT NULL,
+	salida time NOT NULL,
+PRIMARY KEY(id)
+);
+
+CREATE TABLE detallehoraempleado (
+    idhorasextras int NOT NULL,
+    idempleado int NOT NULL,
+PRIMARY KEY (idhorasextras, idempleado),
+FOREIGN KEY (idhorasextras) REFERENCES horasextras(id),
+FOREIGN KEY (idempleado) REFERENCES empleados(id)
+);
+
+CREATE TABLE permisos(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	fechainicio date NOT NULL,
+	fechafin date NOT NULL,
+	motivo text(255) NOT NULL,
+	idempleado int NOT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY(idempleado) REFERENCES empleados(id)
+);
+
+CREATE TABLE anticipos(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	fecha date NOT NULL,
+	monto decimal(17,2) NOT NULL,
+	idempleado int NOT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY(idempleado) REFERENCES empleados(id)
+);
+
+CREATE TABLE registros(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	idempleado int NOT NULL,
+	nombre varchar(80) NULL,
+	fecha date NOT NULL,
+	hora time NOT NULL,
+	verificacion varchar(20) NOT NULL,
+	evento varchar(20) NOT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY (idempleado) REFERENCES empleados(id)
+);
+
+CREATE TABLE asistencias(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	fecha date NOT NULL,
+	entrada1 time NOT NULL,
+	salida1 time NOT NULL,
+	entrada2 time NOT NULL,
+	salida2 time NOT NULL,
+	horas time NOT NULL,
+	extras time NOT NULL,
+	retraso time NOT NULL,
+	idempleado int NOT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY (idempleado) REFERENCES empleados(id)
+);
+
+CREATE TABLE registrohorasextras(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	fecha date NOT NULL,
+	entrada time NOT NULL,
+	salida time NOT NULL,
+	idempleado int NOT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY (idempleado) REFERENCES empleados(id)
+);
+
+CREATE TABLE planillas(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	fecha date NOT NULL,
+	totalpagado decimal(10, 2) NOT NULL,
+PRIMARY KEY(id)
+);
+
+CREATE TABLE detalleplanillaempleado(
+    idempleado int NOT NULL,
+    idplanilla int NOT NULL,
+    diastrabajados int(11) NOT NULL,
+    haberbasico decimal(10, 2) NOT NULL,
+    horasextras decimal(10, 2) NOT NULL,
+    faltas int(11) NOT NULL,
+    anticipos decimal(10, 2) NOT NULL,
+    totaldescuentos decimal(10, 2) NOT NULL,
+    liquidopagable decimal(10, 2) NOT NULL,
+PRIMARY KEY (idempleado, idplanilla),
+FOREIGN KEY (idempleado) REFERENCES empleados(id),
+FOREIGN KEY (idplanilla) REFERENCES planillas(id)
+);
+
+INSERT INTO feriados (nombre, fecha)
+VALUES
+('Año nuevo', '2024-01-01'),
+('Dia del Estado Plurinacional', '2024-01-22'),
+('Carnaval', '2024-02-12'),
+('Carnaval', '2024-02-13'),
+('Viernes Santo', '2024-03-29'),
+('Dia del Trabajo', '2024-05-01'),
+('Corpus Christi', '2024-05-30'),
+('Año Nuevo Aymara', '2024-06-21'),
+('Dia de la Independencia', '2024-08-06'),
+('24 de Septiembre', '2024-09-24'),
+('Dia de Todos los Difuntos', '2024-11-02'),
+('Navidad', '2024-12-25');
+
+INSERT INTO cargos (nombre)
+VALUES
+('Gerente'),         
+('Secretaria'),
+('Maestro carpintero'),
+('Maestro barnisador'),
+('Maestro barraca'),
+('Chofer'),
+('Ayudante carpinteria'),
+('Ayudante barnisador'),
+('Ayudante barraca'),
+('Ayudante chofer');
+
+INSERT INTO empleados (id, ci, nombre, apellidop, apellidom, genero, direccion, telefono, fechanac, fechareg, estado, idcargo, sueldo, entrada1, salida1, entrada2, salida2)
+VALUES
+('100', '9645626', 'Albert', 'Cardoza', 'Junin', 'masculino', 'Calle recaredo roda #541', '76619618', '1985-06-28', '2023-05-10', '1', '1', 5000, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
+('101', '9645627', 'Rosmeri', 'Maldonado', NULL, 'femenino', 'Calle recaredo roda #5478', '76619619', '1990-12-28', '2023-05-10', '1', '2', 2400, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
+('102', '9645628', 'Jose Carlos', 'Montero', 'Perez', 'masculino', 'Calle recaredo roda #541', '76619620', '1991-06-18', '2023-05-10', '1', '3', 2300, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
+('103', '9645629', 'Pedro', 'Arias', 'Villa', 'masculino', 'Avenida melchor pinto #486', '76619621', '1989-10-08', '2023-05-10', '1', '4', 2300, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
+('104', '9645631', 'Brandon', 'Rosales', 'Pedraza', 'masculino', 'Calle las palmeras #4621', '76619622', '1989-02-15', '2023-05-10', '1', '5', 2300, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
+('105', '9645632', 'Carlos', 'Mole', 'Peredo', 'masculino', 'Calle salvatierra #486', '76619623', '1989-02-15', '2023-05-10', '1', '6', 2300, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
+('106', '9645633', 'Mario', 'Ticona', 'Estrada', 'masculino', 'Avenida siempre viva #21', '76619624', '1989-02-15', '2023-05-10', '1', '7', 2200, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
+('107', '9645634', 'Jose', 'Colque', 'Puma', 'masculino', 'Calle leandro gado #4781', '76619625', '1989-02-15', '2023-05-10', '1', '7', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
+('108', '9645635', 'Kevin', 'Mamani', 'Quispe', 'masculino', 'Barrio el melgar #21', '76619626', '1989-02-15', '2023-05-10', '1', '8', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
+('109', '9645636', 'Hector', 'Mamani', NULL, 'masculino', 'Avenida 24 de septembre #5451', '76619627', '2000-11-14', '2023-05-10', '1', '8', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
+('110', '9645637', 'Manuel', 'Arias', 'Gonzales', 'masculino', 'Avenida 24 de septembre #58', '76619628', '1989-08-02', '2023-05-10', '1', '9', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
+('111', '9645638', 'Roman', 'Villa', 'Trump', 'masculino', 'Barrio texacuz #581', '76619629', '1992-02-09', '2023-05-10', '1', '9', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
+('112', '9645639', 'Juan', 'Montoya', 'Rivera', 'masculino', 'Avenida siempre viva #59', '76619630', '1981-12-30', '2023-05-10', '1', '10', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
+('113', '9645640', 'Mario', 'Melgar', 'Romero', 'masculino', 'Calle los magales #102', '76619631', '1989-10-10', '2023-05-10', '1', '10', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00');
+
+INSERT INTO usuarios (nombre, usuario, password, estado, idempleado)
+VALUES
+('Albert', 'acardozajunin', '$2a$07$asxx54ahjppf45sd87a5auN48JGo4Pm6HOT1xlywmTfUd9npr99vy', '1', '100');
+
+INSERT INTO horasextras (fecha, entrada, salida)
+VALUES
+('2023-06-10', '19:00:00', '23:00:00'),
+('2023-06-15', '18:30:00', '22:30:00'),
+('2023-06-20', '19:15:00', '23:15:00'),
+('2023-06-25', '18:45:00', '22:45:00'),
+('2023-07-01', '19:00:00', '23:00:00'),
+('2023-07-05', '18:30:00', '22:30:00'),
+('2023-07-10', '19:15:00', '23:15:00'),
+('2023-07-15', '18:45:00', '22:45:00'),
+('2023-07-20', '19:00:00', '23:00:00'),
+('2023-07-25', '18:30:00', '22:30:00'),
+('2023-08-01', '19:15:00', '23:15:00'),
+('2023-08-05', '18:45:00', '22:45:00'),
+('2023-08-10', '19:00:00', '23:00:00'),
+('2023-08-15', '18:30:00', '22:30:00'),
+('2023-08-20', '19:15:00', '23:15:00'),
+('2023-08-25', '18:45:00', '22:45:00'),
+('2023-09-01', '19:00:00', '23:00:00'),
+('2023-09-05', '18:30:00', '22:30:00'),
+('2023-09-10', '19:15:00', '23:15:00'),
+('2023-09-15', '18:45:00', '22:45:00'),
+('2023-09-20', '19:00:00', '23:00:00'),
+('2023-09-25', '18:30:00', '22:30:00'),
+('2023-10-01', '19:15:00', '23:15:00'),
+('2023-10-05', '18:45:00', '22:45:00'),
+('2023-10-10', '19:00:00', '23:00:00'),
+('2023-10-15', '18:30:00', '22:30:00'),
+('2023-10-20', '19:15:00', '23:15:00'),
+('2023-10-25', '18:45:00', '22:45:00'),
+('2023-11-01', '19:00:00', '23:00:00'),
+('2023-11-05', '18:30:00', '22:30:00'),
+('2023-11-10', '19:15:00', '23:15:00'),
+('2023-11-15', '18:45:00', '22:45:00'),
+('2023-11-20', '19:00:00', '23:00:00'),
+('2023-11-25', '18:30:00', '22:30:00'),
+('2023-12-01', '19:15:00', '23:15:00'),
+('2023-12-05', '18:45:00', '22:45:00'),
+('2023-12-10', '19:00:00', '23:00:00'),
+('2023-12-15', '18:30:00', '22:30:00'),
+('2023-12-20', '19:15:00', '23:15:00'),
+('2024-01-05', '18:45:00', '22:45:00'),
+('2024-01-15', '19:00:00', '23:00:00'),
+('2024-02-01', '18:30:00', '22:30:00'),
+('2024-03-05', '19:15:00', '23:15:00'),
+('2024-04-10', '18:45:00', '22:45:00'),
+('2024-05-15', '19:00:00', '23:00:00'),
+('2024-06-01', '18:30:00', '22:30:00'),
+('2024-07-10', '19:15:00', '23:15:00'),
+('2024-08-05', '18:45:00', '22:45:00'),
+('2024-09-15', '19:00:00', '23:00:00');
+
+INSERT INTO permisos (fechainicio, fechafin, motivo, idempleado)
+VALUES
+('2023-06-12', '2023-06-14', 'Enfermedad', 101),
+('2023-06-20', '2023-07-04', 'Vacaciones', 102),
+('2023-07-05', '2023-07-07', 'Enfermedad', 103),
+('2023-07-10', '2023-07-24', 'Vacaciones', 104),
+('2023-07-25', '2023-07-27', 'Enfermedad', 105),
+('2023-08-01', '2023-08-15', 'Vacaciones', 106),
+('2023-08-16', '2023-08-18', 'Enfermedad', 107),
+('2023-08-20', '2023-09-03', 'Vacaciones', 108),
+('2023-09-05', '2023-09-07', 'Enfermedad', 109),
+('2023-09-10', '2023-09-24', 'Vacaciones', 110),
+('2023-09-25', '2023-09-27', 'Enfermedad', 111),
+('2023-10-01', '2023-10-15', 'Vacaciones', 101),
+('2023-10-16', '2023-10-18', 'Enfermedad', 102),
+('2023-10-01', '2023-10-14', 'Vacaciones', 103),
+('2023-10-01', '2023-10-03', 'Enfermedad', 104),
+('2023-09-10', '2023-09-24', 'Vacaciones', 105),
+('2023-10-05', '2023-10-07', 'Enfermedad', 106),
+('2023-09-01', '2023-09-15', 'Vacaciones', 107),
+('2023-10-10', '2023-10-12', 'Enfermedad', 108),
+('2023-09-10', '2023-09-24', 'Vacaciones', 109),
+('2023-09-28', '2023-09-30', 'Enfermedad', 110),
+('2023-10-05', '2023-10-19', 'Vacaciones', 111),
+('2023-10-10', '2023-10-12', 'Enfermedad', 101),
+('2023-08-05', '2023-08-19', 'Vacaciones', 102),
+('2023-08-20', '2023-08-22', 'Enfermedad', 103),
+('2023-09-01', '2023-09-15', 'Vacaciones', 104),
+('2023-09-20', '2023-09-22', 'Enfermedad', 105),
+('2023-08-01', '2023-08-15', 'Vacaciones', 106),
+('2023-08-16', '2023-08-18', 'Enfermedad', 107),
+('2023-09-10', '2023-09-24', 'Vacaciones', 108),
+('2023-09-25', '2023-09-27', 'Enfermedad', 109),
+('2023-10-01', '2023-10-15', 'Vacaciones', 110),
+('2023-10-16', '2023-10-18', 'Enfermedad', 111),
+('2023-09-01', '2023-09-15', 'Vacaciones', 101),
+('2023-09-16', '2023-09-18', 'Enfermedad', 102),
+('2023-08-05', '2023-08-19', 'Vacaciones', 103),
+('2023-08-20', '2023-08-22', 'Enfermedad', 104),
+('2023-09-01', '2023-09-15', 'Vacaciones', 105),
+('2023-09-16', '2023-09-18', 'Enfermedad', 106),
+('2023-09-01', '2023-09-15', 'Vacaciones', 107),
+('2023-09-16', '2023-09-18', 'Enfermedad', 108),
+('2023-09-10', '2023-09-24', 'Vacaciones', 109),
+('2023-09-25', '2023-09-27', 'Enfermedad', 110),
+('2023-10-01', '2023-10-15', 'Vacaciones', 111),
+('2023-10-16', '2023-10-18', 'Enfermedad', 102);
+
+INSERT INTO detallehoraempleado (idhorasextras, idempleado)
+VALUES
+(1, 102), (1, 103), (1, 104),
+(2, 105), (2, 106), (2, 107), (2, 108),
+(3, 109), (3, 110), (3, 111), (3, 102), (3, 103),
+(4, 104), (4, 105), (4, 106), (4, 107),
+(5, 108), (5, 109), (5, 110),
+(6, 111), (6, 102), (6, 103), (6, 104), (6, 105),
+(7, 106), (7, 107), (7, 108), (7, 109), (7, 110),
+(8, 111), (8, 102), (8, 103),
+(9, 104), (9, 105), (9, 106), (9, 107),
+(10, 108), (10, 109), (10, 110), (10, 111),
+(11, 102), (11, 103), (11, 104),
+(12, 105), (12, 106), (12, 107), (12, 108), (12, 109),
+(13, 110), (13, 111), (13, 102),
+(14, 103), (14, 104), (14, 105), (14, 106),
+(15, 107), (15, 108), (15, 109),
+(16, 110), (16, 111), (16, 102), (16, 103),
+(17, 104), (17, 105), (17, 106),
+(18, 107), (18, 108), (18, 109), (18, 110),
+(19, 111), (19, 102), (19, 103),
+(20, 104), (20, 105), (20, 106), (20, 107),
+(21, 108), (21, 109), (21, 110),
+(22, 111), (22, 102), (22, 103), (22, 104),
+(23, 105), (23, 106), (23, 107),
+(24, 108), (24, 109), (24, 110), (24, 111),
+(25, 102), (25, 103), (25, 104),
+(26, 105), (26, 106), (26, 107), (26, 108), (26, 109),
+(27, 110), (27, 111), (27, 102),
+(28, 103), (28, 104), (28, 105), (28, 106),
+(29, 107), (29, 108), (29, 109),
+(30, 110), (30, 111), (30, 102), (30, 103),
+(31, 104), (31, 105), (31, 106),
+(32, 107), (32, 108), (32, 109), (32, 110),
+(33, 111), (33, 102), (33, 103),
+(34, 104), (34, 105), (34, 106), (34, 107),
+(35, 108), (35, 109), (35, 110),
+(36, 111), (36, 102), (36, 103), (36, 104),
+(37, 105), (37, 106), (37, 107),
+(38, 108), (38, 109), (38, 110), (38, 111),
+(39, 102), (39, 103), (39, 104),
+(40, 105), (40, 106), (40, 107), (40, 108), (40, 109),
+(41, 110), (41, 111), (41, 102),
+(42, 103), (42, 104), (42, 105), (42, 106),
+(43, 107), (43, 108), (43, 109),
+(44, 110), (44, 111), (44, 102), (44, 103),
+(45, 104), (45, 105), (45, 106),
+(46, 107), (46, 108), (46, 109), (46, 110),
+(47, 111), (47, 102), (47, 103),
+(48, 104), (48, 105), (48, 106), (48, 107),
+(49, 108), (49, 109), (49, 110);
+
+INSERT INTO anticipos (fecha, monto, idempleado)
+VALUES
+('2023-06-15', 80.00, 101),
+('2023-06-22', 95.00, 102),
+('2023-06-29', 60.00, 103),
+('2023-07-06', 100.00, 104),
+('2023-07-13', 85.00, 105),
+('2023-07-20', 90.00, 106),
+('2023-07-27', 75.00, 107),
+('2023-08-03', 65.00, 108),
+('2023-08-17', 50.00, 109),
+('2023-08-24', 95.00, 110),
+('2023-09-07', 70.00, 111),
+('2023-09-14', 85.00, 102),
+('2023-09-21', 95.00, 105),
+('2023-09-28', 80.00, 106),
+('2023-10-05', 90.00, 107),
+('2023-10-12', 65.00, 108),
+('2023-10-14', 55.00, 109),
+('2023-09-01', 70.00, 101),
+('2023-09-08', 85.00, 102),
+('2023-09-15', 95.00, 103),
+('2023-09-22', 80.00, 104),
+('2023-09-29', 75.00, 105),
+('2023-10-01', 60.00, 106),
+('2023-10-05', 90.00, 107),
+('2023-10-10', 65.00, 108),
+('2023-08-12', 55.00, 109),
+('2023-09-17', 95.00, 110),
+('2023-08-07', 70.00, 111),
+('2023-08-14', 85.00, 101),
+('2023-08-21', 90.00, 102),
+('2023-08-28', 60.00, 103),
+('2023-09-04', 100.00, 104),
+('2023-09-11', 85.00, 105),
+('2023-09-18', 95.00, 106),
+('2023-09-25', 70.00, 107),
+('2023-09-30', 50.00, 108),
+('2023-10-06', 95.00, 109),
+('2023-10-08', 70.00, 110),
+('2023-10-15', 85.00, 111),
+('2023-09-03', 75.00, 101),
+('2023-09-10', 65.00, 102),
+('2023-09-17', 50.00, 103),
+('2023-09-24', 95.00, 104),
+('2023-10-01', 80.00, 105),
+('2023-10-05', 85.00, 106),
+('2023-09-07', 60.00, 107),
+('2023-09-14', 100.00, 108),
+('2023-09-21', 95.00, 109),
+('2023-09-28', 85.00, 110);
+
+INSERT INTO registros(idempleado, nombre, fecha, hora, verificacion, evento)
+VALUES
+('101', 'Rosmeri Maldonado', '2024-05-27', '07:50:00', 'Fingerprint', 'In'),
+('102', 'Jose Carlos Montero Perez', '2024-05-27', '07:50:00', 'Fingerprint', 'In'),
+('103', 'Pedro Arias Villa', '2024-05-27', '07:50:00', 'Fingerprint', 'In'),
+('104', 'Brandon Rosales Pedraza', '2024-05-27', '07:50:00', 'Fingerprint', 'In'),
+('105', 'Carlos Mole Peredo', '2024-05-27', '07:50:00', 'Fingerprint', 'In'),
+('106', 'Mario Ticona Estrada', '2024-05-27', '07:50:00', 'Fingerprint', 'In'),
+('107', 'Jose Colque Puma', '2024-05-27', '07:50:00', 'Fingerprint', 'In'),
+('108', 'Kevin Mamani Quispe', '2024-05-27', '07:50:00', 'Fingerprint', 'In'),
+('109', 'Hector Mamani Gonzales', '2024-05-27', '07:50:00', 'Fingerprint', 'In'),
+('110', 'Manuel Arias', '2024-05-27', '07:50:00', 'Fingerprint', 'In'),
+('111', 'Roman Villa Trump', '2024-05-27', '07:50:00', 'Fingerprint', 'In'),
+('112', 'Juan Montoya Rivera', '2024-05-27', '07:50:00', 'Fingerprint', 'In'),
+('113', 'Mario Melgar Romero', '2024-05-27', '07:50:00', 'Fingerprint', 'In'),
+('101', 'Rosmeri Maldonado', '2024-05-27', '12:05:00', 'Fingerprint', 'Out'),
+('102', 'Jose Carlos Montero Perez', '2024-05-27', '12:05:00', 'Fingerprint', 'Out'),
+('103', 'Pedro Arias Villa', '2024-05-27', '12:05:00', 'Fingerprint', 'Out'),
+('104', 'Brandon Rosales Pedraza', '2024-05-27', '12:05:00', 'Fingerprint', 'Out'),
+('105', 'Carlos Mole Peredo', '2024-05-27', '12:05:00', 'Fingerprint', 'Out'),
+('106', 'Mario Ticona Estrada', '2024-05-27', '12:05:00', 'Fingerprint', 'Out'),
+('107', 'Jose Colque Puma', '2024-05-27', '12:05:00', 'Fingerprint', 'Out'),
+('108', 'Kevin Mamani Quispe', '2024-05-27', '12:05:00', 'Fingerprint', 'Out'),
+('109', 'Hector Mamani Gonzales', '2024-05-27', '12:05:00', 'Fingerprint', 'Out'),
+('110', 'Manuel Arias', '2024-05-27', '12:05:00', 'Fingerprint', 'Out'),
+('111', 'Roman Villa Trump', '2024-05-27', '12:05:00', 'Fingerprint', 'Out'),
+('112', 'Juan Montoya Rivera', '2024-05-27', '12:05:00', 'Fingerprint', 'Out'),
+('113', 'Mario Melgar Romero', '2024-05-27', '12:05:00', 'Fingerprint', 'Out');

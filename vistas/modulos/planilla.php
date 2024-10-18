@@ -83,7 +83,7 @@
     </div>
 </div>
 
-<!-- Modal Agregar Cargo-->
+<!-- Modal Genera Planilla -->
 <div class="modal fade" id="modalGenerarPlanilla" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">

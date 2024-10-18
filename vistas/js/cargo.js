@@ -1,67 +1,7 @@
-$(document).ready(function () {
-	// Configuración de Toastr
-	toastr.options = {
-		"closeButton": true,
-		"debug": false,
-		"newestOnTop": false,
-		"progressBar": true,
-		"positionClass": "toast-top-right",
-		"preventDuplicates": false,
-		"onclick": null,
-		"showDuration": "300",
-		"hideDuration": "1000",
-		"timeOut": "5000",
-		"extendedTimeOut": "1000",
-		"showEasing": "swing",
-		"hideEasing": "linear",
-		"showMethod": "fadeIn",
-		"hideMethod": "fadeOut"
-	}
-
-	// Verificar si el indicador está en sessionStorage
-	if (sessionStorage.getItem("cargoRegistrado") === "true") {
-		// Mostrar la notificación Toastr
-		toastr["success"]("Datos registrados correctamente.", "Exito!");
-
-		// Eliminar el indicador de sessionStorage
-		sessionStorage.removeItem("cargoRegistrado");
-	}
-});
-
-$(document).ready(function () {
-	// Configuración de Toastr
-	toastr.options = {
-		"closeButton": true,
-		"debug": false,
-		"newestOnTop": false,
-		"progressBar": true,
-		"positionClass": "toast-top-right",
-		"preventDuplicates": false,
-		"onclick": null,
-		"showDuration": "300",
-		"hideDuration": "1000",
-		"timeOut": "5000",
-		"extendedTimeOut": "1000",
-		"showEasing": "swing",
-		"hideEasing": "linear",
-		"showMethod": "fadeIn",
-		"hideMethod": "fadeOut"
-	}
-
-	// Verificar si el indicador está en sessionStorage
-	if (sessionStorage.getItem("cargoError") === "true") {
-		// Mostrar la notificación Toastr
-		toastr["error"]("Datos en formato incorrecto.", "Error!");
-
-		// Eliminar el indicador de sessionStorage
-		sessionStorage.removeItem("cargoError");
-	}
-});
-
 /*=============================================
 EDITAR CARGO
 =============================================*/
-$(".tablaCargo").on("click", ".btnEditarCargo", function () {
+$(".tablas").on("click", ".btnEditarCargo", function () {
 	var id = $(this).attr("id");
 	var datos = new FormData();
 	datos.append("id", id);
@@ -76,8 +16,7 @@ $(".tablaCargo").on("click", ".btnEditarCargo", function () {
 		dataType: "json",
 		success: function (respuesta) {
 
-			$("#editarNom").val(respuesta["nombre"]);
-			$("#editarSueldo").val(respuesta["sueldo"]);
+			$("#editarNombre").val(respuesta["nombre"]);
 			$("#id").val(respuesta["id"]);
 
 		}
@@ -90,13 +29,9 @@ $(".tablaCargo").on("click", ".btnEditarCargo", function () {
 /*=============================================
 REVISAR SI EL CI NO ESTA REPETIDO
 =============================================*/
-
 $(".nuevoNombre").change(function () {
-
 	$(".alert").remove();
-
 	var nombre = $(this).val();
-
 	var datos = new FormData();
 	datos.append("nombre", nombre);
 
@@ -111,22 +46,17 @@ $(".nuevoNombre").change(function () {
 		success: function (respuesta) {
 
 			if (respuesta) {
-
-				$(".nuevoNombre").parent().after('<div class="alert alert-warning" role="alert"> Lo siento, ya existe un cargo registrado con ese nombre. </div>');
-
+				$(".nuevoNombre").parent().after('<div class="alert alert-warning" role="alert"> El cargo con ese nombre ya está registrado, por favor verifique. </div>');
 				$(".nuevoNombre").val("");
-
 			}
-
 		}
-
 	})
 })
 
 /*=============================================
 ELIMINAR CARGO	
 =============================================*/
-$(".tablaCargo").on("click", ".btnEliminarCargo", function () {
+$(".tablas").on("click", ".btnEliminarCargo", function () {
 
 	var id = $(this).attr("id");
 
@@ -150,39 +80,39 @@ $(".tablaCargo").on("click", ".btnEliminarCargo", function () {
 /*=============================================
 CARGAR LA TABLA DINAMICA DE CARGO
 =============================================*/
-$.ajax({
-	url: "ajax/datatable-cargo.ajax.php",
-	success: function (respuesta) {
-		//console.log(respuesta);
-	}
-});
+// $.ajax({
+// 	url: "ajax/datatable-cargo.ajax.php",
+// 	success: function (respuesta) {
+// 		//console.log(respuesta);
+// 	}
+// });
 
-$('.tablaCargo').DataTable({
-	"ajax": "ajax/datatable-cargo.ajax.php",
-	"language": {
+// $('.tablaCargo').DataTable({
+// 	"ajax": "ajax/datatable-cargo.ajax.php",
+// 	"language": {
 
-		"sProcessing": "Procesando...",
-		"sLengthMenu": "Mostrar _MENU_ registros",
-		"sZeroRecords": "No se encontraron resultados",
-		"sEmptyTable": "Ningún dato disponible en esta tabla",
-		"sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-		"sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-		"sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-		"sInfoPostFix": "",
-		"sSearch": "Buscar:",
-		"sUrl": "",
-		"sInfoThousands": ",",
-		"sLoadingRecords": "Cargando...",
-		"oPaginate": {
-			"sFirst": "Primero",
-			"sLast": "Último",
-			"sNext": "Siguiente",
-			"sPrevious": "Anterior"
-		},
-		"oAria": {
-			"sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-		}
+// 		"sProcessing": "Procesando...",
+// 		"sLengthMenu": "Mostrar _MENU_ registros",
+// 		"sZeroRecords": "No se encontraron resultados",
+// 		"sEmptyTable": "Ningún dato disponible en esta tabla",
+// 		"sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+// 		"sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+// 		"sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+// 		"sInfoPostFix": "",
+// 		"sSearch": "Buscar:",
+// 		"sUrl": "",
+// 		"sInfoThousands": ",",
+// 		"sLoadingRecords": "Cargando...",
+// 		"oPaginate": {
+// 			"sFirst": "Primero",
+// 			"sLast": "Último",
+// 			"sNext": "Siguiente",
+// 			"sPrevious": "Anterior"
+// 		},
+// 		"oAria": {
+// 			"sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+// 			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+// 		}
 
-	}
-});
+// 	}
+// });

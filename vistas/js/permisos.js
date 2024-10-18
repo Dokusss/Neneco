@@ -59,15 +59,13 @@ $(".tablas").on("click", ".btnEditarPermisos", function () {
 REVISAR SI LA FECHA NO ES INFERIOR A LA FECHA ACTUAL
 =============================================*/
 $(".nuevoFechaInicio").change(function () {
-
     $(".alert").remove();
-
     var fechaInicio = new Date($(this).val());
     var fechaActual = new Date();
-    fechaActual.setHours(0, 0, 0, 0); // Ajusta la hora al inicio del día
-
+    fechaActual.setDate(fechaActual.getDate() - 1);
+    fechaActual.setHours(0, 0, 0, 0);
     if (fechaInicio < fechaActual) {
-        $(".nuevoFechaInicio").parent().after('<div class="alert alert-warning" role="alert"> La fecha de inicio no puede ser inferior a la fecha actual. </div>');
+        $(".nuevoFechaInicio").parent().after('<div class="alert alert-warning" role="alert"> La fecha de inicio no puede ser menor a la fecha actual un día. </div>');
         $(".nuevoFechaInicio").val("");
     }
 });

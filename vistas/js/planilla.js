@@ -1,4 +1,18 @@
 $("#fechaInicioP").change(function () {
+
+    $(".alert").remove();
+
+    var fechaIngresada = new Date($(this).val());
+    var fechaActual = new Date();
+    fechaActual.setHours(0, 0, 0, 0); // Ajusta la hora al inicio del día
+
+    if (fechaIngresada > fechaActual) {
+        $("#fechaInicioP").parent().after('<div class="alert alert-warning" role="alert"> Verifique la fecha ingresada. La fecha no puede ser mayor a la fecha actual. </div>');
+        $("#fechaInicioP").val("");
+    }
+});
+
+$("#fechaInicioP").change(function () {
     var fechaInicio = new Date($(this).val());
     var dia = fechaInicio.getDay(); // 0 (domingo) a 6 (sábado)
     var diasParaSabado = 6 - dia;
@@ -13,6 +27,6 @@ $("#fechaInicioP").change(function () {
 });
 
 $(".tablas").on("click", ".btnReportePlanilla", function () {
-	var id = $(this).attr("id");
-    window.open("extensiones/tcpdf/pdf/planillas.php?id=" + id,"_blank");
+    var id = $(this).attr("id");
+    window.open("extensiones/tcpdf/pdf/planillas.php?id=" + id, "_blank");
 })

@@ -1,34 +1,4 @@
 /*=============================================
-MOSTRAR EL SUELDO
-=============================================*/
-$(".nuevoCargo").change(function () {
-
-	var id = $(this).val();
-
-	var datos = new FormData();
-	datos.append("id", id);
-
-	$.ajax({
-
-		url: "ajax/cargo.ajax.php",
-		method: "POST",
-		data: datos,
-		cache: false,
-		contentType: false,
-		processData: false,
-		dataType: "json",
-		success: function (respuesta) {
-
-			var mostrarSueldo = respuesta["sueldo"];
-			$(".mostrarSueldo").val("Bs." + mostrarSueldo);
-
-		}
-
-	})
-
-})
-
-/*=============================================
 EDITAR EMPLEADO
 =============================================*/
 $(".tablas").on("click", ".btnEditarEmpleado", function () {
@@ -153,16 +123,12 @@ $("#nuevoCi").change(function () {
 DAR DE BAJA EMPLEADOS
 =============================================*/
 $(".tablas").on("click", ".btnActivarE", function () {
-
 	var id = $(this).attr("id");
 	var estadoEmpleado = $(this).attr("estadoEmpleado");
-
 	var datos = new FormData();
 	datos.append("activarId", id);
 	datos.append("activarEmpleado", estadoEmpleado);
-
 	$.ajax({
-
 		url: "ajax/empleado.ajax.php",
 		method: "POST",
 		data: datos,
@@ -172,39 +138,23 @@ $(".tablas").on("click", ".btnActivarE", function () {
 		success: function (respuesta) {
 
 			if (respuesta != null) {
-
-				Swal.fire({
-					type: "success",
-					title: "El empleado ha sido actualizado",
-					showConfirmButton: true,
-					confirmButtonColor: "#627d72",
-					confirmButtonText: "Cerrar"
-				}).then(function (result) {
-					if (result.value) {
-						window.location = "empleado";
-					}
-				});
-
+				sessionStorage.setItem("tActualizado", "true");
+				window.location = "empleado";
 			}
-
 		}
-
 	})
 
 	if (estadoEmpleado == 0) {
-
 		$(this).removeClass('btn-primary');
 		$(this).addClass('btn-danger');
 		$(this).html('Inactivo');
 		$(this).attr('estadoEmpleado', 1);
-
 	} else {
-
 		$(this).addClass('btn-primary');
 		$(this).removeClass('btn-danger');
 		$(this).html('Activo');
 		$(this).attr('estadoEmpleado', 0);
-
 	}
 
 })
+

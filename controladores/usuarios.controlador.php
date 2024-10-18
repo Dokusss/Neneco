@@ -10,7 +10,7 @@ class ControladorUsuarios
 	static public function ctrMostrarUsuarios($item, $valor)
 	{
 
-		$tabla = "usuario";
+		$tabla = "usuarios";
 
 		$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
 
@@ -33,7 +33,7 @@ class ControladorUsuarios
 			) {
 
 				$encriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-				$tabla = "usuario";
+				$tabla = "usuarios";
 
 				$item = "usuario";
 				$valor = $_POST["ingUsuario"];

@@ -3,135 +3,73 @@
 class ControladorPermisos
 {
 
-
 	/*=============================================
-		  MOSTRAR PERMISOS
-	   =============================================*/
-
+			 MOSTRAR PERMISOS
+		  =============================================*/
 	static public function ctrMostrarPermisos($item, $valor)
 	{
-
 		$tabla = "permisos";
-
 		$respuesta = ModeloPermisos::MdlMostrarPermisos($tabla, $item, $valor);
-
 		return $respuesta;
 	}
 
 	/*=============================================
-	   CREAR PERMISOS     
-	=============================================*/
-
+		  CREAR PERMISOS     
+	   =============================================*/
 	static public function ctrCrearPermisos()
 	{
-
 		if (isset($_POST["nuevoEmpleado"])) {
-
 			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoMotivo"])) {
-
-				// Supongamos que $_POST['nuevoFechaInicio'] contiene la fecha del formulario
 				$nuevoFechaInicio = $_POST['nuevoFechaInicio'];
-				$formato = 'Y-m-d'; // El formato esperado
-
+				$formato = 'Y-m-d';
 				$fechaInicio = DateTime::createFromFormat($formato, $nuevoFechaInicio);
-
 				if ($fechaInicio && $fechaInicio->format($formato) === $nuevoFechaInicio) {
-					// La fecha es válida y está en el formato correcto
-
-					// Supongamos que $_POST['nuevoFechaFin'] contiene la fecha del formulario
 					$nuevoFechaFin = $_POST['nuevoFechaFin'];
-					$formato = 'Y-m-d'; // El formato esperado
-
+					$formato = 'Y-m-d';
 					$fechaFin = DateTime::createFromFormat($formato, $nuevoFechaFin);
-
 					if ($fechaFin && $fechaFin->format($formato) === $nuevoFechaFin) {
-						// La fecha es válida y está en el formato correcto
-
 						$tabla = "permisos";
-
 						$datos = array(
 							"idempleado" => $_POST["nuevoEmpleado"],
 							"fechainicio" => $nuevoFechaInicio,
 							"fechafin" => $nuevoFechaFin,
-							"categoria" => $_POST["nuevoCategoria"],
 							"motivo" => $_POST["nuevoMotivo"]
 						);
-
 						$respuesta = ModeloPermisos::mdlCrearPermiso($tabla, $datos);
-
 						if ($respuesta == "ok") {
-
 							echo '<script>
-									Swal.fire({
-										type: "success",
-										title: "El permiso ha sido registrado correctamente",
-										showConfirmButton: true,
-										confirmButtonColor: "#627d72",
-										confirmButtonText: "Cerrar"
-									}).then(function(result) {
-										if (result.value) {
-											window.location = "permisos";
-										}
-									});
-									</script>';
+						// Guardar un indicador en sessionStorage
+						sessionStorage.setItem("tRegistrado", "true");
+						window.location = "permisos";
+					</script>';
 						}
 					} else {
-
-						// La fecha no está en el formato correcto
 						echo '<script>
-					Swal.fire({
-						type: "error",
-						title: "¡La fecha de fin que ingresó está en un formato incorrecto!",
-						showConfirmButton: true,
-						confirmButtonColor: "#627d72",
-						confirmButtonText: "Cerrar"
-					}).then(function(result) {
-						if (result.value) {
-							window.location = "permisos";
-						}
-					});
+						// Guardar un indicador en sessionStorage
+						sessionStorage.setItem("tError", "true");
+						window.location = "permisos";
 					</script>';
 					}
 				} else {
-
-					// La fecha no está en el formato correcto
 					echo '<script>
-					Swal.fire({
-						type: "error",
-						title: "¡La fecha de inicio que ingresó está en un formato incorrecto!",
-						showConfirmButton: true,
-						confirmButtonText: "Cerrar"
-					}).then(function(result) {
-						if (result.value) {
-							window.location = "permisos";
-						}
-					});
-					</script>';
+					// Guardar un indicador en sessionStorage
+					sessionStorage.setItem("tError", "true");
+					window.location = "permisos";
+				</script>';
 				}
 			} else {
-
 				echo '<script>
-
-				Swal.fire({
-					type: "error",
-					title: "¡El motivo no puede ir vacío o llevar caracteres especiales!",
-					showConfirmButton: true,
-					confirmButtonColor: "#627d72",
-					confirmButtonText: "Cerrar"
-				}).then(function(result) {
-					if (result.value) {
-						window.location = "permisos";
-					}
-				});
-				  
-					  </script>';
+				// Guardar un indicador en sessionStorage
+				sessionStorage.setItem("tError", "true");
+				window.location = "permisos";
+			</script>';
 			}
 		}
 	}
 
 	/*=============================================
-	   EDITAR PERMISOS     
-	=============================================*/
+		  EDITAR PERMISOS     
+	   =============================================*/
 
 	static public function ctrEditarPermisos()
 	{
@@ -142,7 +80,7 @@ class ControladorPermisos
 
 				// Supongamos que $_POST['editarFechaInicio'] contiene la fecha del formulario
 				$editarFechaInicio = $_POST['editarFechaInicio'];
-				$formato = 'Y-m-d'; // El formato esperado
+				$formato = 'Y-m-d';
 
 				$fechaInicio = DateTime::createFromFormat($formato, $editarFechaInicio);
 
@@ -242,8 +180,8 @@ class ControladorPermisos
 	}
 
 	/*=============================================
-	BORRAR PERMISOS
-	=============================================*/
+	   BORRAR PERMISOS
+	   =============================================*/
 
 	static public function ctrBorrarPermisos()
 	{

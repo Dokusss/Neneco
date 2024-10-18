@@ -4,13 +4,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0 font-size-18">Cargo</h4>
+                    <h4 class="mb-0 font-size-18">Cargos</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
                             <li class="breadcrumb-item active">Gestion de Personal</li>
-                            <li class="breadcrumb-item active">Cargo</li>
+                            <li class="breadcrumb-item active">Cargos</li>
                         </ol>
                     </div>
 
@@ -29,21 +29,40 @@
                     <div class="card-body">
                         <button type="button" class="btn btn-primary waves-effect waves-light card-title"
                             data-toggle="modal" data-target="#modalAgregarCargo">
-                            <i class="feather-plus mr-1"></i> Agregar
+                            <i class="feather-plus mr-1"></i> Registrar
                         </button>
 
-                        <table class="table dt-responsive nowrap tablaCargo">
+                        <table class="table dt-responsive nowrap tablas">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Nombre</th>
-                                    <th>Sueldo</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-
+                                <?php
+                                $item = null;
+                                $valor = null;
+                                $cargo = ControladorCargo::ctrMostrarCargo($item, $valor);
+                                foreach ($cargo as $key => $value) {
+                                    echo '<tr class="odd" role="row">
+                                            <th class="sorting_1">' . ($key + 1) . '</th>  
+                                            <td class="text-uppercase">' . $value["nombre"] . '</td>
+                                            <td>
+                                                <div>
+                                                    <button class="btn btn-primary btn-sm mr-1 btnEditarCargo"
+                                                        id="' . $value["id"] . '" data-toggle="modal"
+                                                        data-target="#modalEditarCargo"><i
+                                                            class="fas fa-pencil-alt"></i></button>
+                                                    <button class="btn btn-danger btn-sm btnEliminarCargo"
+                                                        id="' . $value["id"] . '"><i class="fa fa-trash"></i></button>
+                                                </div>  
+                                            </td>
+                                        </tr>';
+                                }
+                                ?>
                             </tbody>
                         </table>
 
@@ -78,15 +97,8 @@
                     <!-- Entrada del Nombre -->
                     <div class="form-group">
                         <label for="simpleinput">Nombre del Cargo</label>
-                        <input type="text" name="nuevoCargo" id="nuevoCargo" class="form-control nuevoNombre"
+                        <input type="text" name="nuevoNombre" id="nuevoNombre" class="form-control nuevoNombre"
                             placeholder="Ingrese en nombre" required>
-                    </div>
-
-                    <!-- Entrada del Salario -->
-                    <div class="form-group">
-                        <label for="simpleinput">Sueldo correspondiente al cargo</label>
-                        <input type="number" name="nuevoSueldo" class="form-control" placeholder="Ingrese el sueldo"
-                            required>
                     </div>
 
                 </div>
@@ -122,14 +134,8 @@
                     <!-- Entrada del Nombre -->
                     <div class="form-group">
                         <label for="simpleinput">Nombre del Cargo</label>
-                        <input type="text" name="editarNom" id="editarNom" value="" class="form-control nuevoNombre">
+                        <input type="text" name="editarNombre" id="editarNombre" value="" class="form-control nuevoNombre">
                         <input type="hidden" name="id" id="id" required>
-                    </div>
-
-                    <!-- Entrada del Salario -->
-                    <div class="form-group">
-                        <label for="simpleinput">Sueldo correspondiente al cargo</label>
-                        <input type="number" id="editarSueldo" name="editarSueldo" class="form-control" required>
                     </div>
 
                 </div>

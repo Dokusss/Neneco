@@ -21,8 +21,7 @@
                             <i class="mdi mdi-account-multiple-outline"></i>Gestion de Personal <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-components">
-                            <a href="cargo" class="dropdown-item">Cargo</a>
-                            <a href="horario" class="dropdown-item">Horario</a>
+                            <a href="cargo" class="dropdown-item">Cargos</a>
                             <a href="anticipos" class="dropdown-item">Anticipos</a>
                             <a href="permisos" class="dropdown-item">Permisos y Vacaciones</a>
                             <a href="horasextras" class="dropdown-item">Horas Extras</a>

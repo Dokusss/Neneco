@@ -1,13 +1,8 @@
 <?php
-
 require_once "conexion.php";
-
 class ModeloCargo
 {
-
-	/*=============================================
-		  MOSTRAR CARGO
-		  =============================================*/
+		  //MOSTRAR CARGO
 	static public function mdlMostrarCargo($tabla, $item, $valor)
 	{
 		if ($item != null) {
@@ -23,11 +18,7 @@ class ModeloCargo
 		$stmt->close();
 		$stmt = null;
 	}
-
-	/*=============================================
-		  CREAR CARGO
-		  =============================================*/
-
+		  //CREAR CARGO
 	static public function mdlIngresarCargo($tabla, $datos)
 	{
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre) VALUES (:nombre)");
@@ -40,10 +31,7 @@ class ModeloCargo
 		$stmt->close();
 		$stmt = null;
 	}
-
-	/*=============================================
-		  EDITAR CARGO
-		  =============================================*/
+		  //EDITAR CARGO
 	static public function mdlEditarCargo($tabla, $datos)
 	{
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre WHERE id = :id");
@@ -58,10 +46,7 @@ class ModeloCargo
 		$stmt->close();
 		$stmt = null;
 	}
-
-	/*=============================================
-		  BORRAR CARGO
-	  =============================================*/
+		  //BORRAR CARGO
 	static public function mdlBorrarCargo($tabla, $datos)
 	{
 		try {

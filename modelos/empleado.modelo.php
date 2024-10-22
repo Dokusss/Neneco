@@ -1,13 +1,8 @@
 <?php
-
 require_once "conexion.php";
-
 class ModeloEmpleado
 {
-
-	/*=============================================
-				MOSTRAR EMPLEADOS ACTIVOS
-				=============================================*/
+	//MOSTRAR EMPLEADOS ACTIVOS
 	public static function mdlMostrarEmpleadosActivos()
 	{
 		$stmt = Conexion::conectar()->prepare(
@@ -21,11 +16,7 @@ class ModeloEmpleado
 		$stmt->close();
 		$stmt = null;
 	}
-
-
-	/*=============================================
-							MOSTRAR TODOS LOS EMPLEADOS
-							=============================================*/
+	//MOSTRAR TODOS LOS EMPLEADOS
 	static public function mdlMostrarEmpleado($tabla, $item, $valor)
 	{
 		if ($item != null) {
@@ -41,15 +32,10 @@ class ModeloEmpleado
 		$stmt->close();
 		$stmt = null;
 	}
-
-	/*=============================================
-							REGISTRAR EMPLEADO
-							=============================================*/
+	//REGISTRAR EMPLEADO
 	static public function mdlCrearEmpleado($tabla, $datos)
 	{
-
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(idcargo, idhorario, id, ci, nombre, apellidop, apellidom, genero, direccion, telefono, fechanac, fechareg, estado ) VALUES (:idcargo, :idhorario, :id, :ci, :nombre, :apellidop, :apellidom, :genero, :direccion, :telefono, :fechanac, :fechareg, :estado)");
-
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(idcargo, idhorario, id, ci, nombre, apellidop, apellidom, genero, direccion, telefono, fechanac, fechareg, estado, sueldo ) VALUES (:idcargo, :idhorario, :id, :ci, :nombre, :apellidop, :apellidom, :genero, :direccion, :telefono, :fechanac, :fechareg, :estado, :sueldo)");
 		$stmt->bindParam(":idcargo", $datos["idcargo"], PDO::PARAM_INT);
 		$stmt->bindParam(":idhorario", $datos["idhorario"], PDO::PARAM_INT);
 		$stmt->bindParam(":id", $datos["id"], PDO::PARAM_STR);
@@ -63,28 +49,19 @@ class ModeloEmpleado
 		$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
 		$stmt->bindParam(":fechanac", $datos["fechanac"], PDO::PARAM_STR);
 		$stmt->bindParam(":fechareg", $datos["fechareg"], PDO::PARAM_STR);
-
+		$stmt->bindParam(":sueldo", $datos["sueldo"], PDO::PARAM_STR);
 		if ($stmt->execute()) {
-
 			return "ok";
 		} else {
-
 			return "error";
 		}
-
 		$stmt->close();
 		$stmt = null;
 	}
-
-	/*=============================================
-							EDITAR EMPLEADO
-							=============================================*/
-
+	//EDITAR EMPLEADO
 	static public function mdlEditarEmpleado($tabla, $datos)
 	{
-
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET idcargo = :idcargo, idhorario = :idhorario, ci = :ci, nombre = :nombre, apellidop = :apellidop, apellidom = :apellidom, genero = :genero, direccion = :direccion, telefono = :telefono, fechanac = :fechanac WHERE id = :id");
-
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET idcargo = :idcargo, idhorario = :idhorario, ci = :ci, nombre = :nombre, apellidop = :apellidop, apellidom = :apellidom, genero = :genero, direccion = :direccion, telefono = :telefono, fechanac = :fechanac, sueldo = :sueldo WHERE id = :id");
 		$stmt->bindParam(":idcargo", $datos["idcargo"], PDO::PARAM_INT);
 		$stmt->bindParam(":idhorario", $datos["idhorario"], PDO::PARAM_INT);
 		$stmt->bindParam(":ci", $datos["ci"], PDO::PARAM_STR);
@@ -95,49 +72,17 @@ class ModeloEmpleado
 		$stmt->bindParam(":direccion", $datos["direccion"], PDO::PARAM_STR);
 		$stmt->bindParam(":telefono", $datos["telefono"], PDO::PARAM_STR);
 		$stmt->bindParam(":fechanac", $datos["fechanac"], PDO::PARAM_STR);
+		$stmt->bindParam(":sueldo", $datos["sueldo"], PDO::PARAM_STR);
 		$stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
-
 		if ($stmt->execute()) {
-
 			return "ok";
 		} else {
-
 			return "error";
 		}
-
 		$stmt->close();
 		$stmt = null;
 	}
-
-	/*=============================================
-						 ELIMINAR EMPLEADO
-						 =============================================*/
-
-	static public function mdlBorrarEmpleado($tabla, $datos)
-	{
-
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET estado = :estado  WHERE id = :id");
-
-		$stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
-		$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
-
-		if ($stmt->execute()) {
-
-			return "ok";
-		} else {
-
-			return "error";
-		}
-
-		$stmt->close();
-
-		$stmt = null;
-	}
-
-	/*=============================================
-							ACTUALIZAR EMPLEADO
-							=============================================*/
-
+	//ACTUALIZAR EMPLEADO
 	static public function mdlActualizarEmpleado($tabla, $item1, $valor1, $item2, $valor2)
 	{
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $item1 = :$item1 WHERE $item2 = :$item2");
@@ -151,18 +96,4 @@ class ModeloEmpleado
 		$stmt->close();
 		$stmt = null;
 	}
-
-	public static function mdlMostrarEmpleadosConSueldo()
-	{
-		$stmt = Conexion::conectar()->prepare("
-        SELECT e.id, e.nombre, e.apellidop, e.apellidom, c.sueldo
-        FROM empleado e
-        JOIN cargo c ON e.idcargo = c.id
-        WHERE e.estado = 1
-    ");
-
-		$stmt->execute();
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
-	}
-
 }

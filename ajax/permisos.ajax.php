@@ -9,12 +9,12 @@ class AjaxPermisos{
 	EDITAR PERMISOS
 	=============================================*/	
 
-	public $id;
+	public $idPermiso;
 
 	public function ajaxEditarPermisos(){
 
 		$item = "id";
-		$valor = $this->id;
+		$valor = $this->idPermiso;
 
 		$respuesta = ControladorPermisos::ctrMostrarPermisos($item, $valor);
 
@@ -26,9 +26,9 @@ class AjaxPermisos{
 /*=============================================
 EDITAR PERMISOS
 =============================================*/	
-if(isset($_POST["id"])){
+if(isset($_POST["idPermiso"])){
 
 	$permisos = new AjaxPermisos();
-	$permisos -> id = $_POST["id"];
+	$permisos -> idPermiso = $_POST["idPermiso"];
 	$permisos -> ajaxEditarPermisos();
 }

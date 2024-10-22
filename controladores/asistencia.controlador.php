@@ -1,26 +1,17 @@
 <?php
-
 class ControladorAsistencia
 {
-
-
-    /*=============================================
-	MOSTRAR TODAS LAS ASISTENCIAS
-	=============================================*/
-
-	static public function ctrMostrarTodasLasAsistencias($item, $valor)
-	{
-
-		$tabla = "asistencia";
-
-		$respuesta = ModeloAsistencia::MdlMostrarTodasLasAsistencias($tabla, $item, $valor);
-
-		return $respuesta;
-	}
+    //MOSTRAR TODAS LAS ASISTENCIAS
+    static public function ctrMostrarTodasLasAsistencias($item, $valor)
+    {
+        $tabla = "asistencias";
+        $respuesta = ModeloAsistencia::MdlMostrarTodasLasAsistencias($tabla, $item, $valor);
+        return $respuesta;
+    }
 
     /*=============================================
-	MOSTRAR ASISTENCIA
-	=============================================*/
+    MOSTRAR ASISTENCIA
+    =============================================*/
 
     static public function ctrMostrarAsistencia($id, $fechaInicio, $fechaFin)
     {
@@ -35,10 +26,11 @@ class ControladorAsistencia
         }
     }
 
-     /*=============================================
-    MOSTRAR ASISTENCIA EMPLEADO
-    =============================================*/
-    static public function ctrMostrarAsistenciaEmpleado($id, $fechaInicio, $fechaFin) {
+    /*=============================================
+   MOSTRAR ASISTENCIA EMPLEADO
+   =============================================*/
+    static public function ctrMostrarAsistenciaEmpleado($id, $fechaInicio, $fechaFin)
+    {
         if (!empty($id) && !empty($fechaInicio) && !empty($fechaFin)) {
             $tabla = "asistencia";
             $respuesta = ModeloAsistencia::MdlMostrarAsistencia($tabla, $fechaInicio, $fechaFin, $id);
@@ -49,15 +41,10 @@ class ControladorAsistencia
         return [];
     }
 
-    /*=============================================
-	SUBIR ARCHIVO
-	=============================================*/
-
+    //SUBIR ARCHIVO
     static public function ctrCargarDatos($nuevoArchivo)
     {
-
         $respuesta = ModeloAsistencia::mdlCargarDatos($nuevoArchivo);
-
         return $respuesta;
     }
 }

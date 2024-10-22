@@ -1,11 +1,8 @@
-/*=============================================
-EDITAR EMPLEADO
-=============================================*/
+//EDITAR EMPLEADO
 $(".tablas").on("click", ".btnEditarEmpleado", function () {
-	var id = $(this).attr("id");
+	var idEmpleado = $(this).attr("idEmpleado");
 	var datos = new FormData();
-	datos.append("id", id);
-
+	datos.append("idEmpleado", idEmpleado);
 	$.ajax({
 		url: "ajax/empleado.ajax.php",
 		method: "POST",
@@ -15,26 +12,6 @@ $(".tablas").on("click", ".btnEditarEmpleado", function () {
 		processData: false,
 		dataType: "json",
 		success: function (respuesta) {
-
-			$.ajax({
-
-				url: "ajax/cargo.ajax.php",
-				method: "POST",
-				data: datos,
-				cache: false,
-				contentType: false,
-				processData: false,
-				dataType: "json",
-				success: function (respuesta) {
-
-					var mostrarSueldo = respuesta["sueldo"];
-					console.log(mostrarSueldo);
-					$(".mostrarSueldo").val("Bs." + mostrarSueldo);
-
-				}
-
-			})
-
 			$("#editarCodigo").val(respuesta["id"]);
 			$("#editarCi").val(respuesta["ci"]);
 			$("#editarNombre").val(respuesta["nombre"]);
@@ -45,29 +22,20 @@ $(".tablas").on("click", ".btnEditarEmpleado", function () {
 			$("#editarGenero").html(respuesta["genero"]);
 			$("#editarTelefono").val(respuesta["telefono"]);
 			$("#editarFechaNac").val(respuesta["fechanac"]);
+			$("#editarSueldo").val(respuesta["sueldo"]);
 			$("#id").val(respuesta["id"]);
-
 		}
-
 	})
-
-
 })
-
-/*=================================================================================
-REVISAR SI LA FECHA NO ES SUPERIOR AL AÑO ACTUAL Y EL EMPLEADO SEA MAYOR DE EDAD
-===================================================================================*/
-$("#nuevoFechaNac").change(function () {
-
+//REVISAR SI LA FECHA NO ES SUPERIOR AL AÑO ACTUAL Y EL EMPLEADO SEA MAYOR DE EDAD
+$(".nuevoFechaNac").change(function () {
 	$(".alert").remove();
-
 	var fechaNacimiento = new Date($(this).val());
 	var fechaActual = new Date();
 	fechaActual.setHours(0, 0, 0, 0); // Ajusta la hora al inicio del día
-
 	if (fechaNacimiento > fechaActual) {
-		$("#nuevoFechaNac").parent().after('<div class="alert alert-warning" role="alert"> Verifique la fecha ingresada. Recuerda que la fecha no puede ser en el futuro. </div>');
-		$("#nuevoFechaNac").val("");
+		$(".nuevoFechaNac").parent().after('<div class="alert alert-warning" role="alert"> Verifique la fecha ingresada. Recuerda que la fecha no puede ser en el futuro. </div>');
+		$(".nuevoFechaNac").val("");
 	} else {
 		// Calcula la edad
 		var edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
@@ -75,27 +43,18 @@ $("#nuevoFechaNac").change(function () {
 		if (mes < 0 || (mes === 0 && fechaActual.getDate() < fechaNacimiento.getDate())) {
 			edad--;
 		}
-
 		if (edad < 18) {
-			$("#nuevoFechaNac").parent().after('<div class="alert alert-warning" role="alert"> Verifique la fecha ingresada. El empleado debe ser mayor de 18 años. </div>');
-			$("#nuevoFechaNac").val("");
+			$(".nuevoFechaNac").parent().after('<div class="alert alert-warning" role="alert"> Verifique la fecha ingresada. El empleado debe ser mayor de 18 años. </div>');
+			$(".nuevoFechaNac").val("");
 		}
 	}
 });
-
-/*=============================================
-REVISAR SI EL CI NO ESTA REPETIDO
-=============================================*/
-
-$("#nuevoCi").change(function () {
-
+//REVISAR SI EL CI NO ESTA REPETIDO
+$(".nuevoCi").change(function () {
 	$(".alert").remove();
-
 	var ci = $(this).val();
-
 	var datos = new FormData();
 	datos.append("validarCi", ci);
-
 	$.ajax({
 		url: "ajax/empleado.ajax.php",
 		method: "POST",
@@ -105,17 +64,33 @@ $("#nuevoCi").change(function () {
 		processData: false,
 		dataType: "json",
 		success: function (respuesta) {
-
 			if (respuesta) {
-
-				$("#nuevoCi").parent().after('<div class="alert alert-warning" role="alert"> Verifique la cedula ingresada. La cedula ya ha sido registrada para otro empleado. </div>');
-
-				$("#nuevoCi").val("");
-
+				$(".nuevoCi").parent().after('<div class="alert alert-warning" role="alert"> Verifique la cedula ingresada. La cedula ya ha sido registrada para otro empleado. </div>');
+				$(".nuevoCi").val("");
 			}
-
 		}
-
+	})
+})
+//REVISAR SI EL ID NO ESTA REPETIDO
+$("#nuevoCodigo").change(function () {
+	$(".alert").remove();
+	var id = $(this).val();
+	var datos = new FormData();
+	datos.append("validarCodigo", id);
+	$.ajax({
+		url: "ajax/empleado.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		dataType: "json",
+		success: function (respuesta) {
+			if (respuesta) {
+				$("#nuevoCodigo").parent().after('<div class="alert alert-warning" role="alert"> Verifique el codigo ingresado. El codigo ya ha sido registrado para otro empleado. </div>');
+				$("#nuevoCodigo").val("");
+			}
+		}
 	})
 })
 

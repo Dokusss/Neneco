@@ -2,20 +2,14 @@
 
 class ControladorAnticipos
 {
-
-	/*=============================================
-					  MOSTRAR ANTICIPOS
-				   =============================================*/
+	//MOSTRAR ANTICIPOS
 	static public function ctrMostrarAnticipos($item, $valor)
 	{
 		$tabla = "anticipos";
 		$respuesta = ModeloAnticipos::MdlMostrarAnticipos($tabla, $item, $valor);
 		return $respuesta;
 	}
-
-	/*=============================================
-				   CREAR ANTICIPOS     
-				=============================================*/
+	//CREAR ANTICIPOS     
 	static public function ctrCrearAnticipos()
 	{
 		if (isset($_POST["nuevoEmpleado"])) {
@@ -33,7 +27,6 @@ class ControladorAnticipos
 					$respuesta = ModeloAnticipos::mdlCrearAnticipos($tabla, $datos);
 					if ($respuesta == "ok") {
 						echo '<script>
-						// Guardar un indicador en sessionStorage
 						sessionStorage.setItem("tRegistrado", "true");
 						window.location = "anticipos";
 					</script>';
@@ -41,24 +34,19 @@ class ControladorAnticipos
 
 				} else {
 					echo '<script>
-						// Guardar un indicador en sessionStorage
 						sessionStorage.setItem("tError", "true");
 						window.location = "anticipos";
 					</script>';
 				}
 			} else {
 				echo '<script>
-						// Guardar un indicador en sessionStorage
 						sessionStorage.setItem("tError", "true");
 						window.location = "anticipos";
 					</script>';
 			}
 		}
 	}
-
-	/*=============================================
-				   EDITAR ANTICIPOS     
-				=============================================*/
+	//EDITAR ANTICIPOS     
 	static public function ctrEditarAnticipos()
 	{
 		if (isset($_POST["editarMonto"])) {

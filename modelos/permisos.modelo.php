@@ -48,10 +48,9 @@ class ModeloPermisos
 	EDITAR PERMISOS
 	=============================================*/
 	static public function mdlEditarPermisos($tabla, $datos){
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET fechainicio = :fechainicio, fechafin = :fechafin, categoria = :categoria, motivo = :motivo WHERE id = :id");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET fechainicio = :fechainicio, fechafin = :fechafin, motivo = :motivo WHERE id = :id");
 		$stmt -> bindParam(":fechainicio", $datos["fechainicio"], PDO::PARAM_STR);
 		$stmt->bindParam(":fechafin", $datos["fechafin"], PDO::PARAM_STR);
-		$stmt -> bindParam(":categoria", $datos["categoria"], PDO::PARAM_STR);
 		$stmt->bindParam(":motivo", $datos["motivo"], PDO::PARAM_STR);
 		$stmt -> bindParam(":id", $datos["id"], PDO::PARAM_INT);
 		if($stmt->execute()){

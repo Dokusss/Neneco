@@ -22,6 +22,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-components">
                             <a href="cargo" class="dropdown-item">Cargos</a>
+                            <a href="horario" class="dropdown-item">Horarios</a>
                             <a href="anticipos" class="dropdown-item">Anticipos</a>
                             <a href="permisos" class="dropdown-item">Permisos y Vacaciones</a>
                             <a href="horasextras" class="dropdown-item">Horas Extras</a>

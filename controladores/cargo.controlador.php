@@ -1,26 +1,16 @@
 <?php
-
 class ControladorCargo
 {
-
-
-	/*=============================================
-			 MOSTRAR CARGO
-			 =============================================*/
-
+	//MOSTRAR CARGO
 	static public function ctrMostrarCargo($item, $valor)
 	{
 		$tabla = "cargos";
 		$respuesta = ModeloCargo::MdlMostrarCargo($tabla, $item, $valor);
 		return $respuesta;
 	}
-
-	/*=============================================
-			 CREAR CARGO     
-			 =============================================*/
+	//CREAR CARGO     
 	static public function ctrCrearCargo()
 	{
-
 		if (isset($_POST["nuevoNombre"])) {
 			if (preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"])) {
 				$tabla = "cargos";
@@ -30,28 +20,19 @@ class ControladorCargo
 				$respuesta = ModeloCargo::mdlIngresarCargo($tabla, $datos);
 				if ($respuesta == "ok") {
 					echo '<script>
-						// Guardar un indicador en sessionStorage
 						sessionStorage.setItem("tRegistrado", "true");
-				
-						// Redirigir a la página "cargo"
 						window.location = "cargo";
 					</script>';
 				}
 			} else {
 				echo '<script>
-						// Guardar un indicador en sessionStorage
 						sessionStorage.setItem("tError", "true");
-				
-						// Redirigir a la página "cargo"
 						window.location = "cargo";
 					</script>';
 			}
 		}
 	}
-
-	/*=============================================
-			 EDITAR CARGO
-			 =============================================*/
+	//EDITAR CARGO
 	static public function ctrEditarCargo()
 	{
 		if (isset($_POST["editarNombre"])) {
@@ -64,41 +45,28 @@ class ControladorCargo
 				$respuesta = ModeloCargo::mdlEditarCargo($tabla, $datos);
 				if ($respuesta == "ok") {
 					echo '<script>
-						// Guardar un indicador en sessionStorage
 						sessionStorage.setItem("tRegistrado", "true");
-				
-						// Redirigir a la página "cargo"
 						window.location = "cargo";
 					</script>';
 				}
 			} else {
 				echo '<script>
-						// Guardar un indicador en sessionStorage
 						sessionStorage.setItem("tError", "true");
-				
-						// Redirigir a la página "cargo"
 						window.location = "cargo";
 					</script>';
 			}
 		}
 	}
-
-	/*=============================================
-			 BORRAR CARGO
-			 =============================================*/
-
+	//BORRAR CARGO
 	static public function ctrBorrarCargo()
 	{
-		if (isset($_GET["id"])) {
+		if (isset($_GET["idCargo"])) {
 			$tabla = "cargos";
-			$datos = $_GET["id"];
+			$datos = $_GET["idCargo"];
 			$respuesta = ModeloCargo::mdlBorrarCargo($tabla, $datos);
 			if ($respuesta == "ok") {
 				echo '<script>
-						// Guardar un indicador en sessionStorage
 						sessionStorage.setItem("tEliminar", "true");
-				
-						// Redirigir a la página "cargo"
 						window.location = "cargo";
 					</script>';
 			} else {

@@ -1,14 +1,9 @@
-/*=============================================
-EDITAR HORARIO
-=============================================*/
+//EDITAR HORARIO
 $(".tablas").on("click", ".btnEditarHorario", function () {
-
-  var id = $(this).attr("id");
+  var idHorario = $(this).attr("idHorario");
   var datos = new FormData();
-  datos.append("id", id);
-
+  datos.append("idHorario", idHorario);
   $.ajax({
-
     url: "ajax/horario.ajax.php",
     method: "POST",
     data: datos,
@@ -17,27 +12,30 @@ $(".tablas").on("click", ".btnEditarHorario", function () {
     processData: false,
     dataType: "json",
     success: function (respuesta) {
-
       $("#id").val(respuesta["id"]);
-      $("#editarNombre").val(respuesta["nombre"]);
+      $("#editarFecha").val(respuesta["fecha"]);
       $("#editarEntrada1").val(respuesta["entrada1"]);
       $("#editarSalida1").val(respuesta["salida1"]);
       $("#editarEntrada2").val(respuesta["entrada2"]);
       $("#editarSalida2").val(respuesta["salida2"]);
-
     }
-
   })
-
 })
-
-/*=============================================
-ELIMINAR HORARIO
-=============================================*/
+//REVISAR SI LA FECHA NO ES INFERIOR A LA FECHA ACTUAL
+$(".nuevoFechaHorario").change(function () {
+	$(".alert").remove();
+	var fecha = new Date($(this).val());
+	var fechaActual = new Date();
+	fechaActual.setDate(fechaActual.getDate() - 1);
+	fechaActual.setHours(0, 0, 0, 0);
+	if (fecha < fechaActual) {
+		$(".nuevoFechaHorario").parent().after('<div class="alert alert-warning" role="alert"> La fecha de  no puede ser menor a la fecha actual un día. </div>');
+		$(".nuevoFechaHorario").val("");
+	}
+});
+//ELIMINAR HORARIO
 $(".tablas").on("click", ".btnEliminarHorario", function () {
-
-  var id = $(this).attr("id");
-
+  var idHorario = $(this).attr("idHorario");
   Swal.fire({
     type: 'warning',
     title: "¿Está seguro de borrar el horario?",
@@ -49,7 +47,7 @@ $(".tablas").on("click", ".btnEliminarHorario", function () {
     confirmButtonText: "Sí, borrar horario"
   }).then(function (result) {
     if (result.value) {
-      window.location = "index.php?rutas=horario&id=" + id;
+      window.location = "index.php?rutas=horario&idHorario=" + idHorario;
     }
   });
 

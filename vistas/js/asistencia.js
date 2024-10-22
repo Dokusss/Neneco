@@ -1,16 +1,8 @@
-/*=============================================
-CARGAR DATOS
-=============================================*/
+//CARGAR DATOS
 $(document).ready(function () {
-
     $("#formDatosExcel").on('submit', function (e) {
-
         e.preventDefault();
-
-        /*===================================================================*/
         //VALIDAR QUE SE SELECCIONE UN ARCHIVO
-        /*===================================================================*/
-
         if ($("#nuevoArchivo").get(0).files.length == 0) {
 
             Swal.fire({
@@ -22,17 +14,11 @@ $(document).ready(function () {
             });
 
         } else {
-
-            /*===================================================================*/
             //VALIDAR QUE UN ARCHIVO SELECCIONADO TENGA EXTENSION .XLS O .XLSX
-            /*===================================================================*/
-
             var estensionesPermitidas = [".xls", ".xlsx"];
             var inputFile = $("#nuevoArchivo");
             var exp_reg = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + estensionesPermitidas.join('|') + ")$")
-
             if (!exp_reg.test(inputFile.val().toLowerCase())) {
-
                 Swal.fire({
                     position: 'center',
                     type: "warning",
@@ -40,16 +26,11 @@ $(document).ready(function () {
                     showConfirmButton: false,
                     timer: 2500
                 });
-
                 return false;
-
             }
-
             var datos = new FormData($(formDatosExcel)[0]);
-
             $("#btnSubir").prop("disabled", true);
             $("#load").attr("style", "display:inline-block");
-
             $.ajax({
                 url: "ajax/cargar.ajax.php",
                 method: "POST",
@@ -58,11 +39,8 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (respuesta) {
-
                     console.log("respuesta", respuesta)
-
                     if (respuesta > 0) {
-
                         Swal.fire({
                             type: "success",
                             title: "Se han ingresado " + respuesta + " registros de manera exitosa!",
@@ -74,10 +52,8 @@ $(document).ready(function () {
                                 window.location = "asistencia";
                             }
                         });
-
                         $("#btnSubir").prop("disabled", false);
                         $("#load").attr("style", "display:none");
-
                     }
                 }
             })

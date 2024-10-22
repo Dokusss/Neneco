@@ -3,210 +3,108 @@
 class ControladorHorario
 {
 
-
-	/*=============================================
-				MOSTRAR EMPLEADO
-				=============================================*/
-
+	//MOSTRAR HORARIOS
 	static public function ctrMostrarHorario($item, $valor)
 	{
-
-		$tabla = "horario";
-
+		$tabla = "horarios";
 		$respuesta = ModeloHorario::MdlMostrarHorario($tabla, $item, $valor);
-
 		return $respuesta;
 	}
 
-	/*=============================================
-			 CREAR HORARIO
-			 =============================================*/
-
+	//CREAR HORARIO
 	static public function ctrCrearHorario()
 	{
-
-		if (isset($_POST["nuevoNombre"])) {
-
-			if (
-				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"])
-			) {
-				$tabla = "horario";
-
+		if (isset($_POST["nuevoFecha"])) {
+			$nuevoFecha = $_POST['nuevoFecha'];
+			$formato = 'Y-m-d';
+			$fecha = DateTime::createFromFormat($formato, $nuevoFecha);
+			$horaEntrada1 = $_POST['nuevoEntrada1'];
+			$entrada1 = date('H:i:s', strtotime($horaEntrada1));
+			$horaSalida1 = $_POST['nuevoSalida1'];
+			$salida1 = date('H:i:s', strtotime($horaSalida1));
+			$horaEntrada2 = $_POST['nuevoEntrada2'];
+			$entrada2 = date('H:i:s', strtotime($horaEntrada2));
+			$horaSalida2 = $_POST['nuevoSalida2'];
+			$salida2 = date('H:i:s', strtotime($horaSalida2));
+			if ($fecha && $fecha->format($formato) === $nuevoFecha) {
+				$tabla = "horarios";
 				$datos = array(
-					"nombre" => $_POST["nuevoNombre"],
-					"entrada1" => $_POST["nuevoEntrada1"],
-					"salida1" => $_POST["nuevoSalida1"],
-					"entrada2" => $_POST["nuevoEntrada2"],
-					"salida2" => $_POST["nuevoSalida2"]
+					"fecha" => $nuevoFecha,
+					"entrada1" => $entrada1,
+					"salida1" => $salida1,
+					"entrada2" => $entrada2,
+					"salida2" => $salida2
 				);
-
 				$respuesta = ModeloHorario::mdlIngresarHorario($tabla, $datos);
-
 				if ($respuesta == "ok") {
-
 					echo '<script>
-
-					Swal.fire({
-						type: "success",
-						title: "El horario ha sido guardado correctamente",
-						showConfirmButton: true,
-						confirmButtonColor: "#627d72",
-						confirmButtonText: "Cerrar"
-					}).then(function(result) {
-						if (result.value) {
-							window.location = "horario";
-						}
-					});
-					  
-						</script>';
-				} else {
-
-					echo '<script>
-
-				Swal.fire({
-					type: "error",
-					title: "¡El horario no puede ir vacío o llevar caracteres especiales!",
-					showConfirmButton: true,
-					confirmButtonColor: "#627d72",
-					confirmButtonText: "Cerrar"
-				}).then(function(result) {
-					if (result.value) {
+						sessionStorage.setItem("tRegistrado", "true");
 						window.location = "horario";
-					}
-				});
-				  
-					  </script>';
+					</script>';
 				}
 			} else {
 				echo '<script>
-			Swal.fire({
-				type: "error",
-				title: "¡El usuario no puede ir vacío o llevar caracteres especiales!",
-				showConfirmButton: true,
-				confirmButtonText: "Cerrar"
-			}).then(function(result) {
-				if (result.value) {
+					sessionStorage.setItem("tError", "true");
 					window.location = "horario";
-				}
-			});
-		</script>';
+				</script>';
 			}
 		}
 	}
-
-	/*=============================================
-			 EDITAR HORARIO
-			 =============================================*/
-
+	//EDITAR HORARIO
 	static public function ctrEditarHorario()
 	{
-
-		if (isset($_POST["editarNombre"])) {
-			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"])) {
-
-				$tabla = "horario";
-
+		if (isset($_POST["editarFecha"])) {
+			$editarFecha = $_POST['editarFecha'];
+			$formato = 'Y-m-d';
+			$fecha = DateTime::createFromFormat($formato, $editarFecha);
+			$editarHoraEntrada1 = $_POST['editarEntrada1'];
+			$editarEntrada1 = date('H:i:s', strtotime($editarHoraEntrada1));
+			$editarHoraSalida1 = $_POST['editarSalida1'];
+			$editarSalida1 = date('H:i:s', strtotime($editarHoraSalida1));
+			$editarHoraEntrada2 = $_POST['editarEntrada2'];
+			$editarEntrada2 = date('H:i:s', strtotime($editarHoraEntrada2));
+			$editarHoraSalida2 = $_POST['editarSalida2'];
+			$editarSalida2 = date('H:i:s', strtotime($editarHoraSalida2));
+			if ($fecha && $fecha->format($formato) === $editarFecha) {
+				$tabla = "horarios";
 				$datos = array(
 					"id" => $_POST["id"],
-					"nombre" => $_POST["editarNombre"],
-					"entrada1" => $_POST["editarEntrada1"],
-					"salida1" => $_POST["editarSalida1"],
-					"entrada2" => $_POST["editarEntrada2"],
-					"salida2" => $_POST["editarSalida2"]
+					"fecha" => $editarFecha,
+					"entrada1" => $editarEntrada1,
+					"salida1" => $editarSalida1,
+					"entrada2" => $editarEntrada2,
+					"salida2" => $editarSalida2
 				);
-
 				$respuesta = ModeloHorario::mdlEditarHorario($tabla, $datos);
-
 				if ($respuesta == "ok") {
-
 					echo '<script>
-
-					Swal.fire({
-						type: "success",
-						title: "El horario ha sido editado correctamente",
-						showConfirmButton: true,
-						confirmButtonColor: "#627d72",
-						confirmButtonText: "Cerrar"
-					}).then(function(result) {
-						if (result.value) {
-							window.location = "horario";
-						}
-					});
-					  
-						</script>';
-				} else {
-
-					echo '<script>
-
-				Swal.fire({
-					type: "error",
-					title: "¡El horario no puede ir vacío o llevar caracteres especiales!",
-					showConfirmButton: true,
-					confirmButtonColor: "#627d72",
-					confirmButtonText: "Cerrar"
-				}).then(function(result) {
-					if (result.value) {
+						sessionStorage.setItem("tRegistrado", "true");
 						window.location = "horario";
-					}
-				});
-				  
-					  </script>';
+					</script>';
 				}
 			} else {
-
 				echo '<script>
-
-			Swal.fire({
-				type: "error",
-				title: "¡El usuario no puede ir vacío o llevar caracteres especiales!",
-				showConfirmButton: true,
-				confirmButtonText: "Cerrar"
-			}).then(function(result) {
-				if (result.value) {
-					window.location = "usuario";
-				}
-			});
-
-			  </script>';
+					sessionStorage.setItem("tError", "true");
+					window.location = "horario";
+				</script>';
 			}
 		}
 	}
 
-	/*=============================================
-			 ELIMINAR CLIENTE
-			 =============================================*/
-
+	//ELIMINAR CLIENTE
 	static public function ctrEliminarHorario()
 	{
-
-		if (isset($_GET["id"])) {
-
-			$tabla = "horario";
-			$datos = $_GET["id"];
-
+		if (isset($_GET["idHorario"])) {
+			$tabla = "horarios";
+			$datos = $_GET["idHorario"];
 			$respuesta = ModeloHorario::mdlEliminarHorario($tabla, $datos);
-
 			if ($respuesta == "ok") {
-
 				echo '<script>
-
-					Swal.fire({
-						type: "success",
-						title: "El horario ha sido editado correctamente",
-						showConfirmButton: true,
-						confirmButtonColor: "#627d72",
-						confirmButtonText: "Cerrar"
-					}).then(function(result) {
-						if (result.value) {
-							window.location = "horario";
-						}
-					});
-					  
-						</script>';
+						sessionStorage.setItem("tRegistrado", "true");
+						window.location = "horario";
+					</script>';
 			} else {
-
-				$errorMsg = $respuesta; // El mensaje de error que devuelve la función mdlBorrarCargo
-
+				$errorMsg = $respuesta; // El mensaje de error que devuelve la función mdlEliminarHorario
 				echo '<script>
 					Swal.fire({
 						type: "warning",

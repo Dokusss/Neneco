@@ -5,7 +5,6 @@
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 font-size-18">Anticipos</h4>
-
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
@@ -18,7 +17,6 @@
             </div>
         </div>
         <!-- end page title -->
-
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -27,7 +25,6 @@
                             data-toggle="modal" data-target="#modalRegistrarAnticipo">
                             <i class="feather-plus mr-1"></i> Registrar
                         </button>
-
                         <table class="table dt-responsive nowrap tablas">
                             <thead>
                                 <tr>
@@ -38,7 +35,6 @@
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
-
                             <tbody>
 
                                 <?php
@@ -49,7 +45,6 @@
                                     $fecha = date("d-m-Y", strtotime($value["fecha"]));
                                     echo '<tr class="odd" role="row">
                                             <th class="sorting_1">' . ($key + 1) . '</th>';
-
                                     $item = "id";
                                     $valor = $value["idempleado"];
                                     $empleado = ControladorEmpleado::ctrMostrarEmpleado($item, $valor);
@@ -68,7 +63,6 @@
                                         </tr>';
                                 }
                                 ?>
-
                             </tbody>
                         </table>
 
@@ -77,10 +71,8 @@
             </div>
         </div>
         <!-- end row-->
-
     </div> <!-- container-fluid -->
 </div>
-
 <!-- Modal Agregar Anticipo -->
 <div class="modal fade" id="modalRegistrarAnticipo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -135,7 +127,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal Editar Anticipo -->
 <div class="modal fade" id="modalEditarAnticipo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">

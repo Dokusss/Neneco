@@ -5,7 +5,6 @@
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 font-size-18">Horario</h4>
-
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
@@ -13,17 +12,13 @@
                             <li class="breadcrumb-item active">Horario</li>
                         </ol>
                     </div>
-
                 </div>
             </div>
         </div>
         <!-- end page title -->
-
         <div class="row">
-
             <div class="col-1">
             </div>
-
             <div class="col-10">
                 <div class="card">
                     <div class="card-body">
@@ -31,67 +26,58 @@
                             data-toggle="modal" data-target="#modalAgregarCargo">
                             <i class="feather-plus mr-1"></i> Agregar
                         </button>
-
                         <table class="table dt-responsive nowrap tablas">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nombre</th>
-                                    <th>Primer turno</th>
-                                    <th>Segundo turno</th>
+                                    <th>Gestion</th>
+                                    <th>Turno Mañana</th>
+                                    <th>Turno Tarde</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-
                                 <?php
                                 $item = null;
                                 $valor = null;
                                 $hora = ControladorHorario::ctrMostrarHorario($item, $valor);
-                                foreach ($hora as $key => $hora) {
+                                foreach ($hora as $key => $value) {
+                                    $fecha = date("d-m-Y", strtotime($value["fecha"]));
+                                    $entrada1 = date("H:i", strtotime($value["entrada1"]));
+                                    $salida1 = date("H:i", strtotime($value["salida1"]));
+                                    $entrada2 = date("H:i", strtotime($value["entrada2"]));
+                                    $salida2 = date("H:i", strtotime($value["salida2"]));
                                     echo '<tr class="odd" role="row">
                                             <th class="sorting_1">' . ($key + 1) . '</th>  
-                                            <td class="text-uppercase">' . $hora["nombre"] . '</td>
-                                            <td>' . $hora["entrada1"] . " a " . $hora["salida1"] . '</td>';
-                                    if (isset($hora["entrada2"]) && isset($hora["salida2"]) && $hora["entrada2"] != null && $hora["salida2"] != null) {
-                                        echo '<td>' . $hora["entrada2"] . " a " . $hora["salida2"] . '</td>';
-                                    } else {
-                                        echo '<th></th>';
-                                    }
-
-                                    echo ' <td>
+                                            <td>' . $fecha . '</td>
+                                            <td>' . $entrada1 . " / " . $salida1 . '</td>
+                                            <td>' . $entrada2 . " / " . $salida2 . '</td>
+                                            <td>
                                                 <div>
-                                                    <button class="btn btn-primary btn-sm rounded-circle mr-1 btnEditarHorario"
-                                                        id="' . $hora["id"] . '" data-toggle="modal"
+                                                    <button class="btn btn-primary btn-sm mr-1 btnEditarHorario"
+                                                        idHorario="' . $value["id"] . '" data-toggle="modal"
                                                         data-target="#modalEditarHorario"><i
                                                             class="fas fa-pencil-alt"></i></button>
-                                                    <button class="btn btn-danger btn-sm rounded-circle btnEliminarHorario"
-                                                        id="' . $hora["id"] . '"><i class="fa fa-trash"></i></button>
+                                                    <button class="btn btn-danger btn-sm btnEliminarHorario"
+                                                        idHorario="' . $value["id"] . '"><i class="fa fa-trash"></i></button>
                                                 </div>  
                                             </td>
                                         </tr>';
                                 }
                                 ?>
-
                             </tbody>
                         </table>
-
                     </div> <!-- end card body-->
                 </div> <!-- end card -->
             </div><!-- end col-->
-
             <div class="col-1">
             </div>
-
         </div>
         <!-- end row-->
-
     </div> <!-- container-fluid -->
 </div>
-
 <!-- Modal Agregar Horario-->
-<div class="modal fade" id="modalAgregarCargo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="modalAgregarCargo" tabindex="-1" role="dialog" aria-labelledby="modalAgregarCargo"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -104,42 +90,33 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
-                    <!-- Entrada del Nombre -->
+                    <!-- Entrada del Fecha -->
                     <div class="form-group">
-                        <label for="nuevoNombre">Nombre del Horario</label>
-                        <input type="text" name="nuevoNombre" id="nuevoNombre" class="form-control"
-                            placeholder="Ingrese el nuevo nombre" required>
+                        <label for="nuevoFecha">Fecha</label>
+                        <input type="date" name="nuevoFecha" class="form-control nuevoFechaHorario" required>
                     </div>
-
-                    <h6>Primer turno</h6>
+                    <dt>Turno Mañana</dt>
                     <!-- Entrada Mañana -->
                     <div class="form-group">
-                        <label for="simpleinput">Entrada</label>
-                        <input type="text" name="nuevoEntrada1" class="form-control" data-toggle="input-mask"
-                            data-mask-format="00:00:00" maxlength="8" placeholder="HH:MM:SS" required>
+                        <label for="nuevoEntrada1">Entrada</label>
+                        <input type="time" name="nuevoEntrada1" class="form-control" required>
                     </div>
                     <!-- Salida Mañana -->
                     <div class="form-group">
-                        <label for="simpleinput">Salida</label>
-                        <input type="text" name="nuevoSalida1" class="form-control" data-toggle="input-mask"
-                            data-mask-format="00:00:00" maxlength="8" placeholder="HH:MM:SS" required>
+                        <label for="nuevoSalida1">Salida</label>
+                        <input type="time" name="nuevoSalida1" class="form-control" required>
                     </div>
-
-                    <h6>Segundo turno</h6>
-                    <!-- Entrada Mañana -->
+                    <dt>Turno Tarde</dt>
+                    <!-- Entrada Tarde -->
                     <div class="form-group">
-                        <label for="simpleinput">Entrada</label>
-                        <input type="text" name="nuevoEntrada2" class="form-control" data-toggle="input-mask"
-                            data-mask-format="00:00:00" maxlength="8" placeholder="HH:MM:SS">
+                        <label for="nuevoEntrada2">Entrada</label>
+                        <input type="time" name="nuevoEntrada2" class="form-control" required>
                     </div>
-                    <!-- Salida Mañana -->
+                    <!-- Salida Tarde -->
                     <div class="form-group">
-                        <label for="simpleinput">Salida</label>
-                        <input type="text" name="nuevoSalida2" class="form-control" data-toggle="input-mask"
-                            data-mask-format="00:00:00" maxlength="8" placeholder="HH:MM:SS">
+                        <label for="nuevoSalida2">Salida</label>
+                        <input type="time" name="nuevoSalida2" class="form-control" required>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger waves-effect waves-light"
@@ -154,58 +131,49 @@
         </div>
     </div>
 </div>
-
-<!-- Modal Editar Horario-->
-<div class="modal fade" id="modalEditarHorario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!-- Modal Agregar Horario-->
+<div class="modal fade" id="modalEditarHorario" tabindex="-1" role="dialog" aria-labelledby="modalEditarHorario"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form role="fotm" method="post">
+            <form role="form" method="post">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Cargo</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Horario</h5>
                     <button type="button" class="close waves-effect waves-light" data-dismiss="modal"
                         aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-
-                    <!-- Entrada del Nombre -->
+                    <!-- Entrada del Fecha -->
                     <div class="form-group">
-                        <label for="editarNombre">Nombre del Horario</label>
-                        <input type="text" name="editarNombre" id="editarNombre" class="form-control" required>
+                        <label for="editarFecha">Fecha</label>
+                        <input type="date" name="editarFecha" id="editarFecha" class="form-control nuevoFechaHorario"
+                            required>
+                        <input type="hidden" name="id" id="id" required>
                     </div>
-
-                    <h5>Primer turno</h5>
+                    <dt>Turno Mañana</dt>
                     <!-- Entrada Mañana -->
                     <div class="form-group">
-                        <label for="simpleinput">Entrada</label>
-                        <input type="text" name="editarEntrada1" id="editarEntrada1" class="form-control"
-                            data-toggle="input-mask" data-mask-format="00:00:00" maxlength="8" required>
-                        <input type="hidden" id="id" name="id">
+                        <label for="editarEntrada1">Entrada</label>
+                        <input type="time" name="editarEntrada1" id="editarEntrada1" class="form-control" required>
                     </div>
                     <!-- Salida Mañana -->
                     <div class="form-group">
-                        <label for="simpleinput">Salida</label>
-                        <input type="text" name="editarSalida1" id="editarSalida1" class="form-control"
-                            data-toggle="input-mask" data-mask-format="00:00:00" maxlength="8" required>
+                        <label for="editarSalida1">Salida</label>
+                        <input type="time" name="editarSalida1" id="editarSalida1" class="form-control" required>
                     </div>
-
-                    <h5>Segundo turno</h5>
-                    <!-- Entrada Mañana -->
+                    <dt>Turno Tarde</dt>
+                    <!-- Entrada Tarde -->
                     <div class="form-group">
-                        <label for="simpleinput">Entrada</label>
-                        <input type="text" name="editarEntrada2" id="editarEntrada2" class="form-control"
-                            data-toggle="input-mask" data-mask-format="00:00:00" maxlength="8" required>
+                        <label for="editarEntrada2">Entrada</label>
+                        <input type="time" name="editarEntrada2" id="editarEntrada2" class="form-control" required>
                     </div>
-                    <!-- Salida Mañana -->
+                    <!-- Salida Tarde -->
                     <div class="form-group">
-                        <label for="simpleinput">Salida</label>
-                        <input type="text" name="editarSalida2" id="editarSalida2" class="form-control"
-                            data-toggle="input-mask" data-mask-format="00:00:00" maxlength="8" required>
+                        <label for="editarSalida2">Salida</label>
+                        <input type="time" name="editarSalida2" id="editarSalida2" class="form-control" required>
                     </div>
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger waves-effect waves-light"
@@ -220,7 +188,6 @@
         </div>
     </div>
 </div>
-
 <?php
 $borrarHorario = new ControladorHorario();
 $borrarHorario->ctrEliminarHorario();

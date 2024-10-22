@@ -17,6 +17,16 @@ CREATE TABLE feriados(
 PRIMARY KEY(id)	
 );
 
+CREATE TABLE horarios(
+	id int(11) NOT NULL AUTO_INCREMENT,
+	entrada1 time NOT NULL,
+	salida1 time NOT NULL,
+	entrada2 time NOT NULL,
+	salida2 time NOT NULL,
+	fecha date NOT NULL,
+PRIMARY KEY(id)	
+);
+
 CREATE TABLE empleados(
 	id int(11) NOT NULL,
 	ci varchar(20) NOT NULL,
@@ -29,14 +39,12 @@ CREATE TABLE empleados(
 	fechanac date NOT NULL,
 	fechareg date NOT NULL,
 	estado tinyint(1) NOT NULL,
-	entrada1 time NOT NULL,
-	salida1 time NOT NULL,
-	entrada2 time NOT NULL,
-	salida2 time NOT NULL,
 	sueldo decimal(10, 2),
 	idcargo int NOT NULL,
+	idhorario int NOT NULL,
 PRIMARY KEY(id),
-FOREIGN KEY (idcargo) REFERENCES cargos(id)
+FOREIGN KEY (idcargo) REFERENCES cargos(id),
+FOREIGN KEY (idhorario) REFERENCES horarios(id)
 );
 
 CREATE TABLE usuarios(
@@ -162,6 +170,11 @@ VALUES
 ('Dia de Todos los Difuntos', '2024-11-02'),
 ('Navidad', '2024-12-25');
 
+INSERT INTO horarios (entrada1, salida1, entrada2, salida2, fecha)
+VALUES
+('09:00:00', '13:00:00', '14:00:00', '18:00:00', '2023-06-01'),
+('08:00:00', '12:00:00', '14:00:00', '18:00:00', '2024-01-02');
+
 INSERT INTO cargos (nombre)
 VALUES
 ('Gerente'),         
@@ -175,22 +188,22 @@ VALUES
 ('Ayudante barraca'),
 ('Ayudante chofer');
 
-INSERT INTO empleados (id, ci, nombre, apellidop, apellidom, genero, direccion, telefono, fechanac, fechareg, estado, idcargo, sueldo, entrada1, salida1, entrada2, salida2)
+INSERT INTO empleados (id, ci, nombre, apellidop, apellidom, genero, direccion, telefono, fechanac, fechareg, estado, idcargo, sueldo, idhorario)
 VALUES
-('100', '9645626', 'Albert', 'Cardoza', 'Junin', 'masculino', 'Calle recaredo roda #541', '76619618', '1985-06-28', '2023-05-10', '1', '1', 5000, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
-('101', '9645627', 'Rosmeri', 'Maldonado', NULL, 'femenino', 'Calle recaredo roda #5478', '76619619', '1990-12-28', '2023-05-10', '1', '2', 2400, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
-('102', '9645628', 'Jose Carlos', 'Montero', 'Perez', 'masculino', 'Calle recaredo roda #541', '76619620', '1991-06-18', '2023-05-10', '1', '3', 2300, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
-('103', '9645629', 'Pedro', 'Arias', 'Villa', 'masculino', 'Avenida melchor pinto #486', '76619621', '1989-10-08', '2023-05-10', '1', '4', 2300, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
-('104', '9645631', 'Brandon', 'Rosales', 'Pedraza', 'masculino', 'Calle las palmeras #4621', '76619622', '1989-02-15', '2023-05-10', '1', '5', 2300, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
-('105', '9645632', 'Carlos', 'Mole', 'Peredo', 'masculino', 'Calle salvatierra #486', '76619623', '1989-02-15', '2023-05-10', '1', '6', 2300, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
-('106', '9645633', 'Mario', 'Ticona', 'Estrada', 'masculino', 'Avenida siempre viva #21', '76619624', '1989-02-15', '2023-05-10', '1', '7', 2200, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
-('107', '9645634', 'Jose', 'Colque', 'Puma', 'masculino', 'Calle leandro gado #4781', '76619625', '1989-02-15', '2023-05-10', '1', '7', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
-('108', '9645635', 'Kevin', 'Mamani', 'Quispe', 'masculino', 'Barrio el melgar #21', '76619626', '1989-02-15', '2023-05-10', '1', '8', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
-('109', '9645636', 'Hector', 'Mamani', NULL, 'masculino', 'Avenida 24 de septembre #5451', '76619627', '2000-11-14', '2023-05-10', '1', '8', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
-('110', '9645637', 'Manuel', 'Arias', 'Gonzales', 'masculino', 'Avenida 24 de septembre #58', '76619628', '1989-08-02', '2023-05-10', '1', '9', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
-('111', '9645638', 'Roman', 'Villa', 'Trump', 'masculino', 'Barrio texacuz #581', '76619629', '1992-02-09', '2023-05-10', '1', '9', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
-('112', '9645639', 'Juan', 'Montoya', 'Rivera', 'masculino', 'Avenida siempre viva #59', '76619630', '1981-12-30', '2023-05-10', '1', '10', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00'),
-('113', '9645640', 'Mario', 'Melgar', 'Romero', 'masculino', 'Calle los magales #102', '76619631', '1989-10-10', '2023-05-10', '1', '10', 2100, '08:00:00', '12:00:00', '14:00:00', '18:00:00');
+('100', '9645626', 'Albert', 'Cardoza', 'Junin', 'masculino', 'Calle recaredo roda #541', '76619618', '1985-06-28', '2023-05-10', '1', '1', 5000, '2'),
+('101', '9645627', 'Rosmeri', 'Maldonado', NULL, 'femenino', 'Calle recaredo roda #5478', '76619619', '1990-12-28', '2023-05-10', '1', '2', 2500, '2'),
+('102', '9645628', 'Jose Carlos', 'Montero', 'Perez', 'masculino', 'Calle recaredo roda #541', '76619620', '1991-06-18', '2023-05-10', '1', '3', 2400, '2'),
+('103', '9645629', 'Pedro', 'Arias', 'Villa', 'masculino', 'Avenida melchor pinto #486', '76619621', '1989-10-08', '2023-05-10', '1', '4', 2400, '2'),
+('104', '9645631', 'Brandon', 'Rosales', 'Pedraza', 'masculino', 'Calle las palmeras #4621', '76619622', '1989-02-15', '2023-05-10', '1', '5', 2400, '2'),
+('105', '9645632', 'Carlos', 'Mole', 'Peredo', 'masculino', 'Calle salvatierra #486', '76619623', '1989-02-15', '2023-05-10', '1', '6', 2400, '2'),
+('106', '9645633', 'Mario', 'Ticona', 'Estrada', 'masculino', 'Avenida siempre viva #21', '76619624', '1989-02-15', '2023-05-10', '1', '7', 2300, '2'),
+('107', '9645634', 'Jose', 'Colque', 'Puma', 'masculino', 'Calle leandro gado #4781', '76619625', '1989-02-15', '2023-05-10', '1', '7', 2200, '2'),
+('108', '9645635', 'Kevin', 'Mamani', 'Quispe', 'masculino', 'Barrio el melgar #21', '76619626', '1989-02-15', '2023-05-10', '1', '8', 2200, '2'),
+('109', '9645636', 'Hector', 'Mamani', NULL, 'masculino', 'Avenida 24 de septembre #5451', '76619627', '2000-11-14', '2023-05-10', '1', '8', 2200, '2'),
+('110', '9645637', 'Manuel', 'Arias', 'Gonzales', 'masculino', 'Avenida 24 de septembre #58', '76619628', '1989-08-02', '2023-05-10', '1', '9', 2200, '2'),
+('111', '9645638', 'Roman', 'Villa', 'Trump', 'masculino', 'Barrio texacuz #581', '76619629', '1992-02-09', '2023-05-10', '1', '9', 2200, '2'),
+('112', '9645639', 'Juan', 'Montoya', 'Rivera', 'masculino', 'Avenida siempre viva #59', '76619630', '1981-12-30', '2023-05-10', '1', '10', 2200, '2'),
+('113', '9645640', 'Mario', 'Melgar', 'Romero', 'masculino', 'Calle los magales #102', '76619631', '1989-10-10', '2023-05-10', '1', '10', 2200, '2');
 
 INSERT INTO usuarios (nombre, usuario, password, estado, idempleado)
 VALUES

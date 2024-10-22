@@ -1,11 +1,8 @@
-/*=============================================
-EDITAR PERMISO
-=============================================*/
+//EDITAR PERMISO
 $(".tablas").on("click", ".btnEditarPermisos", function () {
-
-    var id = $(this).attr("id");
+    var idPermiso = $(this).attr("idPermiso");
     var datos = new FormData();
-    datos.append("id", id);
+    datos.append("idPermiso", idPermiso);
 
     $.ajax({
         url: "ajax/permisos.ajax.php",
@@ -16,48 +13,32 @@ $(".tablas").on("click", ".btnEditarPermisos", function () {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-
             var idEmpleado = respuesta["idempleado"];
+			var datosEmpleado = new FormData();
+			datosEmpleado.append("idEmpleado", idEmpleado);
 
-            // Aquí debes crear un nuevo FormData con el idEmpleado
-            var datosEmpleado = new FormData();
-            datosEmpleado.append("id", idEmpleado);
-
-            $.ajax({
-
-                url: "ajax/empleado.ajax.php",
-                method: "POST",
-                data: datosEmpleado,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function (respuesta) {
-
-                    var nombre = respuesta["nombre"];
-                    var apellido1 = respuesta["apellidop"];
-                    var apellido2 = respuesta["apellidom"];
-
-                    $("#mostrarEmpleado").val(nombre + " " + apellido1 + " " + apellido2);
-
-                }
-
-            })
-
+			$.ajax({
+				url: "ajax/empleado.ajax.php",
+				method: "POST",
+				data: datosEmpleado,
+				cache: false,
+				contentType: false,
+				processData: false,
+				dataType: "json",
+				success: function (respuestaEmpleado) {
+					var nombreCompleto = respuestaEmpleado["nombre"] + " " + respuestaEmpleado["apellidop"] + " " + (respuestaEmpleado["apellidom"] || "");
+					$("#editarEmpleado").val(nombreCompleto);
+				}
+			});
             $("#editarFechaInicio").val(respuesta["fechainicio"]);
             $("#editarFechaFin").val(respuesta["fechafin"]);
             $("#editarMotivo").val(respuesta["motivo"]);
-            $("#editarCategoria").val(respuesta["categoria"]);
             $("#id").val(respuesta["id"]);
-
         }
-
     })
 })
 
-/*=============================================
-REVISAR SI LA FECHA NO ES INFERIOR A LA FECHA ACTUAL
-=============================================*/
+//REVISAR SI LA FECHA NO ES INFERIOR A LA FECHA ACTUAL
 $(".nuevoFechaInicio").change(function () {
     $(".alert").remove();
     var fechaInicio = new Date($(this).val());
@@ -69,27 +50,3 @@ $(".nuevoFechaInicio").change(function () {
         $(".nuevoFechaInicio").val("");
     }
 });
-
-/*=============================================
-ELIMINAR PERMISO	
-=============================================*/
-$(".tablas").on("click", ".btnEliminarPermisos", function () {
-
-    var id = $(this).attr("id");
-
-    Swal.fire({
-        type: 'warning',
-        title: "¿Está seguro de borrar el cargo?",
-        text: "¡Si no lo está puede cancelar la acción!",
-        showCancelButton: true,
-        confirmButtonColor: "#627d72",
-        cancelButtonColor: "#f85359",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Sí, borrar permiso"
-    }).then(function (result) {
-        if (result.value) {
-            window.location = "index.php?rutas=permisos&id=" + id;
-        }
-    });
-
-})

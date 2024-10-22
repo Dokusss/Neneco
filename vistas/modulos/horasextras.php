@@ -18,71 +18,94 @@
             </div>
         </div>
         <!-- end page title -->
-
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <button type="button" class="btn btn-primary waves-effect waves-light card-title"
                             data-toggle="modal" data-target="#modalAgregarHoras">
-                            <i class="feather-plus mr-1"></i> Agregar
+                            <i class="feather-plus mr-1"></i> Registrar
                         </button>
-
                         <table class="table dt-responsive nowrap tablas">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Fecha</th>
+                                    <th>Entrada</th>
+                                    <th>Salida</th>
                                     <th>Empleados</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                                 <?php
                                 $item = null;
                                 $valor = null;
-
-                                // Obtener los detalles de las horas extras
-                                $horas = ControladorHoras::ctrMostrarDetalleHoras($item, $valor);
-
+                                $horas = ControladorHoras::ctrMostrarHoras($item, $valor);
                                 foreach ($horas as $key => $value) {
                                     $fecha = date("d-m-Y", strtotime($value["fecha"]));
-                                    $empleados = explode(', ', $value["empleados"]); // Dividir la cadena concatenada en un array
-                                
-                                    echo '<tr>
-                                        <th class="sorting_1">' . ($key + 1) . '</th>
-                                        <td>' . $fecha . '</td>
-                                        <td>';
-
-                                    // Listar los empleados correspondientes a esta hora extra
-                                    foreach ($empleados as $empleado) {
-                                        echo $empleado . ", ";
-                                    }
-
-                                    echo '</td>
-                                        <td>
-                                            <div>
-                                                <button class="btn btn-primary btn-sm rounded-circle mr-1 btnEditarHoras"
-                                                    id="' . $value["idhorasextras"] . '" data-toggle="modal"
-                                                    data-target="#modalEditarHoras"><i
-                                                        class="fas fa-pencil-alt"></i></button>
-                                            </div>  
-                                        </td>
-                                    </tr>';
+                                    $entrada = date("H:i", strtotime($value["entrada"]));
+                                    $salida = date("H:i", strtotime($value["salida"]));
+                                    echo '<tr class="odd" role="row">
+                                            <th class="sorting_1">' . ($key + 1) . '</th>  
+                                            <td>' . $fecha . '</td>
+                                            <td>' . $entrada . '</td>
+                                            <td>' . $salida . '</td>
+                                            <td><button type="button" class="btn btn-info btnModalEmpleados" idHorasExtras="' . $value["id"] . '"
+                                                data-toggle="modal" data-target="#modalVerEmpleados">
+                                                <i class="fas fa-user-friends"></i></button></td>
+                                            <td>
+                                                <div>
+                                                    <button class="btn btn-primary btn-sm mr-1 btnEditarHoras"
+                                                        idHoraExtra="' . $value["id"] . '" data-toggle="modal"
+                                                        data-target="#modalEditarHoras"><i
+                                                            class="fas fa-pencil-alt"></i></button>
+                                                </div>  
+                                            </td>
+                                        </tr>';
                                 }
                                 ?>
-
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
         </div>
         <!-- end row-->
-
     </div> <!-- container-fluid -->
+</div>
+
+<!-- Modal Ver Empleados -->
+<div class="modal fade" id="modalVerEmpleados" tabindex="-1" role="dialog" aria-labelledby="modalVerEmpleadosTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalVerEmpleadosTitle">Lista de Empleados</h5>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table mb-0" id="tablaEmpleados">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect waves-light"
+                    data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal Agregar Horas-->
@@ -99,61 +122,35 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
                     <!-- Entrada de Fecha -->
                     <div class="form-group">
                         <label for="nuevoFecha">Fecha</label>
-                        <input type="date" name="nuevoFecha" id="nuevoFecha" class="form-control" required>
+                        <input type="date" name="nuevoFecha" class="form-control nuevoFechaHorasExtras" required>
                     </div>
-
-                    <!-- Entrada del Horario -->
+                    <!-- Entrada -->
                     <div class="form-group">
-                        <label for="nuevoHorario">Horario</label>
-                        <select class="form-control" name="nuevoHorario" id="nuevoHorario" required>
-                            <option value="">Seleccione el horario</option>
-                            <?php
-
-                            $item = null;
-                            $valor = null;
-
-                            $Horas = ControladorHorario::ctrMostrarHorario($item, $valor);
-
-                            foreach ($Horas as $key => $value) {
-
-                                echo '<option value="' . $value["id"] . ' ">' . $value["nombre"] . '</option>';
-                            }
-
-                            ?>
-                        </select>
+                        <label for="nuevoEntrada">Entrada</label>
+                        <input type="time" name="nuevoEntrada" class="form-control" required>
                     </div>
-
-                    <!-- Entrada del Categoria -->
+                    <!-- Salida -->
                     <div class="form-group">
-                        <label for="nuevoTipo">Tipo de pago</label>
-                        <select class="form-control" name="nuevoTipo" id="nuevoTipo" required>
-                            <option value="">Seleccione el tipo</option>
-                            <option value="2">x2</option>
-                            <option value="3">x3</option>
-                        </select>
+                        <label for="nuevoSalida">Entrada</label>
+                        <input type="time" name="nuevoSalida" class="form-control" required>
                     </div>
-
-                    <!-- Entrada Motivo -->
+                    <!-- Entrada Empleados -->
                     <div class="form-group">
                         <label>Empleados</label>
-                        <select class="form-control select2-multiple" name="empleados[]" multiple="multiple" required>
+                        <select class="form-control select2-multiple" name="listaEmpleados[]" multiple="multiple" required>
                             <?php
                             $item = null;
                             $valor = null;
-
-                            $empleado = ControladorEmpleado::ctrMostrarEmpleado($item, $valor);
-
+                            $empleado = ModeloEmpleado::mdlMostrarEmpleadosActivos();
                             foreach ($empleado as $key => $value) {
                                 echo '<option value="' . $value["id"] . '">' . $value["nombre"] . " " . $value["apellidop"] . " " . $value["apellidom"] . '</option>';
                             }
                             ?>
                         </select>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger waves-effect waves-light"
@@ -183,62 +180,32 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
                     <!-- Entrada de Fecha -->
                     <div class="form-group">
                         <label for="editarFecha">Fecha</label>
-                        <input type="date" name="editarFecha" id="editarFecha" class="form-control" required>
-                        <input type="hidden" name="id" id="id">
+                        <input type="date" name="editarFecha" id="editarFecha" class="form-control nuevoFechaHorasExtras" required>
+                        <input type="hidden" name="id" id="id"required>
                     </div>
-
-                    <!-- Entrada del Horario -->
+                    <!-- Entrada -->
                     <div class="form-group">
-                        <label for="editarHorario">Horario</label>
-                        <select class="form-control" name="editarHorario" id="editarHorario" required>
-                            <option value="">Seleccione el horario</option>
-                            <?php
-                            $item = null;
-                            $valor = null;
-                            $Horas = ControladorHorario::ctrMostrarHorario($item, $valor);
-                            foreach ($Horas as $key => $value) {
-                                echo '<option value="' . $value["id"] . '">' . $value["nombre"] . '</option>';
-                            }
-                            ?>
-                        </select>
+                        <label for="editarEntrada">Entrada</label>
+                        <input type="time" name="editarEntrada" id="editarEntrada" class="form-control" required>
                     </div>
-
-                    <!-- Entrada del Tipo -->
+                    <!-- Salida -->
                     <div class="form-group">
-                        <label for="editarTipo">Tipo de pago</label>
-                        <select class="form-control" name="editarTipo" id="editarTipo" required>
-                            <option value="">Seleccione el tipo</option>
-                            <option value="1">x1</option>
-                            <option value="2">x2</option>
-                            <option value="3">x3</option>
-                        </select>
+                        <label for="editarSalida">Entrada</label>
+                        <input type="time" name="editarSalida" id="editarSalida" class="form-control" required>
                     </div>
-
-                    <!-- Entrada de Empleados -->
+                    <!-- Entrada Empleados -->
                     <div class="form-group">
                         <label>Empleados</label>
-                        <select class="form-control select2-multiple" name="empleados[]" multiple="multiple" required>
-                            <?php
-                            $item = null;
-                            $valor = null;
-                            $empleado = ControladorEmpleado::ctrMostrarEmpleado($item, $valor);
-                            foreach ($empleado as $key => $value) {
-                                echo '<option value="' . $value["id"] . '">' . $value["nombre"] . " " . $value["apellidop"] . " " . $value["apellidom"] . '</option>';
-                            }
-                            ?>
-                        </select>
+                        <textarea type="text" class="form-control" id="listaEmpleados" readonly></textarea>
                     </div>
-                    
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger waves-effect waves-light"
                         data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary waves-effect waves-light">Guardar Cambios</button>
+                    <button type="success" class="btn btn-primary waves-effect waves-light">Guardar Cambios</button>
                 </div>
                 <?php
                 $editarHoras = new ControladorHoras();

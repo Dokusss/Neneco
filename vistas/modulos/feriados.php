@@ -18,7 +18,6 @@
             </div>
         </div>
         <!-- end page title -->
-
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -27,7 +26,6 @@
                             data-toggle="modal" data-target="#modalAgregarFeriados">
                             <i class="feather-plus mr-1"></i> Agregar
                         </button>
-
                         <table class="table dt-responsive nowrap tablas">
                             <thead>
                                 <tr>
@@ -37,9 +35,7 @@
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-
                                 <?php
                                 $item = null;
                                 $valor = null;
@@ -53,16 +49,17 @@
                                             <td>' . $fecha . '</td>
                                             <td>
                                                 <div>
-                                                    <button class="btn btn-primary btn-sm rounded-circle mr-1 btnEditarFeriados"
-                                                        id="' . $value["id"] . '" data-toggle="modal"
+                                                    <button class="btn btn-primary btn-sm mr-1 btnEditarFeriados"
+                                                        idFeriados="' . $value["id"] . '" data-toggle="modal"
                                                         data-target="#modalEditarFeriados"><i
                                                             class="fas fa-pencil-alt"></i></button>
+                                                    <button class="btn btn-danger btn-sm btnEliminarFeriados"
+                                                        idFeriados="' . $value["id"] . '"><i class="fa fa-trash"></i></button>
                                                 </div>  
                                             </td>
                                         </tr>';
                                 }
                                 ?>
-
                             </tbody>
                         </table>
 
@@ -76,7 +73,7 @@
 </div>
 
 <!-- Modal Agregar Anticipo -->
-<div class="modal fade" id="modalAgregarFeriados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="modalAgregarFeriados" tabindex="-1" role="dialog" aria-labelledby="modalAgregarFeriados"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

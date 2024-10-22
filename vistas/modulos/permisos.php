@@ -153,8 +153,8 @@
 
                     <!-- Entrada del Nombre -->
                     <div class="form-group">
-                        <label for="mostrarEmpleado">Nombre del Empleado</label>
-                        <input type="text" id="mostrarEmpleado" value="" class="form-control" readonly required>
+                        <label for="editarEmpleado">Nombre del Empleado</label>
+                        <input type="text" id="editarEmpleado" value="" class="form-control" readonly required>
                         <input type="hidden" name="id" id="id" required>
                     </div>
 
@@ -171,46 +171,12 @@
                         <input type="date" name="editarFechaFin" id="editarFechaFin" class="form-control" required>
                     </div>
 
-                    <!-- Entrada del Categoria -->
-                    <div class="form-group">
-                        <label for="editarCategoria">Categoria</label>
-                        <select class="form-control" name="editarCategoria" id="editarCategoria" required>
-                            <option value="">Seleccione el categoria</option>
-                            <option value="enfermedad">Permiso por enfermedad</option>
-                            <option value="ocasional">Permiso ocasional</option>
-                            <option value="maternidad">Permiso de maternidad</option>
-                            <option value="compasivo">Permiso compasivo</option>
-                            <option value="especial">Permiso especial</option>
-                            <option value="vacaciones">Vacaciones</option>
-                        </select>
-                    </div>
-
                     <!-- Entrada Motivo -->
                     <div class="form-group">
                         <label for="editarMotivo">Motivo</label>
                         <textarea class="form-control" name="editarMotivo" id="editarMotivo" required></textarea>
                     </div>
 
-                    <!-- Entrada del Empleado -->
-                    <!-- <div class="form-group">
-                        <label for="editarEmpleado">Empleado</label>
-                        <select class="form-control" name="editarEmpleado" id="editarEmpleado" required>
-                            <option value="">Seleccione el empleado</option>
-                            <?php
-
-                            // $item = null;
-                            // $valor = null;
-                            
-                            // $empleado = ControladorEmpleado::ctrMostrarEmpleado($item, $valor);
-                            
-                            // foreach ($empleado as $key => $value) {
-                            
-                            //     echo '<option value="' . $value["id"] . ' ">' . $value["nombre"] . " " . $value["apellido1"] . " " . $value["apellido2"] . '</option>';
-                            // }
-                            
-                            ?>
-                        </select>
-                    </div> -->
                 </div>
 
                 <div class="modal-footer">
@@ -226,8 +192,3 @@
         </div>
     </div>
 </div>
-
-<?php
-$borrarPermisos = new ControladorPermisos();
-$borrarPermisos->ctrBorrarPermisos();
-?>

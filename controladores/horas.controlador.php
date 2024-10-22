@@ -3,141 +3,110 @@
 class ControladorHoras
 {
 
-
-	/*=============================================
-			 MOSTRAR HORAS
-			 =============================================*/
-
+	//MOSTRAR HORAS
 	static public function ctrMostrarHoras($item, $valor)
 	{
-
 		$tabla = "horasextras";
-
 		$respuesta = ModeloHoras::MdlMostrarHoras($tabla, $item, $valor);
-
 		return $respuesta;
 	}
 
-	/*=============================================
-			 MOSTRAR DETALLE HORAS
-			 =============================================*/
-
+	//MOSTRAR DETALLE HORAS
 	public static function ctrMostrarDetalleHoras($item, $valor)
 	{
-		$tabla = "horasextras";
+		$tabla = "detallehoraempleado";
 		$respuesta = ModeloHoras::mdlMostrarDetalleHoras($tabla, $item, $valor);
 		return $respuesta;
 	}
 
-	/*=============================================
-			 CREAR CARGO     
-			 =============================================*/
-
+	//CREAR HORA 
 	static public function ctrCrearHoras()
 	{
 		if (isset($_POST["nuevoFecha"])) {
-
-			$fechaProporcionada = $_POST["nuevoFecha"];
-			$fechaActual = date("Y-m-d");
-
-			if ($fechaProporcionada > $fechaActual) {
-				$tabla = "horasextras";
-				$datos = array(
-					"fecha" => $_POST["nuevoFecha"],
-					"idhorario" => $_POST["nuevoHorario"],
-					"tipo" => $_POST["nuevoTipo"],
-					"empleados" => $_POST["empleados"]
-				);
-
-				$respuesta = ModeloHoras::mdlIngresarHoras($tabla, $datos);
-
-				if ($respuesta == "ok") {
+			$nuevoFecha = $_POST['nuevoFecha'];
+			$formato = 'Y-m-d';
+			$fecha = DateTime::createFromFormat($formato, $nuevoFecha);
+			$horaEntrada = $_POST['nuevoEntrada'];
+			$horaEntradaFormateada = date('H:i:s', strtotime($horaEntrada));
+			$horaSalida = $_POST['nuevoSalida'];
+			$horaSalidaFormateada = date('H:i:s', strtotime($horaSalida));
+			// Verificar si se ha enviado la lista de empleados y no está vacía
+			if (isset($_POST["listaEmpleados"]) && $_POST["listaEmpleados"] != "") {
+				if ($fecha && $fecha->format($formato) === $nuevoFecha) {
+					$tabla = "horasextras";
+					$datos = array(
+						"fecha" => $nuevoFecha,
+						"entrada" => $horaEntradaFormateada,
+						"salida" => $horaSalidaFormateada
+					);
+					// Insertar los datos en la tabla horasextras
+					$respuesta = ModeloHoras::mdlIngresarHoras($tabla, $datos);
+					if ($respuesta == "ok") {
+						$idHoraExtra = ModeloHoras::mdlObtenerUltimoId();
+						$listaEmpleados = $_POST["listaEmpleados"];
+						// Insertar los datos en la tabla detallehoraempleado
+						$respuestaDetalle = ModeloHoras::mdlInsertarDetalleHorasExtras($idHoraExtra, $listaEmpleados);
+						if ($respuestaDetalle == "ok") {
+							echo '<script>
+						sessionStorage.setItem("tRegistrado", "true");
+						window.location = "horasextras";
+					</script>';
+						} else {
+							echo '<script>
+                    alert("Error al insertar detalles: ' . $respuestaDetalle . '");
+                    window.location = "horasextras";
+                </script>';
+						}
+					}
+				} else {
 					echo '<script>
-					   Swal.fire({
-						   type: "success",
-						   title: "Hora extra ha sido registrada correctamente",
-						   showConfirmButton: true,
-						   confirmButtonColor: "#627d72",
-						   confirmButtonText: "Cerrar"
-					   }).then(function(result) {
-						   if (result.value) {
-							   window.location = "horasextras";
-						   }
-					   });
-					   </script>';
+                        sessionStorage.setItem("tError", "true");
+                        window.location = "horasextras";
+                    </script>';
 				}
 			} else {
 				echo '<script>
-				   Swal.fire({
-					   type: "error",
-					   title: "¡Error en fecha!",
-					   showConfirmButton: true,
-					   confirmButtonColor: "#627d72",
-					   confirmButtonText: "Cerrar"
-				   }).then(function(result) {
-					   if (result.value) {
-						   window.location = "horasextras";
-					   }
-				   });
-				   </script>';
+                    alert("Debe seleccionar al menos un empleado.");
+                    window.location = "horasextras";
+                </script>';
 			}
 		}
 	}
 
-	/*=============================================
-			 CREAR CARGO     
-			 =============================================*/
-
+	//EDITAR HORAS EXTRAS    
 	static public function ctrEditarHoras()
 	{
 		if (isset($_POST["editarFecha"])) {
-
-			$fechaProporcionada = $_POST["editarFecha"];
-			$fechaActual = date("Y-m-d");
-
-			if ($fechaProporcionada > $fechaActual) {
+			$editarFecha = $_POST['editarFecha'];
+			$formato = 'Y-m-d';
+			$fecha = DateTime::createFromFormat($formato, $editarFecha);
+			$editarEntrada = $_POST['editarEntrada'];
+			$editarEntradaFormateada = date('H:i:s', strtotime($editarEntrada));
+			$editarSalida = $_POST['editarSalida'];
+			$editarSalidaFormateada = date('H:i:s', strtotime($editarSalida));
+			if ($fecha && $fecha->format($formato) === $editarFecha) {
 				$tabla = "horasextras";
 				$datos = array(
 					"id" => $_POST["id"],
-					"fecha" => $_POST["editarFecha"],
-					"idhorario" => $_POST["editarHorario"],
-					"tipo" => $_POST["editarTipo"],
-					"empleados" => $_POST["empleados"]
+					"fecha" => $editarFecha,
+					"entrada" => $editarEntradaFormateada,
+					"salida" => $editarSalidaFormateada
 				);
-
 				$respuesta = ModeloHoras::mdlEditarHoras($tabla, $datos);
-
 				if ($respuesta == "ok") {
 					echo '<script>
-							 Swal.fire({
-								 type: "success",
-								 title: "Hora extra ha sido editada correctamente",
-								 showConfirmButton: true,
-								 confirmButtonColor: "#627d72",
-								 confirmButtonText: "Cerrar"
-							 }).then(function(result) {
-								 if (result.value) {
-									 window.location = "horasextras";
-								 }
-							 });
-							 </script>';
+						sessionStorage.setItem("tRegistrado", "true");
+						window.location = "horasextras";
+					</script>';
 				}
 			} else {
 				echo '<script>
-						 Swal.fire({
-							 type: "error",
-							 title: "¡Error en fecha!",
-							 showConfirmButton: true,
-							 confirmButtonColor: "#627d72",
-							 confirmButtonText: "Cerrar"
-						 }).then(function(result) {
-							 if (result.value) {
-								 window.location = "horasextras";
-							 }
-						 });
-						 </script>';
+                        sessionStorage.setItem("tError", "true");
+                        window.location = "horasextras";
+                    </script>';
 			}
 		}
 	}
-
 }
+
+

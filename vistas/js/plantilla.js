@@ -1,7 +1,5 @@
 $(".tablas").DataTable({
-
 	"language": {
-
 		"sProcessing": "Procesando...",
 		"sLengthMenu": "Mostrar _MENU_ registros",
 		"sZeroRecords": "No se encontraron resultados",
@@ -24,14 +22,9 @@ $(".tablas").DataTable({
 			"sSortAscending": ": Activar para ordenar la columna de manera ascendente",
 			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
 		}
-
 	}
-
 });
-
-/*=============================================
-TOASTR GUARDAR Y EDITAR
-=============================================*/
+//TOASTR GUARDAR Y EDITAR
 $(document).ready(function () {
 	toastr.options = {
 		"closeButton": true,
@@ -58,10 +51,7 @@ $(document).ready(function () {
 		sessionStorage.removeItem("tRegistrado");
 	}
 });
-
-/*=============================================
-TOASTR ERROR AL INGRESAR DATOS
-=============================================*/
+//TOASTR ERROR AL INGRESAR DATOS
 $(document).ready(function () {
 	toastr.options = {
 		"closeButton": true,
@@ -88,10 +78,7 @@ $(document).ready(function () {
 		sessionStorage.removeItem("tError");
 	}
 });
-
-/*=============================================
-TOASTR BORRAR
-=============================================*/
+//TOASTR BORRAR
 $(document).ready(function () {
 	toastr.options = {
 		"closeButton": true,
@@ -118,10 +105,7 @@ $(document).ready(function () {
 		sessionStorage.removeItem("tEliminar");
 	}
 });
-
-/*=============================================
-TOASTR ACTUALIZAR
-=============================================*/
+//TOASTR ACTUALIZAR
 $(document).ready(function () {
 	toastr.options = {
 		"closeButton": true,
@@ -148,16 +132,6 @@ $(document).ready(function () {
 		sessionStorage.removeItem("tActualizado");
 	}
 });
-
-$(document).ready(function () {
-	// Obtener el input de teléfono
-	var telefonoInput = $('#telefono');
-	// Definir el formato del input mask
-	var maskFormat = "99999999";
-	// Aplicar la máscara al número de teléfono
-	telefonoInput.inputmask(maskFormat);
-});
-
 $(".tablasAsistencia").DataTable({
 	"language": {
 		"sProcessing": "Procesando...",
@@ -186,7 +160,7 @@ $(".tablasAsistencia").DataTable({
 });
 
 $(".tablaPlanilla").DataTable({
-    "searching": false, // Desactiva el buscador
+    "searching": false,
     "language": {
         "sProcessing": "Procesando...",
         "sLengthMenu": "Mostrar _MENU_ registros",
@@ -212,14 +186,22 @@ $(".tablaPlanilla").DataTable({
         }
     }
 });
-
+//SELECT MULTIPLE
 $(document).ready(function() {
-	// Inicializar Select2
 	$('.select2-multiple').select2({
             width: '100%'
 	});
 });
-
-
+//INPUT MASK
+$( document ).ready(function() {
+	$('[data-toggle="input-mask"]').each(function (idx, obj) {
+		var maskFormat = $(obj).data("maskFormat");
+		var reverse = $(obj).data("reverse");
+		if (reverse != null)
+			$(obj).mask(maskFormat, {'reverse': reverse});
+		else
+			$(obj).mask(maskFormat);
+	});
+  });
 
 

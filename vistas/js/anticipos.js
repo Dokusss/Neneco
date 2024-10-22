@@ -1,6 +1,4 @@
-/*=============================================
-INSERTAR FECHA ACTUAL AL ABRIR MODAL
-=============================================*/
+//INSERTAR FECHA ACTUAL AL ABRIR MODAL
 $("#modalRegistrarAnticipo").on("shown.bs.modal", function () {
 	// Obtener la fecha actual del sistema
 	var fechaActual = new Date();
@@ -11,24 +9,7 @@ $("#modalRegistrarAnticipo").on("shown.bs.modal", function () {
 	var fechaFormateada = año + "-" + mes + "-" + dia;
 	$("#nuevoFecha").val(fechaFormateada);
 });
-
-/*=============================================
-REVISAR SI EL MONTO INGRESADO NO ES NEGATIVO
-=============================================*/
-// $(".monto").change(function () {
-//     $(".alert").remove();
-//     var monto = $(this).val();
-//     if (monto < 0) {
-//         $("#nuevoMonto").parent().after('<div class="alert alert-warning" role="alert"> No se permiten valores negativos. El monto debe ser mayor o igual a 0. </div>');
-// 		$("#editarMonto").parent().after('<div class="alert alert-warning" role="alert"> No se permiten valores negativos. El monto debe ser mayor o igual a 0. </div>');
-//         $("#nuevoMonto").val("");
-// 		$("#editarMonto").val("");
-//     }
-// });
-
-/*=============================================
-EDITAR ANTICIPOS
-=============================================*/
+//EDITAR ANTICIPOS
 $(".tablas").on("click", ".btnEditarAnticipo", function () {
 	var idAnticipos = $(this).attr("idAnticipos");
 	var datos = new FormData();

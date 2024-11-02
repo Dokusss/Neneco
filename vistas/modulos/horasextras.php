@@ -140,7 +140,8 @@
                     <!-- Entrada Empleados -->
                     <div class="form-group">
                         <label>Empleados</label>
-                        <select class="form-control select2-multiple" name="listaEmpleados[]" multiple="multiple" required>
+                        <select class="form-control select2-multiple" name="listaEmpleados[]" multiple="multiple"
+                            required>
                             <?php
                             $item = null;
                             $valor = null;
@@ -183,8 +184,9 @@
                     <!-- Entrada de Fecha -->
                     <div class="form-group">
                         <label for="editarFecha">Fecha</label>
-                        <input type="date" name="editarFecha" id="editarFecha" class="form-control nuevoFechaHorasExtras" required>
-                        <input type="hidden" name="id" id="id"required>
+                        <input type="date" name="editarFecha" id="editarFecha"
+                            class="form-control nuevoFechaHorasExtras" required>
+                        <input type="hidden" name="id" id="id" required>
                     </div>
                     <!-- Entrada -->
                     <div class="form-group">

@@ -12,7 +12,7 @@ class AjaxAsistencia
 
     public function ajaxMostrarAsistencia()
     {
-        $respuesta = ControladorAsistencia::ctrMostrarAsistencia($this->idEmpleado, $this->fechaInicio, $this->fechaFin);
+        $respuesta = ModeloAsistencia::MdlMostrarAsistenciaDeEmpleado($this->idEmpleado, $this->fechaInicio, $this->fechaFin);
         echo json_encode($respuesta);
     }
 

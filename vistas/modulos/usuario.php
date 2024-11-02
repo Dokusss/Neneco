@@ -26,8 +26,9 @@
             <div class="col-10">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" class="btn btn-primary waves-effect waves-light card-title" data-toggle="modal" data-target="#modalAgregarUsuario">
-                            <i class="feather-plus mr-1"></i> Agregar
+                    <button type="button" class="btn btn-primary waves-effect waves-light card-title"
+                            data-toggle="modal" data-target="#modalAgregarUsuario">
+                            <i class="feather-plus mr-1"></i> Registrar
                         </button>
 
                         <table class="table dt-responsive nowrap tablas">
@@ -98,13 +99,15 @@
 </div>
 
 <!-- Modal Agregar Usuario-->
-<div class="modal fade" id="modalAgregarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalAgregarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form role="form" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Registrar Usuario</h5>
-                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal"
+                        aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -113,30 +116,35 @@
                     <!-- Entrada del Nombre -->
                     <div class="form-group">
                         <label for="nuevoNombre">Nombre del Usuario</label>
-                        <input type="text" name="nuevoNombre" id="nuevoNombre" class="form-control" placeholder="Ingrese el nuevo nombre" required>
+                        <input type="text" name="nuevoNombre" id="nuevoNombre" class="form-control"
+                            placeholder="Ingrese el nuevo nombre" required>
                     </div>
 
                     <!-- Entrada del Usuario -->
                     <div class="form-group">
                         <label for="nuevoUsuario">Usuario</label>
-                        <input type="text" name="nuevoUsuario" id="nuevoUsuario" class="form-control" placeholder="Ingrese el nuevo usuario" required>
+                        <input type="text" name="nuevoUsuario" id="nuevoUsuario" class="form-control"
+                            placeholder="Ingrese el nuevo usuario" required>
                     </div>
 
                     <!-- Entrada de la Contraseña -->
                     <div class="form-group">
                         <label for="nuevoPassword">Contraseña</label>
-                        <input type="password" name="nuevoPassword" id="nuevoPassword" class="form-control" placeholder="Ingrese la nueva contraceña" required>
+                        <input type="password" name="nuevoPassword" id="nuevoPassword" class="form-control"
+                            placeholder="Ingrese la nueva contraceña" required>
                     </div>
 
                     <!-- Entrada de la Foto -->
                     <div class="form-group">
                         <label for="nuevaFoto">Foto</label>
-                        <input type="file" name="nuevaFoto" id="nuevaFoto" class="dropify nuevaFoto" data-default-file="vistas/images/users/default.png" data-max-file-size="2M" required/>
+                        <input type="file" name="nuevaFoto" id="nuevaFoto" class="dropify nuevaFoto"
+                            data-default-file="vistas/images/users/default.png" data-max-file-size="2M" required />
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger waves-effect waves-light" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light"
+                        data-dismiss="modal">Cerrar</button>
                     <button type="success" class="btn btn-primary waves-effect waves-light">Guardar Cambios</button>
                 </div>
                 <?php
@@ -149,13 +157,15 @@
 </div>
 
 <!-- Modal Editar Usuario-->
-<div class="modal fade" id="modalEditarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalEditarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form role="form" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Editar Usuario</h5>
-                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal"
+                        aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -164,32 +174,37 @@
                     <!-- Entrada del Nombre -->
                     <div class="form-group">
                         <label for="editarNombre">Nombre del Usuario</label>
-                        <input type="text" name="editarNombre" id="editarNombre" class="form-control" placeholder="Ingrese en nombre" required>
+                        <input type="text" name="editarNombre" id="editarNombre" class="form-control"
+                            placeholder="Ingrese en nombre" required>
                     </div>
 
                     <!-- Entrada del Usuario -->
                     <div class="form-group">
                         <label for="editarUsuario">Usuario</label>
-                        <input type="text" name="editarUsuario" id="editarUsuario" class="form-control" placeholder="Ingrese en nombre" readonly required>
+                        <input type="text" name="editarUsuario" id="editarUsuario" class="form-control"
+                            placeholder="Ingrese en nombre" readonly required>
                     </div>
 
                     <!-- Entrada de la Contraseña -->
                     <div class="form-group">
                         <label for="editarPassword">Contraseña</label>
-                        <input type="password" name="editarPassword" id="editarPassword" class="form-control" placeholder="Ingrese en nombre" required>
+                        <input type="password" name="editarPassword" id="editarPassword" class="form-control"
+                            placeholder="Ingrese en nombre" required>
                         <input type="hidden" id="passwordActual" name="passwordActual">
                     </div>
 
                     <!-- Entrada de la Foto -->
                     <div class="form-group">
                         <label for="editarFoto">Foto</label>
-                        <input type="file" name="editarFoto" id="editarFoto" class="dropify nuevaFoto" data-default-file="vistas/images/users/default.png" data-max-file-size="2M" />
+                        <input type="file" name="editarFoto" id="editarFoto" class="dropify nuevaFoto"
+                            data-default-file="vistas/images/users/default.png" data-max-file-size="2M" />
                         <input type="hidden" name="fotoActual" id="fotoActual">
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger waves-effect waves-light" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light"
+                        data-dismiss="modal">Cerrar</button>
                     <button type="success" class="btn btn-primary waves-effect waves-light">Guardar Cambios</button>
                 </div>
                 <?php

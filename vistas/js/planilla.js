@@ -30,3 +30,4 @@ $(".tablas").on("click", ".btnReportePlanilla", function () {
     var id = $(this).attr("id");
     window.open("extensiones/tcpdf/pdf/planillas.php?id=" + id, "_blank");
 })
+

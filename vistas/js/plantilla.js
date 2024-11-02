@@ -186,11 +186,11 @@ $(".tablaPlanilla").DataTable({
         }
     }
 });
-//SELECT MULTIPLE
 $(document).ready(function() {
-	$('.select2-multiple').select2({
-            width: '100%'
-	});
+    // Inicializar select con clase 'select2-multiple'
+    $('.select2-multiple').select2({
+        width: '100%'
+    });
 });
 //INPUT MASK
 $( document ).ready(function() {

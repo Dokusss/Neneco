@@ -8,43 +8,17 @@ class ControladorAsistencia
         $respuesta = ModeloAsistencia::MdlMostrarTodasLasAsistencias($tabla, $item, $valor);
         return $respuesta;
     }
-
-    /*=============================================
-    MOSTRAR ASISTENCIA
-    =============================================*/
-
-    static public function ctrMostrarAsistencia($id, $fechaInicio, $fechaFin)
-    {
-        if (isset($_POST["idEmpleado"])) {
-
-            $tabla = "asistencia";
-
-            $respuesta = ModeloAsistencia::MdlMostrarAsistencia($tabla, $fechaInicio, $fechaFin, $id);
-
-            return $respuesta;
-
-        }
-    }
-
-    /*=============================================
-   MOSTRAR ASISTENCIA EMPLEADO
-   =============================================*/
-    static public function ctrMostrarAsistenciaEmpleado($id, $fechaInicio, $fechaFin)
-    {
-        if (!empty($id) && !empty($fechaInicio) && !empty($fechaFin)) {
-            $tabla = "asistencia";
-            $respuesta = ModeloAsistencia::MdlMostrarAsistencia($tabla, $fechaInicio, $fechaFin, $id);
-            // Debug: Verificar la respuesta del modelo
-            //var_dump($respuesta);
-            return $respuesta;
-        }
-        return [];
-    }
-
     //SUBIR ARCHIVO
     static public function ctrCargarDatos($nuevoArchivo)
     {
         $respuesta = ModeloAsistencia::mdlCargarDatos($nuevoArchivo);
         return $respuesta;
     }
+    //RANGO DE FECHAS
+    static public function ctrRangoFechasVentas($fechaInicial, $fechaFinal)
+	{
+		$tabla = "asistencias";
+		$respuesta = ModeloAsistencia::mdlRangoFechasAsistencias($tabla, $fechaInicial, $fechaFinal);
+		return $respuesta;
+	}
 }

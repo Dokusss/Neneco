@@ -96,4 +96,18 @@ class ModeloEmpleado
 		$stmt->close();
 		$stmt = null;
 	}
+
+	//MOSTRAR HORARIO DE LOS EMPLEADOS
+	static public function mdlMostrarHorarioEmpleado($idEmpleado)
+	{
+		$stmt = Conexion::conectar()->prepare("SELECT h.entrada1, h.salida1, h.entrada2, h.salida2
+				FROM empleados e
+				JOIN horarios h ON e.idhorario = h.id
+				WHERE e.id = :idEmpleado");
+		$stmt->bindParam(":idEmpleado", $idEmpleado, PDO::PARAM_INT);
+		$stmt->execute();
+		$resultado = $stmt->fetch();
+		$stmt = null;
+		return $resultado;
+	}
 }

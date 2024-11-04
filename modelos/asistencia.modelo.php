@@ -50,6 +50,40 @@ class ModeloAsistencia
         }
         return $respuesta;
     }
+    //OBTENER ASISTENCIAS DE EMPLEADO
+    static public function mdlObtenerAsistenciasEmpleado($idEmpleado, $fechaInicio, $fechaFin)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("SELECT * FROM asistencias WHERE idempleado = :idempleado AND fecha BETWEEN :fechaInicio AND :fechaFin");
+        $stmt->bindParam(":idempleado", $idEmpleado, PDO::PARAM_INT);
+        $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+        $stmt->execute();
+        $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        unset($stmt);
+        return $resultado;
+    }
+    //OBTENER EXTRAS DE EMPLEADO
+    static public function mdlObtenerHorasExtrasEmpleado($idEmpleado, $fechaInicio, $fechaFin)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("SELECT fecha, extras 
+                                FROM asistencias 
+                                WHERE idempleado = :idempleado 
+                                AND fecha BETWEEN :fechaInicio AND :fechaFin
+                                AND extras > '00:00:00'");
+        $stmt->bindParam(":idempleado", $idEmpleado, PDO::PARAM_INT);
+        $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+        $stmt->execute();
+        $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        unset($stmt);
+
+        // Devolver un array de registros de horas extras o un array vacío si no hay registros
+        return $resultado ? $resultado : [];
+    }
     //SUBIR ARCHIVO
     static public function mdlCargarDatos($nuevoArchivo)
     {

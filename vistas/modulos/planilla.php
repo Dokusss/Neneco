@@ -24,7 +24,7 @@
                     <div class="card-body">
                         <button type="button" class="btn btn-primary waves-effect waves-light card-title"
                             data-toggle="modal" data-target="#modalGenerarPlanilla">
-                            <i class="feather-plus mr-1"></i> Generar planilla
+                            Generar planilla
                         </button>
 
                         <table class="table dt-responsive nowrap tablas">
@@ -32,6 +32,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Fecha</th>
+                                    <th>Estado</th>
                                     <th>Total</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -42,29 +43,29 @@
                                 <?php
                                 $item = null;
                                 $valor = null;
-                                $empleados = ControladorPlanilla::ctrMostrarPlanilla($item, $valor);
-                                foreach ($empleados as $key => $value) {
+                                $planilla = ControladorPlanilla::ctrMostrarPlanilla($item, $valor);
+                                foreach ($planilla as $key => $value) {
 
-                                    // Formatear la fecha
                                     $fecha = date("d-m-Y", strtotime($value["fecha"]));
-
-                                    // Obtener el total de liquidopagable para esta planilla
-                                    $idPlanilla = $value["id"];
-                                    $totalLiquidopagable = ModeloPlanilla::mdlSumarLiquidopagable($idPlanilla);
-                                    $totalLiquidopagableFormatted = number_format($totalLiquidopagable['total_liquidopagable'], 2);
+                                    $total = number_format($value['totalpagado'], 2);
 
                                     echo '<tr>
                                         <th class="sorting_1">' . ($key + 1) . '</th>  
                                         <td>' . $fecha . '</td>';
-
-                                    // Mostrar el total de liquidopagable debajo de la fecha
-                                    echo '<td>' . $totalLiquidopagableFormatted . '</td>';
-
-                                    echo '<td>
+                                    if ($value["estado"] != 0) {
+                                        echo '<td><button class="btn btn-sm btn-primary btnPagar" id="' . $value["id"] . '" estadoPlanilla="0">Pagado</button></td>';
+                                    } else {
+                                        echo '<td><button class="btn btn-sm btn-danger btnPagar" id="' . $value["id"] . '" estadoPlanilla="1">Sin Pagar</button></td>';
+                                    }
+                                    echo '<td>' . $total . ' bs.</td>
+                                        <td>
                                             <div>
-                                                <button class="btn btn-info btn-sm rounded-circle mr-1 btnReportePlanilla"
+                                                <button class="btn btn-info btn-sm rounded-circle mr-1 btnImprimirPlanilla"
                                                     id="' . $value["id"] . '"><i
                                                         class="far fa-file-pdf"></i></button>
+                                                        <button class="btn btn-warning btn-sm rounded-circle mr-1 btnListaEmpleadosPlanilla"
+                                                    id="' . $value["id"] . '"><i
+                                                        class="far feather-users"></i></button>
                                             </div>  
                                         </td>
                                     </tr>';
@@ -97,19 +98,16 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
-                    <!-- Entrada del Nombre -->
+                    <!-- Fecha de Inicio -->
                     <div class="form-group">
                         <label for="fechaInicioP">Fecha de inicio</label>
                         <input type="date" id="fechaInicioP" name="fechaInicioP" class="form-control" required>
                     </div>
-
-                    <!-- Entrada del Salario -->
+                    <!-- Fecha Fin -->
                     <div class="form-group">
                         <label for="fechaFinP">Fecha fin</label>
                         <input type="date" id="fechaFinP" name="fechaFinP" class="form-control" required>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger waves-effect waves-light"

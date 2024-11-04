@@ -4,10 +4,7 @@ require_once "conexion.php";
 
 class ModeloAnticipos
 {
-
-	/*=============================================
-				MOSTRAR ANTICIPOS
-				=============================================*/
+	//MOSTRAR ANTICIPOS
 	static public function MdlMostrarAnticipos($tabla, $item, $valor)
 	{
 		if ($item != null) {
@@ -23,10 +20,21 @@ class ModeloAnticipos
 		$stmt->close();
 		$stmt = null;
 	}
-
-	/*=============================================
-				CREAR ANTICIPOS
-				=============================================*/
+	//OBTENER ANTICIPOS
+	static public function mdlObtenerAnticiposEmpleado($idEmpleado, $fechaInicio, $fechaFin)
+	{
+		$conexion = Conexion::conectar();
+		$stmt = $conexion->prepare("SELECT SUM(monto) AS totalAnticipos FROM anticipos WHERE idempleado = :idempleado AND fecha BETWEEN :fechaInicio AND :fechaFin");
+		$stmt->bindParam(":idempleado", $idEmpleado, PDO::PARAM_INT);
+		$stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+		$stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+		$stmt->execute();
+		$resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+		$stmt->closeCursor();
+		unset($stmt);
+		return $resultado['totalAnticipos'] ? $resultado['totalAnticipos'] : 0;
+	}
+	//CREAR ANTICIPOS
 	static public function mdlCrearAnticipos($tabla, $datos)
 	{
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(idempleado, fecha, monto) VALUES (:idempleado, :fecha, :monto)");
@@ -41,10 +49,7 @@ class ModeloAnticipos
 		$stmt->close();
 		$stmt = null;
 	}
-
-	/*=============================================
-				 EDITAR ANTICIPOS
-				 =============================================*/
+	//EDITAR ANTICIPOS
 	static public function mdlEditarAnticipos($tabla, $datos)
 	{
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET monto = :monto WHERE id = :id");

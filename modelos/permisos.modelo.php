@@ -1,13 +1,8 @@
 <?php
-
 require_once "conexion.php";
-
 class ModeloPermisos
 {
-
-	/*=============================================
-	MOSTRAR PERMISOS
-	=============================================*/
+	//MOSTRAR PERMISOS
 	static public function mdlMostrarPermisos($tabla, $item, $valor)
 	{
 		if ($item != null) {
@@ -24,10 +19,31 @@ class ModeloPermisos
 		$stmt->close();
 		$stmt = null;
 	}
+	//OBTENER DIAS DE PERMISOS
+	static public function mdlObtenerPermisosEmpleado($idEmpleado, $fechaInicio, $fechaFin)
+	{
+		$conexion = Conexion::conectar();
+		$stmt = $conexion->prepare("SELECT COUNT(*) AS totalDiasPermiso 
+                                FROM permisos 
+                                WHERE idempleado = :idempleado 
+                                AND (
+                                    (fechainicio BETWEEN :fechaInicio AND :fechaFin) 
+                                    OR (fechafin BETWEEN :fechaInicio AND :fechaFin)
+                                    OR (:fechaInicio BETWEEN fechainicio AND fechafin)
+                                    OR (:fechaFin BETWEEN fechainicio AND fechafin)
+                                )");
+		$stmt->bindParam(":idempleado", $idEmpleado, PDO::PARAM_INT);
+		$stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+		$stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+		$stmt->execute();
+		$resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+		$stmt->closeCursor();
+		unset($stmt);
 
-	/*=============================================
-	CREAR PERMISO
-	=============================================*/
+		// Devolver el total de días de permiso, o 0 si no hay registros
+		return $resultado['totalDiasPermiso'] ? $resultado['totalDiasPermiso'] : 0;
+	}
+	//CREAR PERMISO
 	static public function mdlCrearPermiso($tabla, $datos)
 	{
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(idempleado, fechainicio, fechafin, motivo) VALUES (:idempleado, :fechainicio, :fechafin, :motivo)");
@@ -43,19 +59,17 @@ class ModeloPermisos
 		$stmt->close();
 		$stmt = null;
 	}
-
-	/*=============================================
-	EDITAR PERMISOS
-	=============================================*/
-	static public function mdlEditarPermisos($tabla, $datos){
+	//EDITAR PERMISOS
+	static public function mdlEditarPermisos($tabla, $datos)
+	{
 		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET fechainicio = :fechainicio, fechafin = :fechafin, motivo = :motivo WHERE id = :id");
-		$stmt -> bindParam(":fechainicio", $datos["fechainicio"], PDO::PARAM_STR);
+		$stmt->bindParam(":fechainicio", $datos["fechainicio"], PDO::PARAM_STR);
 		$stmt->bindParam(":fechafin", $datos["fechafin"], PDO::PARAM_STR);
 		$stmt->bindParam(":motivo", $datos["motivo"], PDO::PARAM_STR);
-		$stmt -> bindParam(":id", $datos["id"], PDO::PARAM_INT);
-		if($stmt->execute()){
+		$stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+		if ($stmt->execute()) {
 			return "ok";
-		}else{
+		} else {
 			return "error";
 		}
 		$stmt->close();

@@ -26,8 +26,15 @@ $("#fechaInicioP").change(function () {
     $("#fechaFinP").val(fechaFin);
 });
 
-$(".tablas").on("click", ".btnReportePlanilla", function () {
+$(".tablas").on("click", ".btnImprimirPlanilla", function () {
+
+    var idPlanilla = $(this).attr("id");
+    window.open("extensiones/TCPDF-main/pdf/imprimirPlanilla.php?idPlanilla=" + idPlanilla, "_blank");
+
+})
+
+$(".tablas").on("click", ".btnListaEmpleadosPlanilla", function () {
+    alert("boton lista");
     var id = $(this).attr("id");
-    window.open("extensiones/tcpdf/pdf/planillas.php?id=" + id, "_blank");
 })
 

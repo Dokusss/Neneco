@@ -16,6 +16,20 @@ class ModeloEmpleado
 		$stmt->close();
 		$stmt = null;
 	}
+	//MOSTRAR ID EMPLEADOS ACTIVOS
+	public static function mdlMostrarIdEmpleadosActivos()
+	{
+		$stmt = Conexion::conectar()->prepare(
+			"SELECT id
+				   FROM empleados
+				   WHERE estado = 1
+				   ORDER BY nombre ASC"
+		);
+		$stmt->execute();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$stmt->close();
+		$stmt = null;
+	}
 	//MOSTRAR TODOS LOS EMPLEADOS
 	static public function mdlMostrarEmpleado($tabla, $item, $valor)
 	{
@@ -31,6 +45,16 @@ class ModeloEmpleado
 		}
 		$stmt->close();
 		$stmt = null;
+	}
+	//OBTENER SALARIO DEL EMPLEADO
+	static public function mdlObtenerSalarioEmpleado($idEmpleado)
+	{
+		$conexion = Conexion::conectar();
+		$stmt = $conexion->prepare("SELECT sueldo FROM empleados WHERE id = :idempleado");
+		$stmt->bindParam(":idempleado", $idEmpleado, PDO::PARAM_INT);
+		$stmt->execute();
+		$resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $resultado['sueldo'];
 	}
 	//REGISTRAR EMPLEADO
 	static public function mdlCrearEmpleado($tabla, $datos)

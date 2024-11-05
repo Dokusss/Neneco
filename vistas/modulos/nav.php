@@ -33,14 +33,25 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="asistencia">
-                            <i class="mdi mdi-calendar-clock"></i>Asistencia
+                            <i class="mdi mdi-calendar-clock"></i>Asistencias
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="planilla">
-                            <i class="mdi mdi-file-document-outline"></i>Planilla de Pago
+                            <i class="mdi mdi-file-document-outline"></i>Planillas de Pago
                         </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-components" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="mdi mdi-file-pdf-outline"></i>Reportes <div class="arrow-down"></div>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="topnav-components">
+                            <a href="#" class="dropdown-item">Empleados</a>
+                            <a href="#" class="dropdown-item">Asistencias</a>
+                            <a href="#" class="dropdown-item">Personal</a>
+                        </div>
                     </li>
 
                     <li class="nav-item">

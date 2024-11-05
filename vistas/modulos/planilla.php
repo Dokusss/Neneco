@@ -27,7 +27,7 @@
                             Generar planilla
                         </button>
 
-                        <table class="table dt-responsive nowrap tablas">
+                        <table class="table dt-responsive nowrap tablaPlanilla">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -64,8 +64,8 @@
                                                     id="' . $value["id"] . '"><i
                                                         class="far fa-file-pdf"></i></button>
                                                         <button class="btn btn-warning btn-sm rounded-circle mr-1 btnListaEmpleadosPlanilla"
-                                                    id="' . $value["id"] . '"><i
-                                                        class="far feather-users"></i></button>
+                                                    idPlanilla="' . $value["id"] . '"><i
+                                                        class="far feather-file"></i></button>
                                             </div>  
                                         </td>
                                     </tr>';
@@ -124,3 +124,4 @@
         </div>
     </div>
 </div>
+

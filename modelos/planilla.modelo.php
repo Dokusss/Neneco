@@ -60,7 +60,7 @@ class ModeloPlanilla
     static public function mdlImprimirPlanilla($idPlanilla)
     {
         $stmt = Conexion::conectar()->prepare(
-            "SELECT p.id, p.fecha, p.totalpagado, p.estado, e.id,
+            "SELECT p.fecha, p.totalpagado, p.estado, e.id,
                 e.ci, e.nombre, e.apellidop, e.apellidom, 
                 dp.diastrabajados, dp.haberbasico, dp.horasextras, 
                 dp.faltas, dp.anticipos, dp.totaldescuentos, dp.liquidopagable, c.nombre AS nombre_cargo
@@ -72,6 +72,28 @@ class ModeloPlanilla
         );
 
         $stmt->bindParam(":idPlanilla", $idPlanilla, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor(); // Liberar el cursor
+        unset($stmt); // Liberar el recurso
+
+        return $result;
+    }
+    static public function mdlImprimirBoletaDePago($idEmpleado)
+    {
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT p.fecha, p.totalpagado, p.estado, e.id,
+                    e.ci, e.nombre, e.apellidop, e.apellidom, 
+                    dp.diastrabajados, dp.haberbasico, dp.horasextras, 
+                    dp.faltas, dp.anticipos, dp.totaldescuentos, dp.liquidopagable, c.nombre AS nombre_cargo
+                    FROM detalleplanillaempleado dp
+                    JOIN empleados e ON e.id = dp.idempleado
+                    JOIN planillas p ON p.id = dp.idplanilla
+                    JOIN cargos c ON e.idcargo = c.id
+                    WHERE dp.idempleado = :idEmpleado"
+        );
+
+        $stmt->bindParam(":idEmpleado", $idEmpleado, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->closeCursor(); // Liberar el cursor

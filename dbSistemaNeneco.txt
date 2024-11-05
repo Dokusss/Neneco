@@ -1872,7 +1872,5 @@ INSERT INTO asistencias (fecha, entrada1, salida1, entrada2, salida2, horas, ext
 ('2024-10-26', '07:50:00', '12:02:00', null, null, '04:12:00', '00:00:00', '00:00:00', 112),
 ('2024-10-26', '07:52:00', '12:05:00', null, null, '04:13:00', '00:00:00', '00:00:00', 113);
 
-echo "<script type='text/javascript'>
-                window.open('extensiones/tcpdf/pdf/planilla.php?id={$id}', '_blank');
-              </script>";
+
 

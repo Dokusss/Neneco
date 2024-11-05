@@ -59,6 +59,7 @@ session_start();
         $_GET["rutas"] == "horasextras" ||
         $_GET["rutas"] == "anticipos" ||
         $_GET["rutas"] == "planilla" ||
+        $_GET["rutas"] == "planillaempleados" ||
         $_GET["rutas"] == "feriados" ||
         $_GET["rutas"] == "salir"
       ) {

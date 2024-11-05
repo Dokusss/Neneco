@@ -120,6 +120,9 @@ class ControladorPlanilla
                     foreach ($planillaDetalles as $detalle) {
                         ModeloPlanilla::mdlInsertarDetallePlanilla($idPlanilla, $detalle);
                     }
+                    echo "<script type='text/javascript'>
+                window.open('extensiones/TCPDF-main/pdf/imprimirPlanilla.php?idPlanilla={$idPlanilla}', '_blank');
+              </script>";
                     echo '<script>
 						sessionStorage.setItem("tRegistrado", "true");
 						window.location = "planilla";

@@ -42,8 +42,59 @@ $(".tablas").on("click", ".btnImprimirBoletaDePago", function () {
 
 $(".tablaPlanilla").on("click", ".btnListaEmpleadosPlanilla", function () {
     var idPlanilla = $(this).attr("idPlanilla");
-    window.location.href = "index.php?rutas=planillaempleados&idPlanilla=" + idPlanilla;
+    var fechaPlanilla = $(this).attr("fechaPlanilla");
+    var totalPagado = $(this).attr("totalPagado");
+    var estado = $(this).attr("estado");
+    window.location.href = "index.php?rutas=planillaempleados&idPlanilla=" + idPlanilla + "&fechaPlanilla=" + fechaPlanilla+ "&totalPagado=" + totalPagado+ "&estado=" + estado;
 });
+
+$(".tablaPlanilla").on("click", ".btnActivar", function () {
+
+    var id = $(this).attr("id");
+    var estadoPlanilla = $(this).attr("estadoPlanilla");
+
+    if (estadoPlanilla == 1) {
+        var datos = new FormData();
+        datos.append("activar", id);
+        datos.append("estadoPlanilla", estadoPlanilla);
+
+        $.ajax({
+
+            url: "ajax/planilla.ajax.php",
+            method: "POST",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (respuesta) {
+
+            }
+
+        })
+
+        if (estadoPlanilla == 1) {
+
+            $(this).addClass('btn-primary');
+            $(this).removeClass('btn-danger');
+            $(this).html('Cancelado');
+            $(this).attr('estadoPlanilla', 0);
+
+        }
+    } else {
+        Swal.fire({
+            type: 'warning',
+            title: "Planilla ya cancelada",
+            text: "Esta planilla ya ha sido cancelada y no se puede actualizar el estado.",
+            showCancelButton: false,
+            confirmButtonColor: "#627d72",
+            confirmButtonText: "Aceptar"
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                window.location = "planilla";
+            }
+        });
+    }
+})
 
 
 

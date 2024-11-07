@@ -61,6 +61,7 @@ session_start();
         $_GET["rutas"] == "planilla" ||
         $_GET["rutas"] == "planillaempleados" ||
         $_GET["rutas"] == "feriados" ||
+        $_GET["rutas"] == "reportesasistencias" ||
         $_GET["rutas"] == "salir"
       ) {
         include "modulos/" . $_GET["rutas"] . ".php";
@@ -121,6 +122,7 @@ session_start();
   <script src="vistas/js/horasextras.js"></script>
   <script src="vistas/js/anticipos.js"></script>
   <script src="vistas/js/planilla.js"></script>
+  <script src="vistas/js/reportes.js"></script>
 </body>
 
 </html>

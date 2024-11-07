@@ -22,6 +22,21 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="card-title">
+                            <?php
+                            $fechaPlanilla = $_GET["fechaPlanilla"];
+                            $totalPagado = $_GET["totalPagado"];
+                            $estado = $_GET["estado"];
+                            $fechaFormateada = DateTime::createFromFormat('Y-m-d', $fechaPlanilla)->format('d-m-y');
+                            echo '<h5> Fecha: ' . $fechaFormateada . '</h5>';
+                            echo '<h5>Total Cancelado: ' . $totalPagado . '</h5>';
+                            if ($estado == 1) {
+                                echo '<h5> Estado: Cancelada</h5>';
+                            } else {
+                                echo '<h5> Estado: Sin Cancelar</h5>';
+                            }
+                            ?>
+                        </div>
                         <table class="table dt-responsive nowrap tablas">
                             <thead>
                                 <tr>

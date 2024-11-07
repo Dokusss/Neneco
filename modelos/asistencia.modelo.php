@@ -364,10 +364,85 @@ class ModeloAsistencia
             $currentDate->modify('+1 day');
         }
         // Obtener los días feriados en el rango de fechas
-        $diasFeriados = ModeloFeriados::mdlContarFeriados($fechaInicio, $fechaFin);
+        $diasFeriados = ModeloFeriados::mdlObtenerFeriados($fechaInicio, $fechaFin);
         // Calcular las faltas (días hábiles menos los días trabajados y restando los días feriados)
         $faltas = max(0, ($diasHabiles - $diasFeriados) - $diasTrabajados);
         $stmt = null;
         return [$diasTrabajados, $faltas];
     }
+    static public function mdlImprimirReporteAsistenciasFechasId($fechaInicio, $fechaFin, $idEmpleado)
+    {
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT a.fecha, a.entrada1, a.salida1, a.entrada2, a.salida2, a.horas, a.extras, 
+                    e.id, e.ci, e.nombre, e.apellidop, e.apellidom, c.nombre AS nombre_cargo
+             FROM asistencias a
+             JOIN empleados e ON a.idempleado = e.id
+             JOIN cargos c ON e.idcargo = c.id
+             WHERE a.idempleado = :idEmpleado
+             AND a.fecha BETWEEN :fechaInicio AND :fechaFin"
+        );
+        $stmt->bindParam(":idEmpleado", $idEmpleado, PDO::PARAM_INT);
+        $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        unset($stmt);
+        return $result;
+    }
+
+    static public function mdlImprimirReporteAsistenciasFechas($fechaInicio, $fechaFin)
+    {
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT a.fecha, a.entrada1, a.salida1, a.entrada2, a.salida2, a.horas, a.extras, 
+                    e.id, e.ci, e.nombre, e.apellidop, e.apellidom, c.nombre AS nombre_cargo
+             FROM asistencias a
+             JOIN empleados e ON a.idempleado = e.id
+             JOIN cargos c ON e.idcargo = c.id
+             WHERE a.fecha BETWEEN :fechaInicio AND :fechaFin"
+        );
+        $stmt->bindParam(":fechaInicio", $fechaInicio, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaFin", $fechaFin, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        unset($stmt);
+        return $result;
+    }
+
+    static public function mdlImprimirReporteAsistenciasId($idEmpleado)
+    {
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT a.fecha, a.entrada1, a.salida1, a.entrada2, a.salida2, a.horas, a.extras, 
+                    e.id, e.ci, e.nombre, e.apellidop, e.apellidom, c.nombre AS nombre_cargo
+             FROM asistencias a
+             JOIN empleados e ON a.idempleado = e.id
+             JOIN cargos c ON e.idcargo = c.id
+             WHERE a.idempleado = :idEmpleado"
+        );
+        $stmt->bindParam(":idEmpleado", $idEmpleado, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        unset($stmt);
+        return $result;
+    }
+
+    static public function mdlImprimirReporteAsistencias()
+    {
+        $stmt = Conexion::conectar()->prepare(
+            "SELECT a.fecha, a.entrada1, a.salida1, a.entrada2, a.salida2, a.horas, a.extras, 
+                    e.id, e.ci, e.nombre, e.apellidop, e.apellidom, c.nombre AS nombre_cargo
+             FROM asistencias a
+             JOIN empleados e ON a.idempleado = e.id
+             JOIN cargos c ON e.idcargo = c.id"
+        );
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        unset($stmt);
+        return $result;
+    }
+
+
 }

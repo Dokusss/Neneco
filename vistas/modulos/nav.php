@@ -49,7 +49,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-components">
                             <a href="#" class="dropdown-item">Empleados</a>
-                            <a href="#" class="dropdown-item">Asistencias</a>
+                            <a href="reportesasistencias" class="dropdown-item">Asistencias</a>
                             <a href="#" class="dropdown-item">Personal</a>
                         </div>
                     </li>

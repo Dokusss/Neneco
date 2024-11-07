@@ -53,9 +53,9 @@
                                         <th class="sorting_1">' . ($key + 1) . '</th>  
                                         <td>' . $fecha . '</td>';
                                     if ($value["estado"] != 0) {
-                                        echo '<td><button class="btn btn-sm btn-primary btnPagar" id="' . $value["id"] . '" estadoPlanilla="0">Pagado</button></td>';
+                                        echo '<td><button class="btn btn-sm btn-primary btnActivar" id="' . $value["id"] . '" estadoPlanilla="0">Cancelado</button></td>';
                                     } else {
-                                        echo '<td><button class="btn btn-sm btn-danger btnPagar" id="' . $value["id"] . '" estadoPlanilla="1">Sin Pagar</button></td>';
+                                        echo '<td><button class="btn btn-sm btn-danger btnActivar" id="' . $value["id"] . '" estadoPlanilla="1">Sin Cancelar</button></td>';
                                     }
                                     echo '<td>' . $total . ' bs.</td>
                                         <td>
@@ -64,7 +64,7 @@
                                                     id="' . $value["id"] . '"><i
                                                         class="far fa-file-pdf"></i></button>
                                                         <button class="btn btn-warning btn-sm rounded-circle mr-1 btnListaEmpleadosPlanilla"
-                                                    idPlanilla="' . $value["id"] . '"><i
+                                                    idPlanilla="' . $value["id"] . '" fechaPlanilla="'. $value["fecha"] .'" totalPagado="'. $value["totalpagado"] .'"estado="'. $value["estado"] .'"><i
                                                         class="far feather-file"></i></button>
                                             </div>  
                                         </td>
